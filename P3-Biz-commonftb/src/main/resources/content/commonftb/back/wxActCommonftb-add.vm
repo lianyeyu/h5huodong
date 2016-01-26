@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">新增</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/commonftb/back/wxActCommonftb/doAdd.do" method="POST">
+					  		<input type="hidden" id="btn_sub" class="btn_sub" />
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">子活动名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.name}" name="name" id="name" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动确认选择提示语</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.confirm}" name="confirm" id="confirm" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否关注可参加</label>
+													    <div class="col-sm-8">
+													      <select name="foucsUserCanJoin" id="foucsUserCanJoin" value="$!{wxActCommonftb.foucsUserCanJoin}"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否绑定手机可领奖</label>
+													    <div class="col-sm-8">
+													      <select name="bindingMobileCanJoin" id="bindingMobileCanJoin" value="$!{wxActCommonftb.bindingMobileCanJoin}"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">子活动标题图片</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.binner}" name="binner" id="binner" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">子活动规则</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.actRule}" name="actRule" id="actRule" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">子活动开始时间</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActCommonftb.begainTime})" name="begainTime" id="begainTime" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">子活动结束时间</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActCommonftb.endTime})" name="endTime" id="endTime" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品数量</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.productNum}" name="productNum" id="productNum" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品单位</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.productUnit}" name="productUnit" id="productUnit" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.productName}" name="productName" id="productName" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品价格</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.productPrice}" name="productPrice" id="productPrice" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">产品图片</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.productImg}" name="productImg" id="productImg" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">兑奖截止日期</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActCommonftb.awardsEndTime})" name="awardsEndTime" id="awardsEndTime" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">砍价最低金额</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.cutMinPrice}" name="cutMinPrice" id="cutMinPrice" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否砍到最底价</label>
+													    <div class="col-sm-8">
+													      <select name="ifCutMin" id="ifCutMin" value="$!{wxActCommonftb.ifCutMin}"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券档位</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftb.couponLevel}" name="couponLevel" id="couponLevel" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">取整方式</label>
+													    <div class="col-sm-8">
+													      <select name="roundType" id="roundType" value="$!{wxActCommonftb.roundType}"  class="form-control" > 
+														      	<option value="0" >向下取整</option>
+														      	<option value="1" >向上取整</option>
+														  </select>
+													    </div>
+													</div>
+										<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftb/list.do')">返回</button>
+	        									<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+        									 </div>
+        								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script> 

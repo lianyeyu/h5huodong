@@ -1,0 +1,85 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/shaketicket/back/wxActShaketicketAward/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">奖项配置列表</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-4">
+															    <label for="isCard" class="control-label col-sm-4 line34">是否卡券</label>
+															     <div class="col-sm-8">
+															    <select name="isCard" id="isCard" value="$!{wxActShaketicketAward.isCard}"  class="form-control" > 
+														      		  <option value="" >请选择...</option>
+														      		  <option value="0">否</option>
+														      		  <option value="1">是</option>
+														      	 </select>
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="awardsName" class="control-label col-sm-4 line34">奖品名称</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="awardsName" id="awardsName" value="$!{wxActShaketicketAward.awardsName}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="owner" class="control-label col-sm-4 line34">发奖公司</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="owner" id="owner" value="$!{wxActShaketicketAward.owner}" class="form-control">
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketAward/toAdd.do')" >新增</button></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>是否卡券</th>
+													<th>奖品名称</th>
+													<th>发奖公司</th>
+													<th>卡券id</th>
+													##<th>奖品图片</th>
+													<th>微信公众号</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>#if($!info.isCard=='0') 否 #else 是  #end</td>
+																	<td>$!{info.awardsName}</td>
+																	<td>$!{info.owner}</td>
+																	<td>$!{info.cardId}</td>
+																	##<td>$!{info.img}</td>
+																	<td>$!{info.jwidName}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketAward/toEdit.do?id=$!{info.id}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/shaketicket/back/wxActShaketicketAward/doDelete.do?id=$!{info.id}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketAward/toDetail.do?id=$!{info.id}')">详情</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>  
+				</form>
+		</div>
+	</div>
+</body>
+</html>

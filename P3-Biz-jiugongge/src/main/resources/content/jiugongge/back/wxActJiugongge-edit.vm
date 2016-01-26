@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">编辑</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/jiugongge/back/wxActJiugongge/doEdit.do" method="POST">
+						 <input type="hidden" id="btn_sub" class="btn_sub" />
+						 <input type="hidden" value="$!{wxActJiugongge.id}" name="id" id="id" />
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动名称</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!{wxActJiugongge.title}" name="title" id="title" class="form-control"/>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动描述</label>
+												    <div class="col-sm-8">
+												      <textarea name="description" id="description" class="form-control" >$!{wxActJiugongge.description}</textarea>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">开始时间</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActJiugongge.starttime})" name="starttime" id="starttime" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">结束时间</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActJiugongge.endtime})" name="endtime" id="endtime" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人每日抽奖次数</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!{wxActJiugongge.numPerDay}" name="numPerDay" id="numPerDay" class="form-control"/>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人抽奖总次数</label>
+												    <div class="col-sm-8">
+												      <input type="text" value="$!{wxActJiugongge.count}" name="count" id="count" class="form-control"/>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否关注可参加</label>
+												    <div class="col-sm-8">
+												      <select name="foucsUserCanJoin" id="foucsUserCanJoin"  value="$!{wxActJiugongge.foucsUserCanJoin}" class="form-control" >
+												      		<option value="0" #if("0" == "$!{wxActJiugongge.foucsUserCanJoin}")selected#end>否</option>
+												      		<option value="1" #if("1" == "$!{wxActJiugongge.foucsUserCanJoin}")selected#end>是</option>
+												      </select>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否绑定手机可参加</label>
+												    <div class="col-sm-8">
+												      <select name="bindingMobileCanJoin" id="bindingMobileCanJoin"  value="$!{wxActJiugongge.bindingMobileCanJoin}" class="form-control" > 
+												      		<option value="0" #if("0" == "$!{wxActJiugongge.bindingMobileCanJoin}")selected#end>否</option>
+												      		<option value="1" #if("1" == "$!{wxActJiugongge.bindingMobileCanJoin}")selected#end>是</option>
+												      </select>
+												    </div>
+												</div>
+												<div class="form-group mno">
+												    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否中奖可参与</label>
+												    <div class="col-sm-8">
+												      <select value="$!{wxActJiugongge.prizeStatus}" name="prizeStatus" id="prizeStatus"   class="form-control" >
+												      		<option value="0" #if("0" == "$!{wxActJiugongge.prizeStatus}")selected#end>中奖可继续参与</option>
+												      		<option value="1" #if("1" == "$!{wxActJiugongge.prizeStatus}")selected#end>中奖不可继续参与</option>
+												      </select>
+												    </div>
+												</div>
+													<div class="form-group mno">
+													    <div class="col-sm-8">
+													      <a href="javascript:addAwards();" style="font-size:18px">修改活动奖项</a>
+													    </div>
+													</div>
+													<button type="button"  id="addBtn" style="display:none;color:rgb(72, 167, 231);padding: 3px 15px;font-size: 10px;">添加行</button>
+													 <table class="table table-striped" id="table_awards" style="display:none;">
+												        <thead>
+																<th style="display: none" width=25px>明细id</th>
+																<th width=25px>奖项</th>
+																<th width=30px>奖品</th>
+																<th width=10px>数量</th>
+																<th width='10px'>剩余数量</th>
+																<th width=20px>中奖概率&nbsp<span style="font-size:3px;color:rgb(72, 167, 231);">(概率按权重进行分配,概率总和不大于1)</span></th>
+									                			<th width=10px>操作</th>
+												        </thead>
+												        <tbody id="tbody_awards">
+												         #foreach($awarsDetail in $awarsDetailList)
+												            	<tr>     	
+												            	    <td style="display: none">
+                                                                        <input value="$!{awarsDetail.id}" name="awarsList[0].id"/>	
+																	</td>		
+												            	    <td>
+												            	    	<select name="awarsList[0].awardId"  class="form-control" > 
+																	    	#foreach($award in $awards)
+																      			<option value="$!award.id" #if("$!{awarsDetail.awardId}" == "$!award.id")selected#end>$!award.awardsName</option>
+																      		#end
+															      	     </select>
+																	</td>		
+																	<td>
+																		 <select name="awarsList[0].prizeId"  class="form-control" > 
+																	    	#foreach($prize in $prizes)
+																      			<option value="$!prize.id" #if("$!{awarsDetail.prizeId}" == "$!prize.id")selected#end>$!prize.name</option>
+																      		#end
+																      	 </select>
+			                                                        </td>														
+																	<td><input type="text" name="awarsList[0].amount" class="form-control" value="$!{awarsDetail.amount}" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/></td>
+																	<td><input type="text" name="awarsList[0].remainNum" class="form-control" value="$!{awarsDetail.remainNum}" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/></td>
+																	<td><input type="text"  name="awarsList[0].probability"  class="form-control" value="$!{awarsDetail.probability}" ignore="ignore" datatype="/^(0|0\.\d*|1(\.0{1,2})?)$/" errorMsg="只能输入大于等于0到小于等于1之间的数"/></td>
+													                <td class="last"> <a href="javascript:;" onclick="del(this)">删除</a></td>
+												           		</tr>
+												           	#end
+												         </tbody>
+												    </table>													
+
+									<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/jiugongge/back/wxActJiugongge/list.do')">返回</button>
+	        									<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+        									 </div>
+        							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<table style="display: none">
+	<tbody id="table_awards_template">
+		<tr>
+    	    <td style="display: none">
+                <input name="awarsList[#index#].id"/>	
+			</td>	
+    	    <td>
+    	    	<select name="awarsList[#index#].awardId"  class="form-control" > 
+			    	#foreach($award in $awards)
+		      			<option value="$!award.id" >$!award.awardsName</option>
+		      		#end
+	      	     </select>
+			</td>		
+			<td>
+				 <select name="awarsList[#index#].prizeId"  class="form-control" > 
+			    	#foreach($prize in $prizes)
+		      			<option value="$!prize.id" >$!prize.name</option>
+		      		#end
+		      	 </select>
+            </td>														
+			<td>
+			    <input type="text" name="awarsList[#index#].amount" class="form-control" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/>
+			</td>
+			<td>
+			    <input type="text" name="awarsList[#index#].remainNum" class="form-control" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/>
+			</td>
+			<td>
+				<input type="text"  name="awarsList[#index#].probability" class="form-control" ignore="ignore" datatype="/^(0|0\.\d*|1(\.0{1,2})?)$/" errorMsg="只能输入大于等于0到小于等于1之间的数"/>
+            </td>
+            <td class="last">
+			<a href="javascript:;" onclick="del(this)">删除</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script>
+<script src="$!{basePath}/content/jiugongge/js/common.js" type="text/javascript"></script>
+<script>
+function addAwards(){
+	$('#table_awards').toggle();
+	$('#addBtn').toggle();
+}
+$(function(){
+    resetIndex('tbody_awards');
+	$('#addBtn').bind('click', function(){ 
+	        var list = $('#tbody_awards').find("tr"); 
+	        if(list.size()<6){	 
+		 		 var tr =  $("#table_awards_template tr").clone();
+			 	 $("#table_awards").append(tr);
+			 	 resetIndex('tbody_awards');
+		 	 }else{
+	  		      alert("最多能添加六项");
+	 	     }	
+	 }); 
+});
+
+
+function del(obj){
+	 	var $this = $(obj);
+        $this.parent().parent().remove(); 
+	 	resetIndex('tbody_awards');
+}
+</script>
+
+  

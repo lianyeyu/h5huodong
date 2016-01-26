@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation">
+
+	<!-- Result Map-->
+	<resultMap id="WxActJiugonggeRelation" type="com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="prize_id" property="prizeId" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="award_id" property="awardId" jdbcType="VARCHAR"/>
+		<result column="amount" property="amount" jdbcType="INTEGER"/>
+		<result column="remain_num" property="remainNum" jdbcType="INTEGER"/>
+		<result column="probability" property="probability" jdbcType="DOUBLE"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.prizeId != null and query.prizeId != ''" >
+	  		 		/*  */
+			    	AND wajr.prize_id =  #{query.prizeId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/*  */
+			    	AND wajr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/*  */
+			    	AND wajr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardId != null and query.awardId != ''" >
+	  		 		/*  */
+			    	AND wajr.award_id =  #{query.awardId,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_jiugongge_relation   /* 配置 */  
+					(	
+                      id                            /*  */ 
+                     ,prize_id                      /*  */ 
+                     ,act_id                        /*  */ 
+                     ,jwid                          /*  */ 
+                     ,award_id                      /*  */ 
+                     ,amount                        /* 数量 */ 
+                     ,remain_num                        /* 数量 */ 
+                     ,probability                       /* 概率 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{prizeId,jdbcType=VARCHAR}                       /*  */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /*  */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /*  */ 
+                     ,#{awardId,jdbcType=VARCHAR}                       /*  */ 
+                     ,#{amount,jdbcType=INTEGER}                        /* 数量 */ 
+                     ,#{amount,jdbcType=INTEGER}                        /* 数量 */ 
+                     ,#{probability,jdbcType=DOUBLE}                       /* 概率 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_jiugongge_relation  	/* 配置 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="prizeId != null">
+		    		 		/*  */ 
+	    		 			prize_id = #{prizeId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="actId != null">
+		    		 		/*  */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/*  */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardId != null">
+		    		 		/*  */ 
+	    		 			award_id = #{awardId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="amount != null">
+		    		 		/* 数量 */ 
+	    		 			amount = #{amount,jdbcType=INTEGER},
+						 </if>
+						 <if test="remainNum != null">
+		    		 		/* 数量 */ 
+	    		 			remain_num = #{remainNum,jdbcType=INTEGER},
+						 </if>
+						 <if test="probability != null">
+		    		 		/* 概率 */ 
+	    		 			probability = #{probability,jdbcType=DOUBLE},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActJiugonggeRelation">
+		   SELECT   
+                   wajr.id                            /*  */ 
+                  ,wajr.prize_id                      /*  */ 
+                  ,wajr.act_id                        /*  */ 
+                  ,wajr.jwid                          /*  */ 
+                  ,wajr.award_id                      /*  */ 
+                  ,wajr.amount                        /* 数量 */ 
+                  ,wajr.remain_num                        /* 数量 */ 
+                  ,wajr.probability                       /* 概率 */ 
+		   FROM   wx_act_jiugongge_relation      AS wajr      /* 配置 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_jiugongge_relation 	/* 配置 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	<delete id="batchDeleteByActId" parameterType="Object">
+		DELETE 	FROM wx_act_jiugongge_relation 	/* 配置 */  
+		WHERE 
+			act_id = #{actId}					/* 序号 */ 
+	</delete>
+	
+	<delete id="bactchDeleteOldAwards">
+		DELETE 	FROM wx_act_jiugongge_relation 	/* 配置 */  
+		WHERE act_id=#{actId}		
+		<if test="ids.size() > 0">
+		    	AND 		id not in 
+            <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                    #{id}
+            </foreach>
+		</if>
+           
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_jiugongge_relation      AS wajr      /* 配置 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRelation.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActJiugonggeRelation">
+		    SELECT 
+                   wajr.id                            /*  */ 
+                  ,wajr.prize_id                      /*  */ 
+                  ,wajr.act_id                        /*  */ 
+                  ,wajr.jwid                          /*  */ 
+                  ,wajr.award_id                      /*  */ 
+                  ,wajr.amount                        /* 数量 */ 
+                  ,wajr.remain_num                        /* 数量 */ 
+                  ,wajr.probability                       /* 概率 */ 
+		FROM   	 wx_act_jiugongge_relation      AS wajr      /* 配置 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	<select id="queryByActIdAndJwid" parameterType="Object"  resultMap="WxActJiugonggeRelation">
+		    SELECT 
+                   wajr.id                            /*  */ 
+                  ,wajr.prize_id                      /*  */ 
+                  ,wajr.act_id                        /*  */ 
+                  ,wajr.jwid                          /*  */ 
+                  ,wajr.award_id                      /*  */ 
+                  ,wajr.amount                        /* 数量 */ 
+                  ,wajr.remain_num                        /* 数量 */ 
+                  ,wajr.probability                       /* 概率 */ 
+		FROM   	 wx_act_jiugongge_relation      AS wajr      /* 配置 */ 
+		   WHERE	wajr.act_id = #{actId}				/* 活动id  */ 
+			AND wajr.jwid = #{jwid}				/* jwid   */
+	</select>
+	<update id="updateRemainNum" parameterType="Object" >
+	    UPDATE   wx_act_jiugongge_relation  	 /* 奖品配置表 */ 
+	  		  set remain_num = remain_num -1 
+		WHERE   act_id = #{actId}		/* 序号 */ 
+		AND jwid = #{jwid}
+		AND award_id = #{awardid}
+	 </update>	
+	<select id="validUsed" parameterType="Object" resultMap="WxActJiugonggeRelation">
+		    SELECT 
+                   wajr.id                            /*  */ 
+                  ,wajr.award_id                      /*  */ 
+                  ,wajr.prize_id                      /*  */ 
+		FROM   	 wx_act_jiugongge_relation      AS wajr      /* 配置 */ 
+		   WHERE 1=1	
+		    <if test="awardId != null">
+		    	AND wajr.award_id = #{awardId}				/* 奖项id  */ 
+			</if>
+		    <if test="prizeId != null">
+		    	AND wajr.prize_id = #{prizeId}				/* 奖品id  */ 
+			</if>
+		   
+	 </select>	
+</mapper>

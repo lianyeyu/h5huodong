@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="false" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+	
+<!-- 	<typeHandlers>
+		<typeHandler handler="com.p3.demo.handler.OrgEnumTypeHandler" 
+			javaType="com.p3.demo.handler.OrgEnum"/>
+	
+	</typeHandlers> -->
+	<plugins>
+       <plugin interceptor="org.jeecgframework.p3.core.utils.persistence.mybatis.interceptor.MybatisInterceptor">
+       </plugin>
+    </plugins>
+	
+	<!-- <mappers>
+		<mapper resource="com/jeecg/p3/bargain/sqlmap/WxActBargain.xml" />
+		<mapper resource="com/jeecg/p3/bargain/sqlmap/WxActBargainAwards.xml" />
+		<mapper resource="com/jeecg/p3/bargain/sqlmap/WxActBargainRecord.xml" />
+		<mapper resource="com/jeecg/p3/bargain/sqlmap/WxActBargainRegistration.xml" />
+		
+		<mapper resource="com/jeecg/p3/gzbargain/sqlmap/GzWxActBargain.xml" />
+		<mapper resource="com/jeecg/p3/gzbargain/sqlmap/GzWxActBargainAwards.xml" />
+		<mapper resource="com/jeecg/p3/gzbargain/sqlmap/GzWxActBargainRecord.xml" />
+		<mapper resource="com/jeecg/p3/gzbargain/sqlmap/GzWxActBargainRegistration.xml" />
+		
+	</mappers> -->
+	
+</configuration>

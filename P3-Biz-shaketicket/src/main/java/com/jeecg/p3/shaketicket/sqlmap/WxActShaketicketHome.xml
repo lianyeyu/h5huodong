@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.shaketicket.entity.WxActShaketicketHome">
+
+	<!-- Result Map-->
+	<resultMap id="WxActShaketicketHome" type="com.jeecg.p3.shaketicket.entity.WxActShaketicketHome" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_name" property="actName" jdbcType="VARCHAR"/>
+		<result column="active_flag" property="activeFlag" jdbcType="VARCHAR"/>
+		<result column="template" property="template" jdbcType="VARCHAR"/>
+		<result column="count" property="count" jdbcType="INTEGER"/>
+		<result column="num_per_day" property="numPerDay" jdbcType="INTEGER"/>
+		<result column="hdurl" property="hdurl" jdbcType="VARCHAR"/>
+		<result column="foucs_user_can_join" property="foucsUserCanJoin" jdbcType="VARCHAR"/>
+		<result column="binding_mobile_can_join" property="bindingMobileCanJoin" jdbcType="VARCHAR"/>
+		<result column="win_can_join" property="winCanJoin" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
+		<result column="name" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actName != null and query.actName != ''" >
+	  		 		/* 活动名称 */
+			    	AND wash.act_name =  #{query.actName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.activeFlag != null and query.activeFlag != ''" >
+	  		 		/* 启用状态（0：停用；1：激活） */
+			    	AND wash.active_flag =  #{query.activeFlag,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信原始id */
+			    	AND wash.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_shaketicket_home   /* 九宫格活动表 */  
+					(	
+                      id                            /* 键主 */ 
+                     ,act_name                      /* 活动名称 */ 
+                     ,active_flag                   /* 启用状态（0：停用；1：激活） */ 
+                     ,template                        /* 背景图 */ 
+                     ,count                         /* 抽奖次数 */ 
+                     ,num_per_day                   /* 每日抽奖次数 */ 
+                     ,hdurl                         /* 入口地址 */ 
+                     ,foucs_user_can_join           /* 是否关注可参加 0否1是 */ 
+                     ,binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                     ,win_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                     ,jwid                          /* 微信原始id */ 
+                     ,project_code                  /* 所属项目编码 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* 键主 */ 
+                     ,#{actName,jdbcType=VARCHAR}                       /* 活动名称 */ 
+                     ,#{activeFlag,jdbcType=VARCHAR}                    /* 启用状态（0：停用；1：激活） */ 
+                     ,#{template,jdbcType=VARCHAR}                        /* 背景图 */ 
+                     ,#{count,jdbcType=INTEGER}                         /* 抽奖次数 */ 
+                     ,#{numPerDay,jdbcType=INTEGER}                     /* 每日抽奖次数 */ 
+                     ,CONCAT((SELECT p.hdurl FROM jw_system_project p  where p.code=#{projectCode,jdbcType=VARCHAR}),CONCAT('&amp;actId=',#{id,jdbcType=VARCHAR}),CONCAT('&amp;jwid=',#{jwid,jdbcType=VARCHAR})) /* 入口地址 */ 
+                     ,#{foucsUserCanJoin,jdbcType=VARCHAR}              /* 是否关注可参加 0否1是 */ 
+                     ,#{bindingMobileCanJoin,jdbcType=VARCHAR}          /* 是否绑定手机可参加 0否1是 */ 
+                     ,#{winCanJoin,jdbcType=VARCHAR}                    /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信原始id */ 
+                     ,#{projectCode,jdbcType=VARCHAR}                   /* 所属项目编码 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_shaketicket_home  	/* 九宫格活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actName != null">
+		    		 		/* 活动名称 */ 
+	    		 			act_name = #{actName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="activeFlag != null">
+		    		 		/* 启用状态（0：停用；1：激活） */ 
+	    		 			active_flag = #{activeFlag,jdbcType=VARCHAR},
+						 </if>
+						 <if test="template != null">
+		    		 		/* 背景图 */ 
+	    		 			template = #{template,jdbcType=VARCHAR},
+						 </if>
+						 <if test="count != null">
+		    		 		/* 抽奖次数 */ 
+	    		 			count = #{count,jdbcType=INTEGER},
+						 </if>
+						 <if test="numPerDay != null">
+		    		 		/* 每日抽奖次数 */ 
+	    		 			num_per_day = #{numPerDay,jdbcType=INTEGER},
+						 </if>
+						 <if test="hdurl != null">
+		    		 		/* 入口地址 */ 
+	    		 			hdurl = #{hdurl,jdbcType=VARCHAR},
+						 </if>
+						 <if test="foucsUserCanJoin != null">
+		    		 		/* 是否关注可参加 0否1是 */ 
+	    		 			foucs_user_can_join = #{foucsUserCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="bindingMobileCanJoin != null">
+		    		 		/* 是否绑定手机可参加 0否1是 */ 
+	    		 			binding_mobile_can_join = #{bindingMobileCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="winCanJoin != null">
+		    		 		/* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+	    		 			win_can_join = #{winCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="projectCode != null">
+		    		 		/* 所属项目编码 */ 
+	    		 			project_code = #{projectCode,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActShaketicketHome">
+		   SELECT   
+                   wash.id                            /* 键主 */ 
+                  ,wash.act_name                      /* 活动名称 */ 
+                  ,wash.active_flag                   /* 启用状态（0：停用；1：激活） */ 
+                  ,wash.template                        /* 背景图 */ 
+                  ,wash.count                         /* 抽奖次数 */ 
+                  ,wash.num_per_day                   /* 每日抽奖次数 */ 
+                  ,wash.hdurl                         /* 入口地址 */ 
+                  ,wash.foucs_user_can_join           /* 是否关注可参加 0否1是 */ 
+                  ,wash.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wash.win_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                  ,wash.jwid                          /* 微信原始id */ 
+                  ,wash.project_code                  /* 所属项目编码 */ 
+		   FROM   wx_act_shaketicket_home      AS wash      /* 九宫格活动表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_shaketicket_home 	/* 九宫格活动表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_shaketicket_home      AS wash      /* 九宫格活动表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketHome.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActShaketicketHome">
+		    SELECT 
+                   wash.id                            /* 键主 */ 
+                  ,wash.act_name                      /* 活动名称 */ 
+                  ,wash.active_flag                   /* 启用状态（0：停用；1：激活） */ 
+                  ,wash.template                        /* 背景图 */ 
+                  ,wash.count                         /* 抽奖次数 */ 
+                  ,wash.num_per_day                   /* 每日抽奖次数 */ 
+                  ,wash.hdurl                         /* 入口地址 */ 
+                  ,wash.foucs_user_can_join           /* 是否关注可参加 0否1是 */ 
+                  ,wash.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wash.win_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                  ,wash.jwid                          /* 微信原始id */ 
+                  ,wash.project_code                  /* 所属项目编码 */ 
+                  ,jwj.name
+		FROM   	 wx_act_shaketicket_home      AS wash      /* 摇一摇活动表 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON wash.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	
+</mapper>

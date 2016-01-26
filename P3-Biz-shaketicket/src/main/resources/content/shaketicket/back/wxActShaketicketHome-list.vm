@@ -1,0 +1,120 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/shaketicket/back/wxActShaketicketHome/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">摇一摇活动</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-6">
+															    <label for="actName" class="control-label col-sm-3 line34">活动名称</label>
+															     <div class="col-sm-9">
+															    <input type="text" name="actName" id="actName" value="$!{wxActShaketicketHome.actName}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-6">
+															    <label for="activeFlag" class="control-label col-sm-3 line34">启用状态</label>
+															     <div class="col-sm-9">
+															    <select name="activeFlag" id="activeFlag" value="$!{wxActShaketicketHome.activeFlag}"  class="form-control" > 
+														      		  <option value="">请选择...</option>
+														      		  <option value="0" >停用</option>
+														      		  <option value="1" >激活</option>
+														      	 </select>
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketHome/toAdd.do')" >新增</button></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>活动名称</th>
+													<th>启用状态</th>
+													<th>个人抽奖总次数</th>
+													<th>个人每日抽奖次数</th>
+													<th>是否关注可参加 </th>
+													<th>是否绑定手机可参加</th>
+													<th>是否中奖可参与</th>
+													<th>微信公众号</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>$!{info.actName}</td>
+																	<td>#if($!info.activeFlag=='0') 停用 #else 激活  #end</td>
+																	<td>$!{info.count}</td>
+																	<td>$!{info.numPerDay}</td>
+																	<td>#if($!info.foucsUserCanJoin=='0') 否 #else 是  #end</td>
+																	<td>#if($!info.bindingMobileCanJoin=='0') 否 #else 是  #end</td>
+																	<td>#if($!info.winCanJoin=='0') 中奖可继续参与  #else 中奖不可参与  #end</td>
+																	<td>$!{info.jwidName}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketHome/toEdit.do?id=$!{info.id}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/shaketicket/back/wxActShaketicketHome/doDelete.do?id=$!{info.id}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketHome/toDetail.do?id=$!{info.id}')">详情</a>
+							                			<a href="javascript:doUrl('$!{basePath}/system/back/jwSystemActTxt/list.do?actCode=$!{info.id}&backurl=shaketicket/back/wxActShaketicketHome/list.do')">活动文本</a>
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketRecord/list.do?actId=$!{info.id}&backurl=shaketicket/back/wxActShaketicketHome/list.do')">抽奖记录</a>
+							                			<a href="javascript:dialogDiv('myModal','访问链接','$!{info.hdurl}')">[访问链接]</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>  
+				</form>
+		</div>
+	</div>
+		<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" 
+	               aria-hidden="true">×
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	               模态框（Modal）标题
+	            </h4>
+	         </div>
+	         <div class="modal-body" id="myModalContent"  style="word-break:break-all">
+	            按下 ESC 按钮退出。
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	            <button type="button" class="btn btn-primary" style="display:none;">
+	              复制
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+	   </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</body>
+<script>
+function dialogDiv(modalId,title,content){ 
+ 	$('#'+modalId+'Label').html(title);
+ 	$('#myModalContent').html(content);
+	$('#'+modalId).modal({show:true,backdrop:false}); 
+}
+</script>
+</html>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftb">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftb" type="com.jeecg.p3.commonftb.entity.WxActCommonftb" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="confirm" property="confirm" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="binner" property="binner" jdbcType="VARCHAR"/>
+		<result column="foucs_user_can_join" property="foucsUserCanJoin" jdbcType="VARCHAR"/>
+		<result column="binding_mobile_can_join" property="bindingMobileCanJoin" jdbcType="VARCHAR"/>
+		<result column="act_rule" property="actRule" jdbcType="VARCHAR"/>
+		<result column="begain_time" property="begainTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="product_num" property="productNum" jdbcType="INTEGER"/>
+		<result column="product_unit" property="productUnit" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_price" property="productPrice" jdbcType="DECIMAL"/>
+		<result column="product_img" property="productImg" jdbcType="VARCHAR"/>
+		<result column="product_remain_num" property="productRemainNum" jdbcType="INTEGER"/>
+		<result column="awards_end_time" property="awardsEndTime" jdbcType="TIMESTAMP"/>
+		<result column="coupon_start_time" property="couponStartTime" jdbcType="TIMESTAMP"/>
+		<result column="coupon_end_time" property="couponEndTime" jdbcType="TIMESTAMP"/>
+		<result column="cut_min_price" property="cutMinPrice" jdbcType="DECIMAL"/>
+		<result column="if_cut_min" property="ifCutMin" jdbcType="VARCHAR"/>
+		<result column="coupon_level" property="couponLevel" jdbcType="VARCHAR"/>
+		<result column="round_type" property="roundType" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="jwidName" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.name != null and query.name != ''" >
+	  		 		/* 子活动名称 */
+			    	AND wac.name =  #{query.name,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.productName != null and query.productName != ''" >
+	  		 		/* 产品名称 */
+			    	AND wac.product_name =  #{query.productName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.roundType != null and query.roundType != ''" >
+	  		 		/* 取整方式（0向下取整1向上取整） */
+			    	AND wac.round_type =  #{query.roundType,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信平台原始id */
+			    	AND wac.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb   /* 砍价子活动表 */  
+					(	
+                      id                            /* ID */ 
+                     ,confirm                          /* 子活动代号（用于前端区分显示） */ 
+                     ,name                          /* 子活动名称 */ 
+                     ,binner                          /*子活动标题图片 */ 
+                     ,foucs_user_can_join           /* 是否关注用户参与 0否1是 */ 
+                     ,binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                     ,act_rule                      /* 子活动规则 */ 
+                     ,begain_time                   /* 子活动开始时间 */ 
+                     ,end_time                      /* 子 活动结束时间 */ 
+                     ,product_num                   /* 产品数量 */ 
+                     ,product_unit                  /* 产品单位 */ 
+                     ,product_name                  /* 产品名称 */ 
+                     ,product_price                 /* 产品价格 */ 
+                     ,product_img                   /* 产品图片 */ 
+                     ,product_remain_num            /* 产品剩余数量 */ 
+                     ,awards_end_time               /* 兑奖截止日期 */ 
+                     ,coupon_start_time             /* 券开始时间 */ 
+                     ,coupon_end_time               /* 券结束时间 */ 
+                     ,cut_min_price                 /* 砍价最低金额 */ 
+                     ,if_cut_min                 /* 是否砍到最低价 */ 
+                     ,coupon_level                  /* 卡券档位 */ 
+                     ,round_type                    /* 取整方式（0向下取整1向上取整） */ 
+                     ,update_time                   /* 更新时间 */ 
+                     ,jwid                          /* 微信平台原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* ID */ 
+                     ,#{confirm,jdbcType=VARCHAR}                          /* 子活动代号（用于前端区分显示） */ 
+                     ,#{name,jdbcType=VARCHAR}                          /* 子活动名称 */ 
+                     ,#{binner,jdbcType=VARCHAR}                          /* 子活动名称 */
+                     ,#{foucsUserCanJoin,jdbcType=VARCHAR}              /* 是否关注用户参与 0否1是 */ 
+                     ,#{bindingMobileCanJoin,jdbcType=VARCHAR}          /* 是否绑定手机可参加 0否1是 */  
+                     ,#{actRule,jdbcType=VARCHAR}                       /* 子活动规则 */ 
+                     ,#{begainTime,jdbcType=TIMESTAMP}                    /* 子活动开始时间 */ 
+                     ,#{endTime,jdbcType=TIMESTAMP}                       /* 子 活动结束时间 */ 
+                     ,#{productNum,jdbcType=INTEGER}                    /* 产品数量 */ 
+                     ,#{productUnit,jdbcType=VARCHAR}                   /* 产品单位 */ 
+                     ,#{productName,jdbcType=VARCHAR}                   /* 产品名称 */ 
+                     ,#{productPrice,jdbcType=DECIMAL}                  /* 产品价格 */ 
+                     ,#{productImg,jdbcType=VARCHAR}                    /* 产品图片 */ 
+                     ,#{productNum,jdbcType=INTEGER}              /* 产品剩余数量 */ 
+                     ,#{awardsEndTime,jdbcType=TIMESTAMP}                 /* 兑奖截止日期 */ 
+                     ,#{couponStartTime,jdbcType=TIMESTAMP}               /* 券开始时间 */ 
+                     ,#{couponEndTime,jdbcType=TIMESTAMP}                 /* 券结束时间 */ 
+                     ,#{cutMinPrice,jdbcType=DECIMAL}                   /* 砍价最低金额 */ 
+                     ,#{ifCutMin,jdbcType=VARCHAR}                   /* 是否砍到最低价 */ 
+                     ,#{couponLevel,jdbcType=VARCHAR}                   /* 卡券档位 */ 
+                     ,#{roundType,jdbcType=VARCHAR}                     /* 取整方式（0向下取整1向上取整） */ 
+                     ,#{updateTime,jdbcType=TIMESTAMP}                    /* 更新时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信平台原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb  	/* 砍价子活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="confirm != null">
+		    		 		/* 子活动代号（用于前端区分显示） */ 
+	    		 			confirm = #{confirm,jdbcType=VARCHAR},
+						 </if>
+						 <if test="name != null">
+		    		 		/* 子活动名称 */ 
+	    		 			name = #{name,jdbcType=VARCHAR},
+						 </if>
+						 <if test="binner != null">
+		    		 		/* 子活动名称 */ 
+	    		 			binner = #{binner,jdbcType=VARCHAR},
+						 </if>
+						 <if test="foucsUserCanJoin != null">
+		    		 		/* 是否关注用户参与 0否1是 */ 
+	    		 			foucs_user_can_join = #{foucsUserCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="bindingMobileCanJoin != null">
+		    		 		/* 是否绑定手机可参加 0否1是 */ 
+	    		 			binding_mobile_can_join = #{bindingMobileCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="actRule != null">
+		    		 		/* 子活动规则 */ 
+	    		 			act_rule = #{actRule,jdbcType=VARCHAR},
+						 </if>
+						 <if test="begainTime != null">
+		    		 		/* 子活动开始时间 */ 
+	    		 			begain_time = #{begainTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="endTime != null">
+		    		 		/* 子 活动结束时间 */ 
+	    		 			end_time = #{endTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="productNum != null">
+		    		 		/* 产品数量 */ 
+	    		 			product_num = #{productNum,jdbcType=INTEGER},
+						 </if>
+						 <if test="productUnit != null">
+		    		 		/* 产品单位 */ 
+	    		 			product_unit = #{productUnit,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productName != null">
+		    		 		/* 产品名称 */ 
+	    		 			product_name = #{productName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productPrice != null">
+		    		 		/* 产品价格 */ 
+	    		 			product_price = #{productPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="productImg != null">
+		    		 		/* 产品图片 */ 
+	    		 			product_img = #{productImg,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productRemainNum != null">
+		    		 		/* 产品剩余数量 */ 
+	    		 			product_remain_num = #{productRemainNum,jdbcType=INTEGER},
+						 </if>
+						 <if test="awardsEndTime != null">
+		    		 		/* 兑奖截止日期 */ 
+	    		 			awards_end_time = #{awardsEndTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="couponStartTime != null">
+		    		 		/* 券开始时间 */ 
+	    		 			coupon_start_time = #{couponStartTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="couponEndTime != null">
+		    		 		/* 券结束时间 */ 
+	    		 			coupon_end_time = #{couponEndTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="cutMinPrice != null">
+		    		 		/* 砍价最低金额 */ 
+	    		 			cut_min_price = #{cutMinPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="ifCutMin != null">
+		    		 		/* 是否砍到最低价 */ 
+	    		 			if_cut_min = #{ifCutMin,jdbcType=DECIMAL},
+						 </if>
+						 <if test="couponLevel != null">
+		    		 		/* 卡券档位 */ 
+	    		 			coupon_level = #{couponLevel,jdbcType=VARCHAR},
+						 </if>
+						 <if test="roundType != null">
+		    		 		/* 取整方式（0向下取整1向上取整） */ 
+	    		 			round_type = #{roundType,jdbcType=VARCHAR},
+						 </if>
+						 <if test="updateTime != null">
+		    		 		/* 更新时间 */ 
+	    		 			update_time = #{updateTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftb">
+		   SELECT   
+                   wac.id                            /* ID */ 
+                  ,wac.confirm                          /* 子活动代号（用于前端区分显示） */ 
+                  ,wac.name                          /* 子活动名称 */ 
+                  ,wac.binner                          /* 子活动名称 */ 
+                  ,wac.foucs_user_can_join           /* 是否关注用户参与 0否1是 */ 
+                  ,wac.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wac.act_rule                      /* 子活动规则 */ 
+                  ,wac.begain_time                   /* 子活动开始时间 */ 
+                  ,wac.end_time                      /* 子 活动结束时间 */ 
+                  ,wac.product_num                   /* 产品数量 */ 
+                  ,wac.product_unit                  /* 产品单位 */ 
+                  ,wac.product_name                  /* 产品名称 */ 
+                  ,wac.product_price                 /* 产品价格 */ 
+                  ,wac.product_img                   /* 产品图片 */ 
+                  ,wac.product_remain_num            /* 产品剩余数量 */ 
+                  ,wac.awards_end_time               /* 兑奖截止日期 */ 
+                  ,wac.coupon_start_time             /* 券开始时间 */ 
+                  ,wac.coupon_end_time               /* 券结束时间 */ 
+                  ,wac.cut_min_price                 /* 砍价最低金额 */ 
+                  ,wac.if_cut_min                    /* 是否砍到最低价 */ 
+                  ,wac.coupon_level                  /* 卡券档位 */ 
+                  ,wac.round_type                    /* 取整方式（0向下取整1向上取整） */ 
+                  ,wac.update_time                   /* 更新时间 */ 
+                  ,wac.jwid                          /* 微信平台原始id */ 
+		   FROM   wx_act_commonftb      AS wac      /* 砍价子活动表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb 	/* 砍价子活动表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb      AS wac      /* 砍价子活动表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftb.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftb">
+		    SELECT 
+                   wac.id                            /* ID */ 
+                  ,wac.confirm                          /* 子活动代号（用于前端区分显示） */ 
+                  ,wac.name                          /* 子活动名称 */ 
+                  ,wac.binner                          /* 子活动名称 */  
+                  ,wac.foucs_user_can_join           /* 是否关注用户参与 0否1是 */ 
+                  ,wac.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wac.act_rule                      /* 子活动规则 */ 
+                  ,wac.begain_time                   /* 子活动开始时间 */ 
+                  ,wac.end_time                      /* 子 活动结束时间 */ 
+                  ,wac.product_num                   /* 产品数量 */ 
+                  ,wac.product_unit                  /* 产品单位 */ 
+                  ,wac.product_name                  /* 产品名称 */ 
+                  ,wac.product_price                 /* 产品价格 */ 
+                  ,wac.product_img                   /* 产品图片 */ 
+                  ,wac.product_remain_num            /* 产品剩余数量 */ 
+                  ,wac.awards_end_time               /* 兑奖截止日期 */ 
+                  ,wac.coupon_start_time             /* 券开始时间 */ 
+                  ,wac.coupon_end_time               /* 券结束时间 */ 
+                  ,wac.cut_min_price                 /* 砍价最低金额 */ 
+                  ,wac.if_cut_min                 /* 是否砍到最低价 */ 
+                  ,wac.coupon_level                  /* 卡券档位 */ 
+                  ,wac.round_type                    /* 取整方式（0向下取整1向上取整） */ 
+                  ,wac.update_time                   /* 更新时间 */ 
+                  ,wac.jwid                          /* 微信平台原始id */ 
+                  ,jwj.name as jwidName
+		FROM   	 wx_act_commonftb      AS wac      /* 砍价子活动表 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON wac.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+			<!--
+	方法名称: queryCommonftbByMainActId
+	调用路径: WxActCommonsj.queryCommonftbByMainActId
+	开发信息: 
+	处理信息: 根据主活动id查询相关的活动
+	-->
+	<select id="queryCommonftbByMainActId" parameterType="Object"  resultMap="WxActCommonftb">
+		    SELECT 
+                   wac.id                            /* ID */ 
+                  ,wac.foucs_user_can_join           /* 是否关注用户参与 0否1是 */ 
+                  ,wac.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wac.act_rule                      /* 活动规则 */ 
+                  ,wac.begain_time                   /* 活动开始时间 */ 
+                  ,wac.end_time                      /*  活动结束时间 */ 
+                  ,wac.product_num                   /* 产品数量 */ 
+                  ,wac.product_unit                  /* 产品单位 */ 
+                  ,wac.product_name                  /* 产品名称 */ 
+                  ,wac.product_price                 /* 产品价格 */ 
+                  ,wac.product_img                   /* 产品图片 */ 
+                  ,wac.product_remain_num            /* 产品剩余数量 */ 
+                  ,wac.awards_end_time               /* 兑奖截止日期 */ 
+                  ,wac.coupon_start_time             /* 券开始时间 */ 
+                  ,wac.coupon_end_time               /* 券结束时间 */ 
+                  ,wac.cut_min_price                 /* 砍价最低金额 */ 
+                  ,wac.if_cut_min                 /* 是否砍到最低价 */ 
+                  ,wac.coupon_level                  /* 卡券档位 */ 
+                  ,wac.round_type                    /* 取整方式（0向下取整1向上取整） */ 
+                  ,wac.jwid                          /* 微信平台原始id */ 
+                  ,wac.name                        /*子活动名称*/ 
+                  ,wac.binner                       /*子活动名称*/ 
+                  ,wac.confirm                        /*称谓*/ 
+                  ,wac.update_time                        /*称谓*/ 
+		   FROM   wx_act_commonftb      AS wac      /* 砍价活动表 */ 
+		   right join wx_act_commonftb_relation      AS wacr      /* 活动首页活动配置 */ 
+		   on wacr.act_id = wac.id
+		   WHERE
+				wacr.main_act_id = #{value}
+				order by wacr.act_sort
+	</select>
+	
+		 <update id="updateProductRemainNum" parameterType="Object" >
+	   UPDATE   wx_act_commonftb  	/* 砍价活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 产品剩余数量*/ 
+   		 			product_remain_num  = product_remain_num  - #{cutNum,jdbcType=INTEGER},
+	  		 		/* 修改时间 */
+			        update_time =  #{updateTime,jdbcType=TIMESTAMP},
+				 </trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	 
+	 	<select id="queryWxActCommonftbByMainActIdAndOpenid" parameterType="Object"  resultMap="WxActCommonftb">
+		    SELECT 
+                   wac.id                            /* ID */  
+                  ,wac.foucs_user_can_join           /* 是否关注用户参与 0否1是 */ 
+                  ,wac.binding_mobile_can_join       /* 是否绑定手机可参加 0否1是 */ 
+                  ,wac.act_rule                      /* 活动规则 */ 
+                  ,wac.begain_time                   /* 活动开始时间 */ 
+                  ,wac.end_time                      /*  活动结束时间 */ 
+                  ,wac.product_num                   /* 产品数量 */ 
+                  ,wac.product_unit                  /* 产品单位 */ 
+                  ,wac.product_name                  /* 产品名称 */ 
+                  ,wac.product_price                 /* 产品价格 */ 
+                  ,wac.product_img                   /* 产品图片 */ 
+                  ,wac.product_remain_num            /* 产品剩余数量 */ 
+                  ,wac.awards_end_time               /* 兑奖截止日期 */ 
+                  ,wac.coupon_start_time             /* 券开始时间 */ 
+                  ,wac.coupon_end_time               /* 券结束时间 */ 
+                  ,wac.cut_min_price                 /* 砍价最低金额 */ 
+                  ,wac.if_cut_min                 /* 是否砍到最低价 */ 
+                  ,wac.coupon_level                  /* 卡券档位 */ 
+                  ,wac.round_type                    /* 取整方式（0向下取整1向上取整） */ 
+                  ,wac.jwid                          /* 微信平台原始id */ 
+                  ,wac.name                        /*子活动名称*/ 
+                  ,wac.binner                       /*子活动名称*/ 
+                  ,wac.confirm                        /*称谓*/ 
+                  ,wac.update_time                        /*称谓*/
+		   FROM  wx_act_commonftb_registration      AS wacr
+		   left join  wx_act_commonftb      AS wac      
+		   on wacr.act_id = wac.id
+		   left join  wx_act_commonftb_relation      AS wacra
+		   on wac.id = wacra.act_id 
+		   WHERE
+		        wacr.openid = #{openid}
+			and	wacra.main_act_id = #{mainActId}
+	</select>
+	 	<select id="queryCommonftb" parameterType="Object"  resultMap="WxActCommonftb">
+		    SELECT 
+                   wac.id                            /* ID */
+                  ,wac.name                        /*子活动名称*/
+		   FROM   wx_act_commonftb      AS wac      
+		   WHERE  wac.jwid= #{value}
+	</select>
+</mapper>

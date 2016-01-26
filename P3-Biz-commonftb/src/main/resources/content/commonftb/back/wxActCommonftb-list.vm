@@ -1,0 +1,85 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/commonftb/back/wxActCommonftb/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">砍价活动配置列表</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-4">
+															    <label for="name" class="control-label col-sm-3 line34">子活动名称</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="name" id="name" value="$!{wxActCommonftb.name}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="productName" class="control-label col-sm-3 line34">产品名称</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="productName" id="productName" value="$!{wxActCommonftb.productName}" class="form-control">
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftb/toAdd.do')" >新增</button></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>子活动名称</th>
+													<th>是否关注用户参与</th>
+													<th>是否绑定手机可领奖</th>
+													<th>产品数量</th>
+													<th>产品名称</th>
+													<th>产品价格</th>
+													<th>砍价最低金额</th>
+													<th>卡券档位</th>
+													<th>取整方式</th>
+													<th>微信公众号</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>$!{info.name}</td>
+																	<td>#if($!info.foucsUserCanJoin=='0') 否 #else 是  #end</td>
+																	<td>#if($!info.bindingMobileCanJoin=='0') 否 #else 是  #end</td>
+																	<td>$!{info.productNum}</td>
+																	<td>$!{info.productName}</td>
+																	<td>$!{info.productPrice}</td>
+																	<td>$!{info.cutMinPrice}</td>
+																	<td>$!{info.couponLevel}</td>
+																	<td>#if($!info.roundType=='0') 向下取整 #else 向上取整 #end</td>
+																	<td>$!{info.jwidName}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftb/toEdit.do?id=$!{info.id}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/commonftb/back/wxActCommonftb/doDelete.do?id=$!{info.id}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftb/toDetail.do?id=$!{info.id}')">详情</a>
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/list.do?actId=$!{info.id}&actName=$!{info.name}&backurl=commonftb/back/wxActCommonftb/list.do')">卡券</a>
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftbAwards/list.do?actId=$!{info.id}&actName=$!{info.name}&backurl=commonftb/back/wxActCommonftb/list.do')">领奖记录</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>  
+				</form>
+		</div>
+	</div>
+</body>
+</html>

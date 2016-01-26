@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.jeewxframework</groupId>
+		<artifactId>P3-parent</artifactId>
+		<version>2.1-SNAPSHOT</version>
+	</parent>
+	
+	<description>P3启动工程</description>
+	<groupId>org.jeewxframework</groupId>
+	<artifactId>P3-Web</artifactId>
+	<name>P3-Web</name>
+	<packaging>war</packaging>
+    
+	<repositories>
+		<repository>
+            <id>jeecg</id>
+            <name>jeecg Repository</name>
+            <url>http://maven.jeecg.org/nexus/content/repositories/jeecg</url>
+            <snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+        </repository>
+        <repository>
+            <id>jeecg-snapshots</id>
+            <name>jeecg-snapshots Repository</name>
+            <url>http://maven.jeecg.org/nexus/content/repositories/snapshots</url>
+            <snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+    	</repository>
+    </repositories>
+    
+	<build>
+		<plugins>
+	       <plugin>
+	                <groupId>org.codehaus.mojo</groupId>
+	                <artifactId>tomcat-maven-plugin</artifactId>
+	                <version>1.1</version>
+	                <configuration>
+	                    <path>/P3-Web</path>
+	                    <port>8080</port>
+	                    <uriEncoding>UTF-8</uriEncoding>
+	                    <url>http://localhost:8080/manager/html</url>
+	                    <server>tomcat6</server>
+	                </configuration>
+	            </plugin>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-compiler-plugin</artifactId>
+	                <version>2.3.2</version>
+	                <configuration>
+	                    <source>1.6</source>
+	                    <target>1.6</target>
+	                </configuration>
+	            </plugin>
+	    </plugins>
+		<finalName>P3-Web</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.sql</include>
+					<include>**/*.ftl</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.sql</include>
+					<include>**/*.ftl</include>
+				</includes>
+				<filtering>false</filtering>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+	</build>
+	<dependencies>
+		<!-- P3 base jar -->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Base-system</artifactId>
+			<version>2.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 斧头帮砍价通用版 -->
+		 <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-commonftb</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  九宫格 -->
+		 <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-jiugongge</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  摇一摇送卡券-->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-shaketicket</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<!--  音乐节砍价-->
+ 	    <dependency>
+			<groupId>org.jeewxframework</groupId>
+			<artifactId>P3-Biz-gzbargain</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbMain">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbMain" type="com.jeecg.p3.commonftb.entity.WxActCommonftbMain" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_name" property="actName" jdbcType="VARCHAR"/>
+		<result column="begain_time" property="begainTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="many_can_join" property="manyCanJoin" jdbcType="VARCHAR"/>
+		<result column="hdurl" property="hdurl" jdbcType="VARCHAR"/>
+		<result column="template" property="template" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
+		<result column="name" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actName != null and query.actName != ''" >
+	  		 		/* 砍价活动名称 */
+			    	AND wacm.act_name =  #{query.actName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信公众号 */
+			    	AND wacm.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_main   /* 砍价主活动表 */  
+					(	
+                      id                            /* ID */ 
+                     ,act_name                      /* 砍价活动名称 */ 
+                     ,begain_time                   /* 活动开始时间 */ 
+                     ,end_time                      /*  活动结束时间 */ 
+                     ,many_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                     ,hdurl                         /* 入口地址 */ 
+                     ,template                      /* 模版(省份简称) */ 
+                     ,jwid                          /* 微信公众号 */ 
+                     ,project_code                  /* 所属项目编码 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* ID */ 
+                     ,#{actName,jdbcType=VARCHAR}                       /* 砍价活动名称 */ 
+                     ,#{begainTime,jdbcType=TIMESTAMP}                    /* 活动开始时间 */ 
+                     ,#{endTime,jdbcType=TIMESTAMP}                       /*  活动结束时间 */ 
+                     ,#{manyCanJoin,jdbcType=VARCHAR}                    /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                     ,CONCAT((SELECT p.hdurl FROM jw_system_project p  where p.code=#{projectCode,jdbcType=VARCHAR}),CONCAT('&amp;mainActId=',#{id,jdbcType=VARCHAR}),CONCAT('&amp;jwid=',#{jwid,jdbcType=VARCHAR}))/* 入口地址 */ 
+                     ,#{template,jdbcType=VARCHAR}                      /* 模版(省份简称) */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信公众号 */ 
+                     ,#{projectCode,jdbcType=VARCHAR}                   /* 所属项目编码 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_main  	/* 砍价主活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actName != null">
+		    		 		/* 砍价活动名称 */ 
+	    		 			act_name = #{actName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="begainTime != null">
+		    		 		/* 活动开始时间 */ 
+	    		 			begain_time = #{begainTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="endTime != null">
+		    		 		/*  活动结束时间 */ 
+	    		 			end_time = #{endTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="manyCanJoin != null">
+		    		 		/* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+	    		 			many_can_join = #{manyCanJoin,jdbcType=VARCHAR},
+						 </if>
+						 <if test="hdurl != null">
+		    		 		/* 入口地址 */ 
+	    		 			hdurl = #{hdurl,jdbcType=VARCHAR},
+						 </if>
+						 <if test="template != null">
+		    		 		/* 模版(省份简称) */ 
+	    		 			template = #{template,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信公众号 */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="projectCode != null">
+		    		 		/* 所属项目编码 */ 
+	    		 			project_code = #{projectCode,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbMain">
+		   SELECT   
+                   wacm.id                            /* ID */ 
+                  ,wacm.act_name                      /* 砍价活动名称 */ 
+                  ,wacm.begain_time                   /* 活动开始时间 */ 
+                  ,wacm.end_time                      /*  活动结束时间 */ 
+                  ,wacm.many_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                  ,wacm.hdurl                         /* 入口地址 */ 
+                  ,wacm.template                      /* 模版(省份简称) */ 
+                  ,wacm.jwid                          /* 微信公众号 */ 
+                  ,wacm.project_code                  /* 所属项目编码 */ 
+		   FROM   wx_act_commonftb_main      AS wacm      /* 砍价主活动表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_main 	/* 砍价主活动表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_main      AS wacm      /* 砍价主活动表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbMain.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbMain">
+		    SELECT 
+                   wacm.id                            /* ID */ 
+                  ,wacm.act_name                      /* 砍价活动名称 */ 
+                  ,wacm.begain_time                   /* 活动开始时间 */ 
+                  ,wacm.end_time                      /*  活动结束时间 */
+                  ,wacm.many_can_join                  /* 是否中奖可参与 0：中奖可继续参与 1:中奖不可参与 */ 
+                  ,wacm.hdurl                         /* 入口地址 */ 
+                  ,wacm.template                      /* 模版(省份简称) */ 
+                  ,wacm.jwid                          /* 微信公众号 */ 
+                  ,wacm.project_code                  /* 所属项目编码 */ 
+                  ,jwj.name
+		FROM   	 wx_act_commonftb_main      AS wacm      /* 砍价主活动表 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON wacm.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	
+</mapper>

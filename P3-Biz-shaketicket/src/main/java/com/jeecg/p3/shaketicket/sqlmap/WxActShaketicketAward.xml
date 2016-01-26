@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.shaketicket.entity.WxActShaketicketAward">
+
+	<!-- Result Map-->
+	<resultMap id="WxActShaketicketAward" type="com.jeecg.p3.shaketicket.entity.WxActShaketicketAward" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="is_card" property="isCard" jdbcType="VARCHAR"/>
+		<result column="awards_name" property="awardsName" jdbcType="VARCHAR"/>
+		<result column="owner" property="owner" jdbcType="VARCHAR"/>
+		<result column="card_id" property="cardId" jdbcType="VARCHAR"/>
+		<result column="img" property="img" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="probability" property="probability" jdbcType="DOUBLE"/>
+		<result column="amount" property="amount" jdbcType="INTEGER"/>
+		<result column="name" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.awardsName != null and query.awardsName != ''" >
+	  		 		/* 奖品名称 */
+			    	AND wasa.awards_name =  #{query.awardsName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信公众号 */
+			    	AND wasa.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.isCard != null and query.isCard != ''" >
+	  		 		/* 是否卡券0 是1 否 */
+			    	AND wasa.is_card =  #{query.isCard,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.owner != null and query.owner != ''" >
+	  		 		/* 发奖公司 */
+			    	AND wasa.owner =  #{query.owner,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_shaketicket_award   /* 奖项表 */  
+					(	
+                      id                            /* ID */ 
+                     ,is_card                       /* 是否卡券0 是1 否 */ 
+                     ,awards_name                   /* 奖品名称 */ 
+                     ,owner                         /* 发奖公司 */ 
+                     ,card_id                       /* 卡券id */ 
+                     ,img                           /* 奖品图片 */ 
+                     ,jwid                          /* 微信公众号 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* ID */ 
+                     ,#{isCard,jdbcType=VARCHAR}                        /* 是否卡券0 是1 否 */ 
+                     ,#{awardsName,jdbcType=VARCHAR}                    /* 奖品名称 */ 
+                     ,#{owner,jdbcType=VARCHAR}                         /* 发奖公司 */ 
+                     ,#{cardId,jdbcType=VARCHAR}                        /* 卡券id */ 
+                     ,#{img,jdbcType=VARCHAR}                           /* 奖品图片 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信公众号 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_shaketicket_award  	/* 奖项表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						  <if test="isCard != null">
+		    		 		/* 是否卡券0 是1 否 */ 
+	    		 			is_card = #{isCard,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardsName != null">
+		    		 		/* 奖品名称 */ 
+	    		 			awards_name = #{awardsName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="owner != null">
+		    		 		/* 发奖公司 */ 
+	    		 			owner = #{owner,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cardId != null">
+		    		 		/* 卡券id */ 
+	    		 			card_id = #{cardId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="img != null">
+		    		 		/* 奖品图片 */ 
+	    		 			img = #{img,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信公众号 */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActShaketicketAward">
+		   SELECT   
+                   wasa.id                            /* ID */ 
+                  ,wasa.is_card                       /* 是否卡券0 是1 否 */ 
+                  ,wasa.awards_name                   /* 奖品名称 */ 
+                  ,wasa.owner                         /* 发奖公司 */ 
+                  ,wasa.card_id                       /* 卡券id */
+                  ,wasa.img                           /* 奖品图片 */ 
+                  ,wasa.jwid                          /* 微信公众号 */ 
+		   FROM   wx_act_shaketicket_award      AS wasa      /* 奖项表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_shaketicket_award 	/* 奖项表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_shaketicket_award      AS wasa      /* 奖项表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketAward.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActShaketicketAward">
+		    SELECT 
+                   wasa.id                            /* ID */ 
+                  ,wasa.is_card                       /* 是否卡券0 是1 否 */ 
+                  ,wasa.awards_name                   /* 奖品名称 */ 
+                  ,wasa.owner                         /* 发奖公司 */ 
+                  ,wasa.card_id                       /* 卡券id */
+                  ,wasa.img                           /* 奖品图片 */ 
+                  ,wasa.jwid                          /* 微信公众号 */ 
+                  ,jwj.name
+		FROM   	 wx_act_shaketicket_award      AS wasa      /* 奖项表 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON wasa.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<select id="queryRemainAwardsByActId" parameterType="Object"  resultMap="WxActShaketicketAward">
+		SELECT 
+                   wasa.id                            /*奖项id*/ 
+                  ,wasa.is_card                       /* 是否卡券0 是1 否 */ 
+                  ,wasa.awards_name                   /* 奖品名称 */ 
+                  ,wasa.owner                         /* 发奖公司 */ 
+                  ,wasa.card_id                       /* 卡券id */
+                  ,wasa.img                          /* 奖品图片 */ 
+                  ,wasc.jwid                          /*  */ 
+                  ,wasc.amount                       /* 奖项数量 */
+                  ,wasc.probability                   /* 奖项概率 */             
+		FROM  wx_act_shaketicket_config      AS wasc,
+		wx_act_shaketicket_award      AS wasa
+		   WHERE  wasc.award_id=wasa.id
+		        AND wasc.act_id = #{actId}
+		        AND wasc.remain_num > 0
+	</select>	
+		<select id="queryAwards" parameterType="Object"  resultMap="WxActShaketicketAward">
+		SELECT 
+                   wasa.id                            /*奖项id*/
+                  ,wasa.awards_name                   /* 奖品名称 */ 
+		FROM  wx_act_shaketicket_award      AS wasa
+		   WHERE  wasa.jwid = #{jwid}
+	</select>	
+</mapper>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord">
+
+	<!-- Result Map-->
+	<resultMap id="WxActShaketicketRecord" type="com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="award_id" property="awardId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="awards_seq" property="awardsSeq" jdbcType="INTEGER"/>
+		<result column="draw_status" property="drawStatus" jdbcType="VARCHAR"/>
+		<result column="receive_status" property="receiveStatus" jdbcType="VARCHAR"/>
+		<result column="draw_time" property="drawTime" jdbcType="TIMESTAMP"/>
+		<result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="awards_name" property="awardsName" jdbcType="VARCHAR"/>
+		<result column="card_id" property="cardId" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动ID */
+			    	AND wasr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardId != null and query.awardId != ''" >
+	  		 		/* 卡券ID */
+			    	AND wasr.award_id =  #{query.awardId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 微信openid */
+			    	AND wasr.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.drawStatus != null and query.drawStatus != ''" >
+	  		 		/* 抽奖状态 0 未中奖 1已中奖 */
+			    	AND wasr.draw_status =  #{query.drawStatus,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.receiveStatus != null and query.receiveStatus != ''" >
+	  		 		/* 领取状态 0 未领取 1已领取 */
+			    	AND wasr.receive_status =  #{query.receiveStatus,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信公众号 */
+			    	AND wasr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_shaketicket_record   /* 抽奖记录表 */  
+					(	
+                      id                            /* ID */ 
+                     ,act_id                        /* 活动ID */ 
+                     ,award_id                       /* 卡券ID */ 
+                     ,openid                        /* 微信openid */ 
+                     ,awards_seq                    /* 奖品序号 */ 
+                     ,draw_status                /* 抽奖状态 0 未中奖 1已中奖 */ 
+                     ,receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                     ,draw_time                     /* 抽奖时间 */ 
+                     ,receive_time                  /* 领奖时间 */ 
+                     ,jwid                          /* 微信公众号 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* ID */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动ID */ 
+                     ,#{awardId,jdbcType=VARCHAR}                        /* 卡券ID */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 微信openid */ 
+                     ,#{awardsSeq,jdbcType=INTEGER}                     /* 奖品序号 */ 
+                     ,#{drawStatus,jdbcType=VARCHAR}                 /* 抽奖状态 0 未中奖 1已中奖 */ 
+                     ,#{receiveStatus,jdbcType=VARCHAR}                 /* 领取状态 0 未领取 1已领取 */ 
+                     ,#{drawTime,jdbcType=TIMESTAMP}                      /* 抽奖时间 */ 
+                     ,#{receiveTime,jdbcType=TIMESTAMP}                   /* 领奖时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信公众号 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_shaketicket_record  	/* 抽奖记录表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动ID */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardId != null">
+		    		 		/* 卡券ID */ 
+	    		 			award_id = #{awardId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 微信openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardsSeq != null">
+		    		 		/* 奖品序号 */ 
+	    		 			awards_seq = #{awardsSeq,jdbcType=INTEGER},
+						 </if>
+						 <if test="drawStatus != null">
+		    		 		/* 抽奖状态 0 未中奖 1已中奖 */ 
+	    		 			draw_status = #{drawStatus,jdbcType=VARCHAR},
+						 </if>
+						 <if test="receiveStatus != null">
+		    		 		/* 领取状态 0 未领取 1已领取 */ 
+	    		 			receive_status = #{receiveStatus,jdbcType=VARCHAR},
+						 </if>
+						 <if test="drawTime != null">
+		    		 		/* 抽奖时间 */ 
+	    		 			draw_time = #{drawTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="receiveTime != null">
+		    		 		/* 领奖时间 */ 
+	    		 			receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信公众号 */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActShaketicketRecord">
+		   SELECT   
+                   wasr.id                            /* ID */ 
+                  ,wasr.act_id                        /* 活动ID */ 
+                  ,wasr.award_id                       /* 卡券ID */ 
+                  ,wasr.openid                        /* 微信openid */ 
+                  ,wasr.awards_seq                    /* 奖品序号 */ 
+                  ,wasr.draw_status                /* 抽奖状态 0 未中奖 1已中奖*/ 
+                  ,wasr.receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                  ,wasr.draw_time                     /* 抽奖时间 */ 
+                  ,wasr.receive_time                  /* 领奖时间 */ 
+                  ,wasr.jwid                          /* 微信公众号 */ 
+                  ,wasa.awards_name
+		   FROM   wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ ,
+		   wx_act_shaketicket_award      AS wasa
+		WHERE wasr.award_id = wasa.id
+		AND wasr.id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_shaketicket_record 	/* 抽奖记录表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.shaketicket.entity.WxActShaketicketRecord.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActShaketicketRecord">
+		    SELECT 
+                   wasr.id                            /* ID */ 
+                  ,wasr.act_id                        /* 活动ID */ 
+                  ,wasr.award_id                       /* 卡券ID */ 
+                  ,wasr.openid                        /* 微信openid */ 
+                  ,wasr.awards_seq                    /* 奖品序号 */ 
+                  ,wasr.draw_status                /* 抽奖状态 0 未中奖 1已中奖 */ 
+                  ,wasr.receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                  ,wasr.draw_time                     /* 抽奖时间 */ 
+                  ,wasr.receive_time                  /* 领奖时间 */ 
+                  ,wasr.jwid                          /* 微信公众号 */ 
+                  ,wasa.awards_name
+                  ,wasa.card_id
+		FROM   	 wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ ,
+		wx_act_shaketicket_award      AS wasa
+		WHERE 1=1
+		AND wasr.award_id = wasa.id
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	<select id="queryBargainAwardsByActId" parameterType="Object"  resultMap="WxActShaketicketRecord">
+		    SELECT 
+                   wasr.id                            /* ID */ 
+                  ,wasr.act_id                        /* 活动ID */ 
+                  ,wasr.award_id                       /* 卡券ID */ 
+                  ,wasr.openid                        /* 微信openid */ 
+                  ,wasr.awards_seq                    /* 奖品序号 */ 
+                  ,wasr.draw_status                /* 抽奖状态 0 未中奖 1已中奖 */ 
+                  ,wasr.receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                  ,wasr.draw_time                     /* 抽奖时间 */ 
+                  ,wasr.receive_time                  /* 领奖时间 */ 
+                  ,wasr.jwid                          /* 微信公众号 */ 
+                  ,wasa.awards_name
+                  ,wasa.card_id
+		FROM   	 wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ ,
+		wx_act_shaketicket_award      AS wasa
+		WHERE 1=1
+		AND wasr.award_id = wasa.id
+		AND wasr.act_id = #{actId}		
+	</select>
+	<select id="queryBargainAwardsByActIdForWin" parameterType="Object"  resultMap="WxActShaketicketRecord">
+		    SELECT 
+                   wasr.id                            /* ID */ 
+                  ,wasr.act_id                        /* 活动ID */ 
+                  ,wasr.award_id                       /* 卡券ID */ 
+                  ,wasr.openid                        /* 微信openid */ 
+                  ,wasr.awards_seq                    /* 奖品序号 */ 
+                  ,wasr.draw_status                /* 抽奖状态 0 未中奖 1已中奖 */ 
+                  ,wasr.receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                  ,wasr.draw_time                     /* 抽奖时间 */ 
+                  ,wasr.receive_time                  /* 领奖时间 */ 
+                  ,wasr.jwid                          /* 微信公众号 */ 
+                  ,wasa.awards_name
+                  ,wasa.card_id
+		FROM   	 wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ ,
+		wx_act_shaketicket_award      AS wasa
+		WHERE 1=1
+		AND wasr.award_id = wasa.id
+		AND wasr.act_id = #{actId}		
+		AND wasr.draw_status = '1';	
+	</select>
+	<select id="getRecordCountByActIdAndOpenid" parameterType="Object"  resultType="java.util.Map">
+		SELECT	a.count as count,d.countday as countday,w.wincount as wincount FROM 
+		  (SELECT count(id) as count              
+			FROM  wx_act_shaketicket_record  
+            WHERE  act_id = #{actId}		
+			AND openid = #{openid} ) as a,               /* 累计抽奖数*/ 
+		  (SELECT count(id)  as countday 
+		    FROM  wx_act_shaketicket_record
+		    WHERE act_id = #{actId}			
+			AND openid = #{openid}
+			AND DATE_FORMAT(draw_time, '%Y-%m-%d')=#{currDate}) as d,    /* 当天抽奖数 */ 
+		  (SELECT count(id)  as wincount
+		    FROM  wx_act_shaketicket_record
+		    WHERE act_id = #{actId}			
+			AND openid = #{openid}
+			AND draw_status='1') as w                   /* 中奖数 */ 
+	</select> 
+	<select id="queryMyAwardsRecordByOpenidAndActid" parameterType="Object"  resultMap="WxActShaketicketRecord">
+		    SELECT 
+                   wasr.id                            /* ID */ 
+                  ,wasr.act_id                        /* 活动ID */ 
+                  ,wasr.award_id                       /* 卡券ID */ 
+                  ,wasr.openid                        /* 微信openid */ 
+                  ,wasr.awards_seq                    /* 奖品序号 */ 
+                  ,wasr.draw_status                /* 抽奖状态 0 未中奖 1已中奖 */ 
+                  ,wasr.receive_status                /* 领取状态 0 未领取 1已领取 */ 
+                  ,wasr.draw_time                     /* 抽奖时间 */ 
+                  ,wasr.receive_time                  /* 领奖时间 */ 
+                  ,wasr.jwid                          /* 微信公众号 */ 
+                  ,wasa.awards_name
+                  ,wasa.card_id
+		FROM   	 wx_act_shaketicket_record      AS wasr      /* 抽奖记录表 */ ,
+				 wx_act_shaketicket_award      AS wasa
+		WHERE wasr.award_id = wasa.id
+		     AND  wasr.act_id = #{actId}			
+			AND wasr.openid = #{openid}
+			AND wasr.draw_status='1'
+	</select> 
+		<select id="getMaxSeq" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT max(wasr.awards_seq)  FROM  wx_act_shaketicket_record      AS wasr      /* 配置 */
+		 WHERE wasr.act_id = #{value}
+	</select>	
+</mapper>

@@ -1,0 +1,234 @@
+body {
+	background: #ff2f34 none no-repeat center center;
+	padding: 0;
+	padding-bottom: 48px;
+}
+.copyright {
+	background-color: rgba(255,255,255,0.21);
+	position: fixed;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+}
+.copyright a {
+	color: #fff;
+	font-size: 12px;
+	padding: 6px;
+	display: inline-block;
+}
+.content-wrap {
+	overflow: hidden;
+	background-color: red;
+}
+.shake-box {
+	width: 300px;
+	height: 400px;
+	margin: 0 auto;
+	background: url(shake_bg.png) no-repeat center center;
+	background-size: 300px;
+	position: relative;
+	margin-top: 32px;
+}
+.shake-box .hand {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 20px;
+}
+.shake-box .hand img {
+	width: 115px;
+	z-index: 98;
+}
+.shake-box .title {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	top: 82px;
+	color: #ffec14;
+	font-size: 16px;
+}
+.shake-box .inner {
+	width: 300px;
+	height: 400px;
+	position: absolute;
+	background: url(shake_bg2.png) no-repeat center center;
+	background-size: 300px;
+	z-index: 99;
+	margin-left: -10px;
+}
+.join-man {
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+	margin: 20px;
+}
+.join-man b {
+	color: #ffec14;
+}
+.gift-rule {
+	text-align: center;
+	padding-bottom: 50px;
+}
+.gift-rule a {
+	font-size: 13px;
+	color: #000;
+	text-decoration: none;
+	padding: 8px;
+	padding-top: 10px;
+	display: inline-block;
+	background-color: rgba(255,255,255,0.6);
+	min-width: 120px;
+	border-radius: 2px;
+	box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+.gift-dialog {
+	position: fixed;
+	top: 50px;
+	left: 24px;
+	right: 24px;
+	z-index: 901;
+	background-color: #fff;
+	border-radius: 4px;
+}
+.gift-dialog .title {
+	background-color: #222328;
+	color: #fff;
+	border-radius: 4px 4px 0 0;
+	font-size: 16px;
+	padding: 14px;
+	text-align: center;
+}
+.gift-dialog .title h4 {
+	line-height: 1;
+	margin: 0;
+}
+.gift-dialog .title a {
+	position: absolute;
+	right: 14px;
+	color: #fff;
+	font-size: 20px;
+	top: 8px;
+}
+.gift-dialog .foot {
+	background-color: #FF4646;
+	text-align: center;
+	border-top: 2px dotted #fff;
+	border-radius: 0 0 4px 4px;
+}
+.gift-dialog .foot a {
+	font-size: 16px;
+	display: inline-block;
+	padding: 12px;
+	color: #fff;
+	width: 49.5%;
+}
+.gift-dialog .foot a.lr {
+	border-left: 1px solid #f5f5f5;
+}
+.gift-dialog .content {
+	margin: 24px 14px;
+	min-height: 60px;
+	text-align: center;
+	color: #222;
+	max-height: 300px;
+	overflow-x: auto;
+}
+.gift-dialog .content > div.img {
+	max-height: 200px;
+	overflow: hidden;
+	margin-bottom: 14px;
+}
+.gift-dialog .content p {
+	font-size: 15px;
+}
+.msgtips.search {
+}
+.msgtips.search div {
+	background-color: rgba(0,0,0,0.9);
+	background-image: url(http://img1.qidapp.cn/image/loading-a4.gif);
+	background-size: 32px;
+	background-position: center 15px;
+	background-repeat: no-repeat;
+	height: 85px;
+	line-height: 1;
+	padding-top: 58px;
+	font-size: 13px;
+}
+
+.light {
+	width: 420px;
+	height: 420px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -210px;
+	z-index: 111;
+	overflow: hidden;
+}
+.light .ss {
+	background: url(light.png) no-repeat center center;
+	background-size: 100%;
+	width: 100%;
+	height: 100%;
+}
+
+.gift {
+	height: 80px;
+	background-color: #FF4646;
+	margin: 14px;
+	border: 1px solid #ddd;
+	overflow: hidden;
+}
+.gift .img {
+	width: 40%;
+	height: 80px;
+	overflow: hidden;
+	background-color: #fff;
+	text-align: center
+}
+.gift .img img {
+	height: 100%;
+	width: auto;
+	display: inline-block;
+}
+.gift .info {
+	color: #fff;
+	width: 60%;
+	padding: 12px;
+	height: 80px;
+	overflow: hidden;
+	position: relative;
+}
+.gift .info h4, .gift .info p {
+	margin: 0;
+}
+.gift .info h4 {
+	font-size: 14px;
+	border-bottom: 1px dashed #fff;
+	padding-bottom: 6px;
+}
+.gift .info p {
+	margin-top: 6px;
+	font-size: 11px;
+}
+.gift .info p.d {
+	margin-top: 0;
+	font-size: 11px;
+}
+.gift .info .arrow {
+	position: absolute;
+	color: #fff;
+	font-size: 19px;
+	left: -1px;
+	top: 29px;
+}
+.toptips {
+	background-color: #fff;
+	border-bottom: 2px solid #FF4646;
+	padding: 9px;
+	text-align: center;
+	color: #444;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}

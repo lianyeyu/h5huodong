@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">详情</div>
+				  	<div class="panel-body">
+				   		<form class="form-horizontal" role="form">
+							  <fieldset disabled>
+							  						<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">砍价活动名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbMain.actName}" name="actName" id="actName" class="form-control" />
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动开始时间</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActCommonftbMain.begainTime})" name="begainTime" id="begainTime" class="form-control" />
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;"> 活动结束时间</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActCommonftbMain.endTime})" name="endTime" id="endTime" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否只能参加一个子活动 </label>
+													    <div class="col-sm-8">
+													      <select name="manyCanJoin" id="manyCanJoin" value="$!{wxActCommonftbMain.manyCanJoin}"  class="form-control" > 
+														      	<option value="0" #if($!wxActCommonftbMain.manyCanJoin=='0') selected #end>否 </option>
+														      	<option value="1" #if($!wxActCommonftbMain.manyCanJoin=='1') selected #end>是</option>
+														  </select>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">入口地址</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbMain.hdurl}" name="hdurl" id="hdurl" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">模版简称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbMain.template}" name="template" id="template" class="form-control" />
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <div class="col-sm-8">
+													      <a href="javascript:addFtbs();" style="font-size:18px;">查看子活动</a>
+													    </div>
+													</div>
+													 <table class="table table-striped" id="table_awards" style="display:none;">
+												        <thead>
+																<th width=200px>子活动</th>
+																<th width=20px>子活动排序</th>
+												        </thead>
+												        <tbody id="tbody_awards">
+												         #foreach($actDetail in $actDetailList)
+												            	<tr>     	
+												            	    <td style="display: none">
+                                                                        <input value="$!{actDetail.id}" name="ftbList[0].id"/>	
+																	</td>		
+												            	    <td>
+												            	    	<select name="ftbList[0].actId"  class="form-control" > 
+																	    	#foreach($ftb in $ftbs)
+																      			<option value="$!ftb.id" #if("$!{actDetail.actId}" == "$!ftb.id")selected#end>$!ftb.name</option>
+																      		#end
+															      	     </select>
+																	</td>														
+																	<td><input type="text" name="ftbList[0].actSort" class="form-control" value="$!{actDetail.actSort}" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/></td>
+												           		</tr>
+												          #end
+												         </tbody>
+												    </table>
+							  </fieldset>
+							  			<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftbMain/list.do')">返回</button>
+        									 </div>
+        							    </div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script>  
+<script>
+function addFtbs(){
+	$('#table_awards').toggle();
+}
+</script>  

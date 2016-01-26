@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">新增</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/shaketicket/back/wxActShaketicketAward/doAdd.do" method="POST">
+					  		<input type="hidden" id="btn_sub" class="btn_sub" />
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否卡券</label>
+													    <div class="col-sm-8">
+													      <select value="$!{wxActShaketicketAward.isCard}" name="isCard" id="isCard"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">奖品名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketAward.awardsName}" name="awardsName" id="awardsName" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">发奖公司</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketAward.owner}" name="owner" id="owner" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno" id="cardid" style="display:none;">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券id</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketAward.cardId}" name="cardId" id="cardId" class="form-control" />
+													      <span id="wrongmsg" class="Validform_checktip Validform_wrong" style="display:none;">请填写卡券id！</span>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">奖品图片</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketAward.img}" name="img" id="img" class="form-control" />
+													    </div>
+													</div>
+										<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketAward/list.do')">返回</button>
+	        									<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+        									 </div>
+        								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script> 
+<script>
+$(function(){
+	$('#isCard').bind('change', function(){
+	      $('#cardid').toggle();
+	       var isCard = $('#isCard').val();
+	      if(isCard=='1'){
+		   $('#cardId').attr("datatype","*");
+		   $('#cardId').attr("nullmsg","请填写卡券id");
+		   $('#wrongmsg').show();
+		  }else{
+		   $('#cardId').val("");
+		   $('#cardId').removeAttr("datatype");
+		   $('#cardId').removeAttr("nullmsg");
+		  } 
+		  
+	});	 
+});
+</script>

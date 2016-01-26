@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbRecord">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbRecord" type="com.jeecg.p3.commonftb.entity.WxActCommonftbRecord" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="registration_id" property="registrationId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="cut_price" property="cutPrice" jdbcType="DECIMAL"/>
+		<result column="curr_price" property="currPrice" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.registrationId != null and query.registrationId != ''" >
+	  		 		/* 报名id */
+			    	AND wacr.registration_id =  #{query.registrationId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 砍价人openid */
+			    	AND wacr.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 砍价人昵称 */
+			    	AND wacr.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.cutPrice != null and query.cutPrice != ''" >
+	  		 		/* 砍掉价格 */
+			    	AND wacr.cut_price =  #{query.cutPrice,jdbcType=DECIMAL}
+				 </if>
+				 <if test="query.currPrice != null and query.currPrice != ''" >
+	  		 		/* 砍后价格 */
+			    	AND wacr.curr_price =  #{query.currPrice,jdbcType=DECIMAL}
+				 </if>
+				 <if test="query.createTime != null and query.createTime != ''" >
+	  		 		/* 创建时间 */
+			    	AND wacr.create_time =  #{query.createTime,jdbcType=TIMESTAMP}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 对应微信平台原始id */
+			    	AND wacr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_record   /* 砍价帮砍记录表 */  
+					(	
+                      id                            /* 记录id */ 
+                     ,registration_id               /* 报名id */ 
+                     ,openid                        /* 砍价人openid */ 
+                     ,nickname                      /* 砍价人昵称 */ 
+                     ,cut_price                     /* 砍掉价格 */ 
+                     ,curr_price                    /* 砍后价格 */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,jwid                          /* 对应微信平台原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* 记录id */ 
+                     ,#{registrationId,jdbcType=VARCHAR}                /* 报名id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 砍价人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 砍价人昵称 */ 
+                     ,#{cutPrice,jdbcType=DECIMAL}                      /* 砍掉价格 */ 
+                     ,#{currPrice,jdbcType=DECIMAL}                     /* 砍后价格 */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 对应微信平台原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_record  	/* 砍价帮砍记录表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="registrationId != null">
+		    		 		/* 报名id */ 
+	    		 			registration_id = #{registrationId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 砍价人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 砍价人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cutPrice != null">
+		    		 		/* 砍掉价格 */ 
+	    		 			cut_price = #{cutPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="currPrice != null">
+		    		 		/* 砍后价格 */ 
+	    		 			curr_price = #{currPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 对应微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbRecord">
+		   SELECT   
+                   wacr.id                            /* 记录id */ 
+                  ,wacr.registration_id               /* 报名id */ 
+                  ,wacr.openid                        /* 砍价人openid */ 
+                  ,wacr.nickname                      /* 砍价人昵称 */ 
+                  ,wacr.cut_price                     /* 砍掉价格 */ 
+                  ,wacr.curr_price                    /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		   FROM   wx_act_commonftb_record      AS wacr      /* 砍价帮砍记录表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_record 	/* 砍价帮砍记录表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_record      AS wacr      /* 砍价帮砍记录表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRecord.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbRecord">
+		    SELECT 
+                   wacr.id                            /* 记录id */ 
+                  ,wacr.registration_id               /* 报名id */ 
+                  ,wacr.openid                        /* 砍价人openid */ 
+                  ,wacr.nickname                      /* 砍价人昵称 */ 
+                  ,wacr.cut_price                     /* 砍掉价格 */ 
+                  ,wacr.curr_price                    /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_record      AS wacr      /* 砍价帮砍记录表 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<!--
+	方法名称: queryBargainRecordListByRegistrationId
+	调用路径: WxActCommonftbRecord.queryBargainRecordListByRegistrationId
+	开发信息: 
+	处理信息: 根据用户活动报名id查询砍价记录
+	-->
+	<select id="queryBargainRecordListByRegistrationId" parameterType="Object"  resultMap="WxActCommonftbRecord">
+		    SELECT 
+                   wacr.id                            /* 记录id */ 
+                  ,wacr.registration_id               /* 报名id */ 
+                  ,wacr.openid                        /* 砍价人openid */ 
+                  ,wacr.nickname                      /* 砍价人昵称 */ 
+                  ,wacr.cut_price                     /* 砍掉价格 */ 
+                  ,wacr.curr_price                    /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_record      AS wacr      /* 砍价帮砍记录表 */ 
+		WHERE wacr.registration_id = #{value}
+		order by wacr.create_time desc
+	</select>
+		<!--
+	方法名称: queryBargainRecordListByRegistrationIdAndOpenid
+	调用路径: WxActCommonftbRecord.queryBargainRecordListByRegistrationIdAndOpenid
+	开发信息: 
+	处理信息: 根据用户活动报名id和openid查询砍价记录
+	-->
+	<select id="queryBargainRecordListByRegistrationIdAndOpenid" parameterType="Object"  resultMap="WxActCommonftbRecord">
+		    SELECT 
+                   wacr.id                            /* 记录id */ 
+                  ,wacr.registration_id               /* 报名id */ 
+                  ,wacr.openid                        /* 砍价人openid */ 
+                  ,wacr.nickname                      /* 砍价人昵称 */ 
+                  ,wacr.cut_price                     /* 砍掉价格 */ 
+                  ,wacr.curr_price                    /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_record      AS wacr      /* 砍价帮砍记录表 */  
+		WHERE 	wacr.registration_id = #{registrationId}
+			and wacr.openid = #{openid}
+	</select>
+	
+</mapper>

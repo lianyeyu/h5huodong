@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">详情</div>
+				  	<div class="panel-body">
+				   		<form class="form-horizontal" role="form">
+							  <fieldset disabled>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券ID</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardId}" name="cardId" id="cardId" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券密码</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardPsd}" name="cardPsd" id="cardPsd" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券类型 CASH</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardType}" name="cardType" id="cardType" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">商户名字</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.brandName}" name="brandName" id="brandName" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券名</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.title}" name="title" id="title" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">代金券专用，表示起用金额（元）</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.leastCost}" name="leastCost" id="leastCost" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">代金券专用，表示减免金额（元）</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.reduceCost}" name="reduceCost" id="reduceCost" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">状态</label>
+													    <div class="col-sm-8">
+													      <select name="status" id="status" value="$!{wxActCommonftbCoupon.status}"  class="form-control" > 
+															      	<option value="0" #if($!wxActCommonftbCoupon.status=='0') selected #end>未领取</option>
+															      	<option value="1" #if($!wxActCommonftbCoupon.status=='1') selected #end>已领取</option>
+														   </select>
+													    </div>
+													  </div>
+							  </fieldset>
+							  			<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/list.do?backurl=$!{backurl}')">返回</button>
+        									 </div>
+        							    </div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

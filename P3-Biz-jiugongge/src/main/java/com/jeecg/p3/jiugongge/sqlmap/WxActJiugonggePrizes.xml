@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes">
+
+	<!-- Result Map-->
+	<resultMap id="WxActJiugonggePrizes" type="com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="img" property="img" jdbcType="VARCHAR"/>
+		<result column="awards_name" property="awardsName" jdbcType="VARCHAR"/>
+		<result column="awards_value" property="awardsValue" jdbcType="INTEGER"/>
+		<result column="amount" property="amount" jdbcType="INTEGER"/>
+		<result column="remain_num" property="remainNum" jdbcType="INTEGER"/>
+		<result column="probability" property="probability" jdbcType="DOUBLE"/>
+		<result column="award_id" property="awardId" jdbcType="VARCHAR"/>
+		<result column="jwname" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.name != null and query.name != ''" >
+	  		 		/* 奖品名称 */
+			    	AND wajp.name =  #{query.name,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/*  */
+			    	AND wajp.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_jiugongge_prizes   /* 配置 */  
+					(	
+                      id                            /*  */ 
+                     ,name                          /* 奖品名称 */ 
+                     ,img                          /* 奖品图片 */ 
+                     ,jwid                          /*  */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{name,jdbcType=VARCHAR}                          /* 奖品名称 */ 
+                     ,#{img,jdbcType=VARCHAR}                          /* 奖品图片 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /*  */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_jiugongge_prizes  	/* 配置 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="name != null">
+		    		 		/* 奖品名称 */ 
+	    		 			name = #{name,jdbcType=VARCHAR},
+						 </if>
+						 <if test="img != null">
+		    		 		/*  */ 
+	    		 			img = #{img,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/*  */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		   SELECT   
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+		   FROM   wx_act_jiugongge_prizes      AS wajp      /* 配置 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_jiugongge_prizes 	/* 配置 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_jiugongge_prizes      AS wajp      /* 配置 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggePrizes.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		    SELECT 
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+                  ,jwj.name as jwname
+		FROM   	 wx_act_jiugongge_prizes      AS wajp      /* 配置 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON wajp.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<!--
+	方法名称: queryByActId
+	调用路径: WxActJiugonggePrizes.queryByActId
+	开发信息: 
+	处理信息: 根据活动id查询奖品信息
+	-->
+	<select id="queryByActId" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		SELECT 
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+                  ,waja.awards_name                   /* 奖项名称 */
+                  ,waja.awards_value                   /* 奖品等级 */
+                  ,wajr.amount                       /* 奖项数量 */
+                  ,wajr.probability                   /* 奖项概率 */
+                  ,wajr.award_id                   /* 奖项id */                   
+		FROM   	 wx_act_jiugongge_prizes      AS wajp,
+		wx_act_jiugongge_relation AS wajr,
+		wx_act_jiugongge_awards      AS waja     /* 配置 */ 
+		   WHERE
+				wajp.id = wajr.prize_id 
+				AND waja.id=wajr.award_id
+		        AND wajr.act_id = #{actId}
+		  ORDER BY waja.awards_value
+	</select>	
+	<select id="queryRemainAwardsByActId" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		SELECT 
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+                  ,waja.awards_name                   /* 奖项名称 */
+                  ,waja.awards_value                   /* 奖品等级 */
+                  ,wajr.amount                       /* 奖项数量 */
+                  ,wajr.remain_num                /* 奖项剩余数量 */
+                  ,wajr.probability                   /* 奖项概率 */
+                  ,wajr.award_id                   /* 奖项id */                   
+		FROM   	 wx_act_jiugongge_prizes      AS wajp,
+		wx_act_jiugongge_relation AS wajr,
+		wx_act_jiugongge_awards      AS waja     /* 配置 */ 
+		   WHERE
+				wajp.id = wajr.prize_id 
+				AND waja.id=wajr.award_id
+		        AND wajr.act_id = #{actId}
+		  ORDER BY waja.awards_value
+	</select>	
+		<!--
+	方法名称: queryByAwardId
+	调用路径: WxActJiugonggePrizes.queryByAwardId
+	开发信息: 
+	处理信息: 根据奖项id查询奖品信息
+	-->
+	<select id="queryByAwardIdAndActId" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		SELECT 
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+                  ,waja.awards_name                   /* 奖项名称 */
+                  ,waja.awards_value                   /* 奖品等级 */
+		FROM   	 wx_act_jiugongge_prizes      AS wajp,
+		wx_act_jiugongge_relation AS wajr,
+		wx_act_jiugongge_awards      AS waja     /* 配置 */ 
+		   WHERE
+				wajp.id = wajr.prize_id 
+				AND waja.id=wajr.award_id
+		        AND wajr.award_id = #{awardId}
+		        AND wajr.act_id = #{actId}
+	</select>
+	
+		<select id="queryPrizes" parameterType="Object"  resultMap="WxActJiugonggePrizes">
+		    SELECT 
+                   wajp.id                            /*  */ 
+                  ,wajp.name                          /* 奖品名称 */ 
+                  ,wajp.img                          /* 奖品图片 */ 
+                  ,wajp.jwid                          /*  */ 
+		FROM   	 wx_act_jiugongge_prizes      AS wajp      /* 配置 */ 
+		   WHERE wajp.jwid = #{jwid}
+	</select>		
+</mapper>

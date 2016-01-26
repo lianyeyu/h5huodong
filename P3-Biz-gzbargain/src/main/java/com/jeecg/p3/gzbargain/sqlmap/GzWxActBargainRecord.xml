@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.gzbargain.entity.GzWxActBargainRecord">
+
+	<!-- Result Map-->
+	<resultMap id="GzWxActBargainRecord" type="com.jeecg.p3.gzbargain.entity.GzWxActBargainRecord" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="registration_id" property="registrationId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="cut_price" property="cutPrice" jdbcType="DECIMAL"/>
+		<result column="curr_price" property="currPrice" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<!--
+	方法名称: queryBargainRecordListByRegistrationId
+	调用路径: GzWxActBargainRecord.queryBargainRecordListByRegistrationId
+	开发信息: 
+	处理信息: 根据用户活动报名id查询砍价记录
+	-->
+	<select id="queryBargainRecordListByRegistrationId" parameterType="Object"  resultMap="GzWxActBargainRecord">
+		    SELECT 
+                   wabr.id                            /* 记录id */ 
+                  ,wabr.registration_id               /* 报名id */ 
+                  ,wabr.openid                        /* 砍价人openid */ 
+                  ,wabr.nickname                      /* 砍价人昵称 */ 
+                  ,wabr.cut_price                     /*  */ 
+                  ,wabr.curr_price                    /*  */ 
+                  ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
+		FROM   	 wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
+		WHERE wabr.registration_id = #{value}
+		order by wabr.create_time desc
+	</select>
+	
+	<!--
+	方法名称: queryBargainRecordListByRegistrationIdAndOpenid
+	调用路径: GzWxActBargainRecord.queryBargainRecordListByRegistrationIdAndOpenid
+	开发信息: 
+	处理信息: 根据用户活动报名id和openid查询砍价记录
+	-->
+	<select id="queryBargainRecordListByRegistrationIdAndOpenid" parameterType="Object"  resultMap="GzWxActBargainRecord">
+		    SELECT 
+                   wabr.id                            /* 记录id */ 
+                  ,wabr.registration_id               /* 报名id */ 
+                  ,wabr.openid                        /* 砍价人openid */ 
+                  ,wabr.nickname                      /* 砍价人昵称 */ 
+                  ,wabr.cut_price                     /*  */ 
+                  ,wabr.curr_price                    /*  */ 
+                  ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
+		FROM   	 wx_act_bargain_record      AS wabr   /* 砍价帮砍记录表 */ 
+		WHERE 	wabr.registration_id = #{registrationId}
+			and wabr.openid = #{openid}
+	</select>
+	
+	<!--
+	方法名称: insert
+	调用路径: GzWxActBargainRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_bargain_record   /* 砍价帮砍记录表 */  
+					(	
+					  id
+                     ,registration_id               /* 报名id */ 
+                     ,openid                        /* 砍价人openid */ 
+                     ,nickname                      /* 砍价人昵称 */ 
+                     ,cut_price                     /*  */ 
+                     ,curr_price                    /*  */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,jwid
+					)
+			values (
+					  #{id,jdbcType=VARCHAR} 
+                     ,#{registrationId,jdbcType=VARCHAR}                /* 报名id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 砍价人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 砍价人昵称 */ 
+                     ,#{cutPrice,jdbcType=DECIMAL}                      /*  */ 
+                     ,#{currPrice,jdbcType=DECIMAL}                     /*  */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR} 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: GzWxActBargainRecord.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_bargain_record  	/* 砍价帮砍记录表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="registrationId != null">
+		    		 		/* 报名id */ 
+	    		 			registration_id = #{registrationId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 砍价人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 砍价人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cutPrice != null">
+		    		 		/*  */ 
+	    		 			cut_price = #{cutPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="currPrice != null">
+		    		 		/*  */ 
+	    		 			curr_price = #{currPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: GzWxActBargainRecord.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="GzWxActBargainRecord">
+		   SELECT   
+                   wabr.id                            /* 记录id */ 
+                  ,wabr.registration_id               /* 报名id */ 
+                  ,wabr.openid                        /* 砍价人openid */ 
+                  ,wabr.nickname                      /* 砍价人昵称 */ 
+                  ,wabr.cut_price                     /*  */ 
+                  ,wabr.curr_price                    /*  */ 
+                  ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.jwid
+		   FROM   wx_act_bargain_record      AS wabr      /* 砍价帮砍记录表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	
+</mapper>

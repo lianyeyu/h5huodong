@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbRegistration" type="com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="head" property="head" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_price" property="productPrice" jdbcType="DECIMAL"/>
+		<result column="product_new_price" property="productNewPrice" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="awards_status" property="awardsStatus" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="card_psd" property="cardPsd" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动id */
+			    	AND wacr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 活动所属人openid */
+			    	AND wacr.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 活动所属人昵称 */
+			    	AND wacr.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardsStatus != null and query.awardsStatus != ''" >
+	  		 		/* 领奖状态0:未领奖;1:已领奖 */
+			    	AND wacr.awards_status =  #{query.awardsStatus,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 对应微信平台原始id */
+			    	AND wacr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_registration   /* 砍价报名表 */  
+					(	
+                      id                            /*  */ 
+                     ,act_id                        /* 活动id */ 
+                     ,openid                        /* 活动所属人openid */ 
+                     ,nickname                      /* 活动所属人昵称 */ 
+                     ,head                      /* 活动所属人昵称 */ 
+                     ,product_name                  /* 产品名称 */ 
+                     ,product_price                 /* 产品价格 */ 
+                     ,product_new_price             /* 砍后价格 */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,update_time                   /* 更新时间 */ 
+                     ,awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                     ,jwid                          /* 对应微信平台原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 活动所属人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 活动所属人昵称 */ 
+                     ,#{head,jdbcType=VARCHAR}                      /* 活动所属人昵称 */ 
+                     ,#{productName,jdbcType=VARCHAR}                   /* 产品名称 */ 
+                     ,#{productPrice,jdbcType=DECIMAL}                  /* 产品价格 */ 
+                     ,#{productNewPrice,jdbcType=DECIMAL}               /* 砍后价格 */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{updateTime,jdbcType=TIMESTAMP}                    /* 更新时间 */ 
+                     ,#{awardsStatus,jdbcType=VARCHAR}                  /* 领奖状态0:未领奖;1:已领奖 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 对应微信平台原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_registration  	/* 砍价报名表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动id */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 活动所属人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 活动所属人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="head != null">
+		    		 		/* 活动所属人昵称 */ 
+	    		 			head = #{head,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productName != null">
+		    		 		/* 产品名称 */ 
+	    		 			product_name = #{productName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productPrice != null">
+		    		 		/* 产品价格 */ 
+	    		 			product_price = #{productPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="productNewPrice != null">
+		    		 		/* 砍后价格 */ 
+	    		 			product_new_price = #{productNewPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="updateTime != null">
+		    		 		/* 更新时间 */ 
+	    		 			update_time = #{updateTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="awardsStatus != null">
+		    		 		/* 领奖状态0:未领奖;1:已领奖 */ 
+	    		 			awards_status = #{awardsStatus,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 对应微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbRegistration">
+		   SELECT   
+                   wacr.id                            /*  */ 
+                  ,wacr.act_id                        /* 活动id */ 
+                  ,wacr.openid                        /* 活动所属人openid */ 
+                  ,wacr.nickname                      /* 活动所属人昵称 */ 
+                  ,wacr.head                      /* 活动所属人昵称 */ 
+                  ,wacr.product_name                  /* 产品名称 */ 
+                  ,wacr.product_price                 /* 产品价格 */ 
+                  ,wacr.product_new_price             /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.update_time                   /* 更新时间 */ 
+                  ,wacr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		   FROM   wx_act_commonftb_registration      AS wacr      /* 砍价报名表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_registration 	/* 砍价报名表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_registration      AS wacr      /* 砍价报名表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRegistration.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbRegistration">
+		    SELECT 
+                   wacr.id                            /*  */ 
+                  ,wacr.act_id                        /* 活动id */ 
+                  ,wacr.openid                        /* 活动所属人openid */ 
+                  ,wacr.nickname                      /* 活动所属人昵称 */ 
+                  ,wacr.head                      /* 活动所属人昵称 */ 
+                  ,wacr.product_name                  /* 产品名称 */ 
+                  ,wacr.product_price                 /* 产品价格 */ 
+                  ,wacr.product_new_price             /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.update_time                   /* 更新时间 */ 
+                  ,wacr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_registration      AS wacr      /* 砍价报名表 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<select id="queryRegistrationByOpenidAndActId" parameterType="Object"  resultMap="WxActCommonftbRegistration">
+		    SELECT 
+                   wacr.id                            /*  */ 
+                  ,wacr.act_id                        /* 活动id */ 
+                  ,wacr.openid                        /* 活动所属人openid */ 
+                  ,wacr.nickname                      /* 活动所属人昵称 */ 
+                  ,wacr.head                      /* 活动所属人昵称 */ 
+                  ,wacr.product_name                  /* 产品名称 */ 
+                  ,wacr.product_price                 /* 产品价格 */ 
+                  ,wacr.product_new_price             /* 砍后价格 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+                  ,wacr.update_time                   /* 更新时间 */ 
+                  ,wacr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                  ,wacr.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_registration      AS wacr      /* 砍价报名表 */ 
+		   WHERE
+				wacr.act_id = #{actId}				/* 活动id  */ 
+			AND wacr.openid = #{openid}				/* 活动所属人openid   */ 
+	</select>
+	
+		<!--
+	方法名称: updateBargainPrice
+	调用路径: WxActCommonftbRegistration.updateBargainPrice
+	开发信息: 
+	处理信息: 更新砍价信息
+	-->  
+	 <update id="updateBargainPrice" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_registration  	/* 砍价报名表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 砍后价格 */ 
+   		 			product_new_price =product_new_price - #{cutPrice,jdbcType=DECIMAL},
+    		 		/* 更新时间 */ 
+   		 			update_time = #{updateTime,jdbcType=TIMESTAMP},
+	  	  		</trim>
+				WHERE
+	  	 		 	id = #{id}		/* 序号 */ 
+	 </update>
+	
+</mapper>

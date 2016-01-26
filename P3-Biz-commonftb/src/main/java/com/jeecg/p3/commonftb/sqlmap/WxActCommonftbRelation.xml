@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbRelation">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbRelation" type="com.jeecg.p3.commonftb.entity.WxActCommonftbRelation" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="main_act_id" property="mainActId" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="act_sort" property="actSort" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.mainActId != null and query.mainActId != ''" >
+	  		 		/* 主活动编码 */
+			    	AND wacr.main_act_id =  #{query.mainActId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动编码 */
+			    	AND wacr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.actSort != null and query.actSort != ''" >
+	  		 		/* 活动排序 */
+			    	AND wacr.act_sort =  #{query.actSort,jdbcType=INTEGER}
+				 </if>
+				 <if test="query.createTime != null and query.createTime != ''" >
+	  		 		/* 创建时间 */
+			    	AND wacr.create_time =  #{query.createTime,jdbcType=TIMESTAMP}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_relation   /* 活动首页活动配置 */  
+					(	
+                      id                            /* ID */ 
+                     ,main_act_id                   /* 主活动编码 */ 
+                     ,act_id                        /* 活动编码 */ 
+                     ,act_sort                      /* 活动排序 */ 
+                     ,create_time                   /* 创建时间 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* ID */ 
+                     ,#{mainActId,jdbcType=VARCHAR}                     /* 主活动编码 */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动编码 */ 
+                     ,#{actSort,jdbcType=INTEGER}                       /* 活动排序 */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_relation  	/* 活动首页活动配置 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="mainActId != null">
+		    		 		/* 主活动编码 */ 
+	    		 			main_act_id = #{mainActId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="actId != null">
+		    		 		/* 活动编码 */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="actSort != null">
+		    		 		/* 活动排序 */ 
+	    		 			act_sort = #{actSort,jdbcType=INTEGER},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbRelation">
+		   SELECT   
+                   wacr.id                            /* ID */ 
+                  ,wacr.main_act_id                   /* 主活动编码 */ 
+                  ,wacr.act_id                        /* 活动编码 */ 
+                  ,wacr.act_sort                      /* 活动排序 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+		   FROM   wx_act_commonftb_relation      AS wacr      /* 活动首页活动配置 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_relation 	/* 活动首页活动配置 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	<delete id="batchDeleteByMainActId" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_relation 	/* 活动首页活动配置 */  
+		WHERE 
+			main_act_id  = #{value}					/* 序号 */ 
+	</delete>
+	<delete id="bactchDeleteOldFtbs">
+		DELETE 	FROM wx_act_commonftb_relation 	/* 配置 */  
+		WHERE main_act_id=#{mainActId}		
+		<if test="ids.size() > 0">
+		    	AND 		id not in 
+            <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                    #{id}
+            </foreach>
+		</if>
+           
+	</delete>	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_relation      AS wacr      /* 活动首页活动配置 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbRelation.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbRelation">
+		    SELECT 
+                   wacr.id                            /* ID */ 
+                  ,wacr.main_act_id                   /* 主活动编码 */ 
+                  ,wacr.act_id                        /* 活动编码 */ 
+                  ,wacr.act_sort                      /* 活动排序 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+		FROM   	 wx_act_commonftb_relation      AS wacr      /* 活动首页活动配置 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	<select id="queryByMainActId" parameterType="Object"  resultMap="WxActCommonftbRelation">
+		    SELECT 
+                   wacr.id                            /* ID */ 
+                  ,wacr.main_act_id                   /* 主活动编码 */ 
+                  ,wacr.act_id                        /* 活动编码 */ 
+                  ,wacr.act_sort                      /* 活动排序 */ 
+                  ,wacr.create_time                   /* 创建时间 */ 
+		FROM   	 wx_act_commonftb_relation      AS wacr      /* 活动首页活动配置 */ 
+		WHERE wacr.main_act_id=#{value}
+	</select>
+	
+</mapper>

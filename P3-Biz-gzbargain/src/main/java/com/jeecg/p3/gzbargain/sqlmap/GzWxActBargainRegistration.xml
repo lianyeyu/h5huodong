@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration">
+
+	<!-- Result Map-->
+	<resultMap id="GzWxActBargainRegistration" type="com.jeecg.p3.gzbargain.entity.GzWxActBargainRegistration" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="head" property="head" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_price" property="productPrice" jdbcType="DECIMAL"/>
+		<result column="product_new_price" property="productNewPrice" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="awards_status" property="awardsStatus" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<!--
+	方法名称: queryRegistrationByOpenidAndActId
+	调用路径: GzWxActBargainRegistration.queryRegistrationByOpenidAndActId
+	开发信息: 
+	处理信息: 根据openid和活动id查询活动报名信息
+	-->
+	<select id="queryRegistrationByOpenidAndActId" parameterType="Object"  resultMap="GzWxActBargainRegistration">
+		   SELECT   
+                   wabr.id                            /*  */ 
+                  ,wabr.act_id                        /* 活动id */ 
+                  ,wabr.openid                        /* 活动参与人openid */ 
+                  ,wabr.nickname                      /* 活动参与人昵称 */
+                  ,wabr.head                          /* 活动参与人头像 */ 
+                  ,wabr.product_name                  /* 产品名称 */ 
+                  ,wabr.product_price                 /* 产品价格 */ 
+                  ,wabr.product_new_price             /* 砍后价格 */ 
+                  ,wabr.create_time                   /* 创建时间 */
+                  ,wabr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */ 
+                  ,wabr.jwid 
+		   FROM   wx_act_bargain_registration      AS wabr      /* 砍价报名表 */ 
+		   WHERE
+				wabr.act_id = #{actId}				/* 活动id  */ 
+			AND wabr.openid = #{openid}				/* 活动参与人openid   */ 
+	</select>
+	
+	<!--
+	方法名称: get
+	调用路径: GzWxActBargainRegistration.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="GzWxActBargainRegistration">
+		   SELECT   
+                   wabr.id                            /*  */ 
+                  ,wabr.act_id                        /* 活动id */ 
+                  ,wabr.openid                        /* 活动参与人openid */ 
+                  ,wabr.nickname                      /* 活动参与人昵称 */
+                  ,wabr.head                          /* 活动参与人头像 */ 
+                  ,wabr.product_name                  /* 产品名称 */ 
+                  ,wabr.product_price                 /* 产品价格 */ 
+                  ,wabr.product_new_price             /* 砍后价格 */ 
+                  ,wabr.create_time                   /* 创建时间 */ 
+                  ,wabr.awards_status                 /* 领奖状态0:未领奖;1:已领奖 */
+                  ,wabr.jwid
+		   FROM   wx_act_bargain_registration      AS wabr      /* 砍价报名表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: updateBargainPrice
+	调用路径: GzWxActBargainRegistration.updateBargainPrice
+	开发信息: 
+	处理信息: 更新砍价信息
+	-->  
+	 <update id="updateBargainPrice" parameterType="Object" >
+	  UPDATE   wx_act_bargain_registration  	/* 砍价报名表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 砍后价格 */ 
+   		 			product_new_price =product_new_price - #{cutPrice,jdbcType=DECIMAL},
+    		 		/* 更新时间 */ 
+   		 			update_time = #{updateTime,jdbcType=TIMESTAMP},
+	  	  		</trim>
+				WHERE
+	  	 		 	id = #{id}		/* 序号 */ 
+	 </update>
+	
+
+	<!--
+	方法名称: insert
+	调用路径: GzWxActBargainRegistration.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_bargain_registration   /* 砍价报名表 */  
+					(	
+					  id
+                     ,act_id                        /* 活动id */ 
+                     ,openid                        /* 活动参与人openid */ 
+                     ,nickname                      /* 活动参与人昵称 */ 
+                     ,head                          /* 活动参与人头像*/
+                     ,product_name                  /* 产品名称 */ 
+                     ,product_price                 /* 产品价格 */ 
+                     ,product_new_price             /* 砍后价格 */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,awards_status                 /* 领奖状态0:未领奖;1:已领奖 */
+                     ,jwid                 
+					)
+			values (
+					  #{id,jdbcType=VARCHAR} 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 活动参与人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 活动参与人昵称 */ 
+                     ,#{head,jdbcType=VARCHAR}                          /* 活动参与人头像*/
+                     ,#{productName,jdbcType=VARCHAR}                   /* 产品名称 */ 
+                     ,#{productPrice,jdbcType=DECIMAL}                  /* 产品价格 */ 
+                     ,#{productNewPrice,jdbcType=DECIMAL}               /* 砍后价格 */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                  /* 创建时间 */
+                     ,#{awardsStatus,jdbcType=VARCHAR}                  /* 领奖状态0:未领奖;1:已领奖 */
+                     ,#{jwid,jdbcType=VARCHAR} 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: GzWxActBargainRegistration.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_bargain_registration  	/* 砍价报名表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动id */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 活动参与人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 活动参与人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="head != null">
+		    		 		/* 活动参与人头像 */ 
+	    		 			head = #{head,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productName != null">
+		    		 		/* 产品名称 */ 
+	    		 			product_name = #{productName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="productPrice != null">
+		    		 		/* 产品价格 */ 
+	    		 			product_price = #{productPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="productNewPrice != null">
+		    		 		/* 砍后价格 */ 
+	    		 			product_new_price = #{productNewPrice,jdbcType=DECIMAL},
+						 </if>
+						 <if test="awardsStatus != null">
+		    		 		/* 领奖状态0:未领奖;1:已领奖 */ 
+	    		 			awards_status = #{awardsStatus,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	
+</mapper>

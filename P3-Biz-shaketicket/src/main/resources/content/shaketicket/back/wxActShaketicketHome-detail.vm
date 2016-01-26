@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">详情</div>
+				  	<div class="panel-body">
+				   		<form class="form-horizontal" role="form">
+							  <fieldset disabled>
+							  						<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.actName}" name="actName" id="actName" class="form-control" datatype="*"/>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">启用状态</label>
+													    <div class="col-sm-8">
+													      <select name="activeFlag" id="activeFlag" value="$!{wxActShaketicketHome.activeFlag}"  class="form-control" > 
+														      	<option value="0" #if($!wxActShaketicketHome.activeFlag=='0') selected #end>停用</option>
+														      	<option value="1" #if($!wxActShaketicketHome.activeFlag=='1') selected #end>激活</option>
+														  </select>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人抽奖总次数</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.count}" name="count" id="count" class="form-control" datatype="n" errorMsg="只能输入整数值"/>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人每日抽奖次数</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.numPerDay}" name="numPerDay" id="numPerDay" class="form-control" datatype="n" errorMsg="只能输入整数值"/>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">入口地址</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.hdurl}" name="hdurl" id="hdurl" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否关注可参加</label>
+													    <div class="col-sm-8">
+													      <select name="foucsUserCanJoin" id="foucsUserCanJoin" value="$!{wxActShaketicketHome.foucsUserCanJoin}"  class="form-control" > 
+														      	<option value="0" #if($!wxActShaketicketHome.foucsUserCanJoin=='0') selected #end>否</option>
+														      	<option value="1" #if($!wxActShaketicketHome.foucsUserCanJoin=='1') selected #end>是</option>
+														  </select>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否绑定手机可参加</label>
+													    <div class="col-sm-8">
+													      <select name="bindingMobileCanJoin" id="bindingMobileCanJoin" value="$!{wxActShaketicketHome.bindingMobileCanJoin}"  class="form-control" > 
+														      	<option value="0" #if($!wxActShaketicketHome.bindingMobileCanJoin=='0') selected #end>否</option>
+														      	<option value="1" #if($!wxActShaketicketHome.bindingMobileCanJoin=='1') selected #end>是</option>
+														  </select>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否中奖可参与 </label>
+													    <div class="col-sm-8">
+													      <select name="winCanJoin" id="winCanJoin" value="$!{wxActShaketicketHome.winCanJoin}"  class="form-control" > 
+														      	<option value="0" #if($!wxActShaketicketHome.winCanJoin=='0') selected #end>中奖可继续参与 </option>
+														      	<option value="1" #if($!wxActShaketicketHome.winCanJoin=='1') selected #end>中奖不可参与</option>
+														  </select>
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">模版简称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.template}" name="template" id="template" class="form-control" />
+													    </div>
+													</div>
+													  <div class="form-group mno">
+													    <div class="col-sm-8">
+													      <a href="javascript:addAwards();" style="font-size:18px">查看活动奖项</a>
+													    </div>
+													</div>
+													 <table class="table table-striped" id="table_awards" style="display:none;">
+												        <thead>
+																<th style="display: none" >明细id</th>
+																<th width=15px>奖品</th>
+																<th width=5px>数量</th>
+																<th width='5px'>剩余数量</th>
+																<th width='25px'>中奖概率&nbsp<span style="font-size:3px;color:rgb(72, 167, 231);">(概率按权重进行分配,概率总和不大于1)</span></th>
+												        </thead>
+												        <tbody id="tbody_awards">
+												         #foreach($awarsDetail in $awarsDetailList)
+												            	<tr>     	
+												            	    <td style="display: none">
+                                                                        <input value="$!{awarsDetail.id}" name="awarsList[0].id"/>	
+																	</td>		
+												            	    <td>
+												            	    	<select name="awarsList[0].awardId"  class="form-control" > 
+																	    	#foreach($award in $awards)
+																      			<option value="$!award.id" #if("$!{awarsDetail.awardId}" == "$!award.id")selected#end>$!award.awardsName</option>
+																      		#end
+															      	     </select>
+																	</td>														
+																	<td><input type="text" name="awarsList[0].amount" class="form-control" value="$!{awarsDetail.amount}"/></td>
+																	<td><input type="text" name="awarsList[0].remainNum" class="form-control" value="$!{awarsDetail.remainNum}"/></td>
+																	<td><input type="text"  name="awarsList[0].probability"  class="form-control" value="$!{awarsDetail.probability}"/></td>
+												           		</tr>
+												           	#end
+												         </tbody>
+												    </table>
+							  </fieldset>
+							  			<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketHome/list.do')">返回</button>
+        									 </div>
+        							    </div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+function addAwards(){
+	$('#table_awards').toggle();
+}
+</script>

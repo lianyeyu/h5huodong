@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.gzbargain.entity.GzWxActBargain">
+
+	<!-- Result Map-->
+	<resultMap id="GzWxActBargain" type="com.jeecg.p3.gzbargain.entity.GzWxActBargain" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_name" property="actName" jdbcType="VARCHAR"/>
+		<result column="act_detail" property="actDetail" jdbcType="VARCHAR"/>
+		<result column="act_rule" property="actRule" jdbcType="VARCHAR"/>
+		<result column="begain_time" property="begainTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="product_num" property="productNum" jdbcType="INTEGER"/>
+		<result column="product_unit" property="productUnit" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_price" property="productPrice" jdbcType="DECIMAL"/>
+		<result column="product_img" property="productImg" jdbcType="VARCHAR"/>
+		<result column="foucs_user_can_join" property="foucsUserCanJoin" jdbcType="VARCHAR"/>
+		<result column="show_rate" property="showRate" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="product_remain_num" property="productRemainNum" jdbcType="INTEGER"/>
+		<result column="cut_min_price" property="cutMinPrice" jdbcType="DECIMAL"/>
+		<result column="template" property="template" jdbcType="VARCHAR"/>
+		<result column="hdurl" property="hdurl" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="name" property="jwName" jdbcType="VARCHAR"/>
+		<result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!--
+	方法名称: get
+	调用路径: GzWxActBargain.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="GzWxActBargain">
+		   SELECT   
+                   wab.id                            /* ID */ 
+                  ,wab.act_name                      /* 砍价活动名称 */ 
+                  ,wab.act_detail                    /* 活动描述 */ 
+                  ,wab.act_rule                      /* 活动规则 */  
+                  ,wab.begain_time                   /* 活动开始时间 */ 
+                  ,wab.end_time                      /* 活动结束时间 */ 
+                  ,wab.product_num                   /* 产品数量 */ 
+                  ,wab.product_unit                  /* 产品单位 */ 
+                  ,wab.product_name                  /* 产品名称 */ 
+                  ,wab.product_price                 /* 产品价格 */ 
+                  ,wab.product_img                   /* 产品图片 */ 
+                  ,wab.foucs_user_can_join           /* 是否关注用户参与 */ 
+                  ,wab.show_rate                     /* 展示比例 */ 
+                  ,wab.create_time                   /* 创建时间 */ 
+                  ,wab.product_remain_num            /* 产品剩余数量 */ 
+                  ,wab.cut_min_price                 /* 砍价最低金额 */
+                  ,wab.template                      /* 模版简称*/
+                  ,wab.hdurl                         /* 入口地址 */ 
+                  ,wab.jwid
+		   FROM   wx_act_bargain      AS wab         /* 砍价活动表 */ 
+		   WHERE
+				  id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: updateProductRemainNum
+	调用路径: GzWxActBargain.updateProductRemainNum
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="updateProductRemainNum" parameterType="Object" >
+	  UPDATE   wx_act_bargain  	/* 砍价活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 产品数量 */ 
+   		 			product_remain_num  = product_remain_num  - #{cutNum,jdbcType=INTEGER},
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: insert
+	调用路径: GzWxActBargainRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+     INSERT INTO `wx_act_bargain`( 
+         `id`
+        ,`act_name`     /*砍价活动名称*/
+        ,`act_detail`   /*活动描述*/
+        ,`act_rule`     /*活动规则*/
+        ,`begain_time`  /*活动开始时间*/
+        ,`end_time`     /*活动结束时间*/
+        ,`product_num`  /*产品数量*/
+        ,`product_unit` /*产品单位*/
+        ,`product_name` /*产品名称*/
+        ,`product_img`  /*产品图片*/
+        ,`product_price`/*产品价格*/
+        ,`foucs_user_can_join` /*是否关注用户参与*/
+        ,`show_rate`    /*展示比例*/
+        ,`create_time`  /*创建时间*/
+        ,`product_remain_num` /*产品剩余数量*/
+        ,`cut_min_price` /*砍价最低金额*/
+        ,`template`      /*模版简称*/
+        ,`hdurl`         /*入口地址*/  
+        ,`jwid`			 /* 微信原始id */
+        ,project_code     /* 活动项目编码 */                     
+        )
+      values(
+         #{id,jdbcType=VARCHAR}
+        ,#{actName,jdbcType=VARCHAR}
+        ,#{actDetail,jdbcType=VARCHAR}
+        ,#{actRule,jdbcType=VARCHAR}
+        ,#{begainTime,jdbcType=TIMESTAMP}
+        ,#{endTime,jdbcType=TIMESTAMP}
+        ,#{productNum,jdbcType=INTEGER}
+        ,#{productUnit,jdbcType=VARCHAR}
+        ,#{productName,jdbcType=VARCHAR}
+        ,#{productImg,jdbcType=VARCHAR}
+        ,#{productPrice,jdbcType=DECIMAL}
+        ,#{foucsUserCanJoin,jdbcType=VARCHAR}
+        ,#{showRate,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP}
+        ,#{productRemainNum,jdbcType=INTEGER}
+        ,#{cutMinPrice,jdbcType=DECIMAL}
+        ,#{template,jdbcType=VARCHAR}
+        ,CONCAT((SELECT p.hdurl FROM jw_system_project p  where p.code=#{projectCode,jdbcType=VARCHAR}),CONCAT('&amp;actId=',#{id,jdbcType=VARCHAR}),CONCAT('&amp;jwid=',#{jwid,jdbcType=VARCHAR})) /* 活动链接 */
+        ,#{jwid,jdbcType=VARCHAR}
+        ,#{projectCode,jdbcType=VARCHAR}
+      )
+	</insert>
+	
+	<!--
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_bargain wab 	/* 砍价活动表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+    		 		/* 产品数量 */ 
+   		 		   wab.act_name     = #{actName}                 /* 砍价活动名称 */ 
+                  ,wab.act_detail   = #{actDetail}                 /* 活动描述 */ 
+                  ,wab.act_rule     = #{actRule}                 /* 活动规则 */ 
+                  ,wab.begain_time  = #{begainTime}                 /* 活动开始时间 */ 
+                  ,wab.end_time     = #{endTime}                 /* 活动结束时间 */ 
+                  ,wab.product_num  = #{productNum}                 /* 产品数量 */ 
+                  ,wab.product_unit = #{productUnit}                 /* 产品单位 */ 
+                  ,wab.product_name = #{productName}                 /* 产品名称 */
+                  ,wab.product_img = #{productImg}                 /* 产品图片 */ 
+                  ,wab.product_price= #{productPrice}                 /* 产品价格 */ 
+                  ,wab.foucs_user_can_join = #{foucsUserCanJoin}          /* 是否关注用户参与 */ 
+                  ,wab.show_rate    = #{showRate}                 /* 展示比例 */ 
+                  ,wab.create_time  = #{createTime}                 /* 创建时间 */ 
+                  ,wab.product_remain_num = #{productRemainNum}          /* 产品剩余数量 */
+                  ,wab.cut_min_price = #{cutMinPrice}               /* 砍价最低金额 */
+                  ,wab.template     = #{template}                   /* 模版简称*/
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	<!--
+	开发信息: 
+	处理信息: 根据ID删除一条活动记录
+	-->  
+	 <delete id="delete" parameterType="Object">
+	    delete from wx_act_bargain
+	      where 
+	           id = #{id}		/* 序号 */ 
+	 </delete>
+	 
+	 <!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+		   <if test="query.actName != null and query.actName!=''">
+		     and gwab.act_name like concat(concat('%',#{query.actName}),'%')
+		   </if>
+		   <if test="query.productName != null and query.productName!=''">
+		     and gwab.product_name like concat(concat('%',#{query.productName}),'%')
+		   </if>
+		   <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* jwid */
+			    	AND gwab.jwid =  #{query.jwid,jdbcType=VARCHAR}
+		   </if>
+		</trim>
+	</sql>
+	 
+	 
+	 <!--
+	方法名称: count
+	调用路径: GzWxActBargain.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_bargain      AS gwab      /* 砍价活动配置 */ 
+		 WHERE 1=1
+		 <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: GzWxActBargain.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="GzWxActBargain">
+		    SELECT 
+                   gwab.id                            /* ID */ 
+                  ,gwab.act_name                      /* 砍价活动名称 */ 
+                  ,gwab.act_detail                    /* 活动描述 */ 
+                  ,gwab.act_rule                      /* 活动规则 */  
+                  ,gwab.begain_time                   /* 活动开始时间 */ 
+                  ,gwab.end_time                      /*  活动结束时间 */ 
+                  ,gwab.product_num                   /* 产品数量 */ 
+                  ,gwab.product_unit                  /* 产品单位 */ 
+                  ,gwab.product_name                  /* 产品名称 */
+                  ,gwab.product_img                   /* 产品图片 */ 
+                  ,gwab.product_price                 /* 产品价格 */ 
+                  ,gwab.foucs_user_can_join           /* 是否关注用户参与 */ 
+                  ,gwab.show_rate                     /* 展示比例 */ 
+                  ,gwab.create_time                   /* 创建时间 */ 
+                  ,gwab.product_remain_num            /* 产品剩余数量 */
+                  ,gwab.cut_min_price                 /* 砍价最低金额 */
+                  ,gwab.template                      /* 模版简称*/
+                  ,gwab.hdurl                         /* 入口地址 */ 
+                  ,gwab.jwid                         /* 对应微信平台原始id */
+                  ,jwj.name                         /* 微信公众号名称 */
+		FROM   	 wx_act_bargain      AS gwab      /* 砍价活动配置 */
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON gwab.jwid=jwj.jwid 
+		WHERE 1=1
+		  <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+</mapper>

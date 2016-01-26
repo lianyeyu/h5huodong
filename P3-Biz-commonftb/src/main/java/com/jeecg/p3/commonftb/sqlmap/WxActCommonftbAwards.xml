@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbAwards">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbAwards" type="com.jeecg.p3.commonftb.entity.WxActCommonftbAwards" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="awards_seq" property="awardsSeq" jdbcType="INTEGER"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="real_name" property="realName" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<result column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+		<result column="card_psd" property="cardPsd" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动id */
+			    	AND waca.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 兑奖人openid */
+			    	AND waca.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 兑奖人昵称 */
+			    	AND waca.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.realName != null and query.realName != ''" >
+	  		 		/* 真实姓名 */
+			    	AND waca.real_name =  #{query.realName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.mobile != null and query.mobile != ''" >
+	  		 		/* 手机号 */
+			    	AND waca.mobile =  #{query.mobile,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.couponId != null and query.couponId != ''" >
+	  		 		/* 卡券id */
+			    	AND waca.coupon_id =  #{query.couponId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 对应微信平台原始id */
+			    	AND waca.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_awards   /* 领取奖品记录表 */  
+					(	
+                      id                            /*  */ 
+                     ,act_id                        /* 活动id */ 
+                     ,awards_seq                    /* 奖品序号 */ 
+                     ,openid                        /* 兑奖人openid */ 
+                     ,nickname                      /* 兑奖人昵称 */ 
+                     ,real_name                     /* 真实姓名 */ 
+                     ,mobile                        /* 手机号 */ 
+                     ,address                       /* 详细地址 */ 
+                     ,coupon_id                       /* 卡券id */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,jwid                          /* 对应微信平台原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动id */ 
+                     ,#{awardsSeq,jdbcType=INTEGER}                     /* 奖品序号 */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 兑奖人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 兑奖人昵称 */ 
+                     ,#{realName,jdbcType=VARCHAR}                      /* 真实姓名 */ 
+                     ,#{mobile,jdbcType=VARCHAR}                        /* 手机号 */ 
+                     ,#{address,jdbcType=VARCHAR}                       /* 详细地址 */ 
+                     ,#{couponId,jdbcType=VARCHAR}                        /* 卡券id */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 对应微信平台原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_awards  	/* 领取奖品记录表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动id */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardsSeq != null">
+		    		 		/* 奖品序号 */ 
+	    		 			awards_seq = #{awardsSeq,jdbcType=INTEGER},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 兑奖人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 兑奖人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="realName != null">
+		    		 		/* 真实姓名 */ 
+	    		 			real_name = #{realName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="mobile != null">
+		    		 		/* 手机号 */ 
+	    		 			mobile = #{mobile,jdbcType=VARCHAR},
+						 </if>
+						 <if test="address != null">
+		    		 		/* 详细地址 */ 
+	    		 			address = #{address,jdbcType=VARCHAR},
+						 </if>
+						 <if test="couponId != null">
+		    		 		/* 卡券id */ 
+	    		 			coupon_id = #{couponId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 对应微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbAwards">
+		   SELECT   
+                   waca.id                            /*  */ 
+                  ,waca.act_id                        /* 活动id */ 
+                  ,waca.awards_seq                    /* 奖品序号 */ 
+                  ,waca.openid                        /* 兑奖人openid */ 
+                  ,waca.nickname                      /* 兑奖人昵称 */ 
+                  ,waca.real_name                     /* 真实姓名 */ 
+                  ,waca.mobile                        /* 手机号 */ 
+                  ,waca.address                       /* 详细地址 */ 
+                  ,waca.coupon_id                       /* 卡券id */ 
+                  ,waca.create_time                   /* 创建时间 */ 
+                  ,waca.jwid                          /* 对应微信平台原始id */ 
+		   FROM   wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_awards 	/* 领取奖品记录表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbAwards.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbAwards">
+		    SELECT 
+                   waca.id                            /*  */ 
+                  ,waca.act_id                        /* 活动id */ 
+                  ,waca.awards_seq                    /* 奖品序号 */ 
+                  ,waca.openid                        /* 兑奖人openid */ 
+                  ,waca.nickname                      /* 兑奖人昵称 */ 
+                  ,waca.real_name                     /* 真实姓名 */ 
+                  ,waca.mobile                        /* 手机号 */ 
+                  ,waca.address                       /* 详细地址 */ 
+                  ,waca.coupon_id                       /* 卡券id */ 
+                  ,waca.create_time                   /* 创建时间 */ 
+                  ,waca.jwid                          /* 对应微信平台原始id */ 
+		FROM   	 wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	<select id="queryBargainAwardsByActIdAndOpenid" parameterType="Object"  resultMap="WxActCommonftbAwards">
+		    SELECT 
+                   waca.id                            /*  */ 
+                  ,waca.act_id                        /* 活动id */ 
+                  ,waca.awards_seq                    /* 奖品序号 */ 
+                  ,waca.openid                        /* 兑奖人openid */ 
+                  ,waca.nickname                      /* 兑奖人昵称 */ 
+                  ,waca.real_name                     /* 真实姓名 */ 
+                  ,waca.mobile                        /* 手机号 */ 
+                  ,waca.address                       /* 详细地址 */ 
+                  ,waca.coupon_id                       /* 卡券id */ 
+                  ,waca.create_time                   /* 创建时间 */ 
+                  ,waca.jwid                          /* 对应微信平台原始id */ 
+                  ,wacc.card_psd                          /* 卡券 */ 
+		FROM   	 wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */
+		   LEFT JOIN wx_act_commonftb_coupon      AS wacc   ON waca.coupon_id = wacc.id
+		   WHERE
+				waca.act_id = #{actId}				
+				and  waca.openid = #{openid}	
+				
+	</select>
+	<select id="queryBargainAwardsByActId" parameterType="Object"  resultMap="WxActCommonftbAwards">
+		    SELECT 
+                   waca.id                            /*  */ 
+                  ,waca.act_id                        /* 活动id */ 
+                  ,waca.awards_seq                    /* 奖品序号 */ 
+                  ,waca.openid                        /* 兑奖人openid */ 
+                  ,waca.nickname                      /* 兑奖人昵称 */ 
+                  ,waca.real_name                     /* 真实姓名 */ 
+                  ,waca.mobile                        /* 手机号 */ 
+                  ,waca.address                       /* 详细地址 */ 
+                  ,waca.coupon_id                       /* 卡券id */ 
+                  ,waca.create_time                   /* 创建时间 */ 
+                  ,waca.jwid                          /* 对应微信平台原始id */ 
+                  ,wacc.card_psd                          /* 卡券 */ 
+		FROM   	 wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */
+		   LEFT JOIN wx_act_commonftb_coupon      AS wacc   ON waca.coupon_id = wacc.id
+		   WHERE
+				waca.act_id = #{actId}				
+	</select>
+		<!--
+	方法名称: getMaxAwardsSeq
+	调用路径: WxActCommonftbAwards.getMaxAwardsSeq
+	开发信息: 
+	处理信息: 根据活动id获取奖品最大的序号
+	-->
+	<select id="getMaxAwardsSeq" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT max(awards_seq)  FROM  wx_act_commonftb_awards      AS waca      /* 领取奖品记录表 */
+		 WHERE act_id = #{value}
+	</select>	
+</mapper>

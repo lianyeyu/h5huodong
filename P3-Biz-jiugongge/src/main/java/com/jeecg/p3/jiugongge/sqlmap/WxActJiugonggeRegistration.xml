@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration">
+
+	<!-- Result Map-->
+	<resultMap id="WxActJiugonggeRegistration" type="com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="awards_num" property="awardsNum" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="awards_status" property="awardsStatus" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动id */
+			    	AND wajr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* 活动所属人openid */
+			    	AND wajr.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 活动所属人昵称 */
+			    	AND wajr.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardsNum != null and query.awardsNum != ''" >
+	  		 		/* 抽奖次数 */
+			    	AND wajr.awards_num =  #{query.awardsNum,jdbcType=INTEGER}
+				 </if>
+				 <if test="query.createTime != null and query.createTime != ''" >
+	  		 		/* 创建时间 */
+			    	AND wajr.create_time =  #{query.createTime,jdbcType=TIMESTAMP}
+				 </if>
+				 <if test="query.updateTime != null and query.updateTime != ''" >
+	  		 		/* 更新时间 */
+			    	AND wajr.update_time =  #{query.updateTime,jdbcType=TIMESTAMP}
+				 </if>
+				 <if test="query.awardsStatus != null and query.awardsStatus != ''" >
+	  		 		/* 抽奖状态0:未抽奖;1:已抽奖; */
+			    	AND wajr.awards_status =  #{query.awardsStatus,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/*  */
+			    	AND wajr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_jiugongge_registration   /* 配置 */  
+					(	
+                      id                            /*  */ 
+                     ,act_id                        /* 活动id */ 
+                     ,openid                        /* 活动所属人openid */ 
+                     ,nickname                      /* 活动所属人昵称 */ 
+                     ,awards_num                    /* 抽奖次数 */ 
+                     ,create_time                   /* 创建时间 */ 
+                     ,update_time                   /* 更新时间 */ 
+                     ,awards_status                 /* 抽奖状态0:未抽奖;1:已抽奖; */ 
+                     ,jwid                          /*  */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* 活动所属人openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 活动所属人昵称 */ 
+                     ,#{awardsNum,jdbcType=INTEGER}                     /* 抽奖次数 */ 
+                     ,#{createTime,jdbcType=TIMESTAMP}                    /* 创建时间 */ 
+                     ,#{updateTime,jdbcType=TIMESTAMP}                    /* 更新时间 */ 
+                     ,#{awardsStatus,jdbcType=VARCHAR}                  /* 抽奖状态0:未抽奖;1:已抽奖; */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /*  */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_jiugongge_registration  	/* 配置 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动id */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* 活动所属人openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 活动所属人昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardsNum != null">
+		    		 		/* 抽奖次数 */ 
+	    		 			awards_num = #{awardsNum,jdbcType=INTEGER},
+						 </if>
+						 <if test="createTime != null">
+		    		 		/* 创建时间 */ 
+	    		 			create_time = #{createTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="updateTime != null">
+		    		 		/* 更新时间 */ 
+	    		 			update_time = #{updateTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="awardsStatus != null">
+		    		 		/* 抽奖状态0:未抽奖;1:已抽奖; */ 
+	    		 			awards_status = #{awardsStatus,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/*  */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActJiugonggeRegistration">
+		   SELECT   
+                   wajr.id                            /*  */ 
+                  ,wajr.act_id                        /* 活动id */ 
+                  ,wajr.openid                        /* 活动所属人openid */ 
+                  ,wajr.nickname                      /* 活动所属人昵称 */ 
+                  ,wajr.awards_num                    /* 抽奖次数 */ 
+                  ,wajr.create_time                   /* 创建时间 */ 
+                  ,wajr.update_time                   /* 更新时间 */ 
+                  ,wajr.awards_status                 /* 抽奖状态0:未抽奖;1:已抽奖; */ 
+                  ,wajr.jwid                          /*  */ 
+		   FROM   wx_act_jiugongge_registration      AS wajr      /* 配置 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_jiugongge_registration 	/* 配置 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_jiugongge_registration      AS wajr      /* 配置 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeRegistration.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActJiugonggeRegistration">
+		    SELECT 
+                   wajr.id                            /*  */ 
+                  ,wajr.act_id                        /* 活动id */ 
+                  ,wajr.openid                        /* 活动所属人openid */ 
+                  ,wajr.nickname                      /* 活动所属人昵称 */ 
+                  ,wajr.awards_num                    /* 抽奖次数 */ 
+                  ,wajr.create_time                   /* 创建时间 */ 
+                  ,wajr.update_time                   /* 更新时间 */ 
+                  ,wajr.awards_status                 /* 抽奖状态0:未抽奖;1:已抽奖; */ 
+                  ,wajr.jwid                          /*  */ 
+		FROM   	 wx_act_jiugongge_registration      AS wajr      /* 配置 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<!--
+	方法名称: queryRegistrationByOpenidAndActId
+	调用路径: WxActJiugonggeRegistration.queryRegistrationByOpenidAndActId
+	开发信息: 
+	处理信息: 根据openid和活动id,jwid查询活动报名信息
+	-->
+	<select id="queryRegistrationByOpenidAndActIdAndJwid" parameterType="Object"  resultMap="WxActJiugonggeRegistration">
+		    SELECT 
+                   wajr.id                            /*  */ 
+                  ,wajr.act_id                        /* 活动id */ 
+                  ,wajr.openid                        /* 活动所属人openid */ 
+                  ,wajr.nickname                      /* 活动所属人昵称 */ 
+                  ,wajr.awards_num                    /* 抽奖次数 */ 
+                  ,wajr.create_time                   /* 创建时间 */ 
+                  ,wajr.update_time                   /* 更新时间 */ 
+                  ,wajr.awards_status                 /* 抽奖状态0:未抽奖;1:已抽奖; */ 
+                  ,wajr.jwid                          /*  */ 
+		FROM   	 wx_act_jiugongge_registration      AS wajr      /* 配置 */ 
+		   WHERE
+				wajr.act_id = #{actId}				/* 活动id  */ 
+			AND wajr.openid = #{openid}				/* 活动所属人openid   */ 
+			AND wajr.jwid = #{jwid}				/* jwid   */ 
+	</select>
+</mapper>

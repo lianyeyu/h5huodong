@@ -1,0 +1,99 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/shaketicket/back/wxActShaketicketConfig/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">砍价活动配置列表</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-3">
+															    <label for="actId" class="control-label col-sm-3 line34">所属活动</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="actId" id="actId" value="$!{wxActShaketicketConfig.actId}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-3">
+															    <label for="awardId" class="control-label col-sm-3 line34"></label>
+															     <div class="col-sm-8">
+															    <input type="text" name="awardId" id="awardId" value="$!{wxActShaketicketConfig.awardId}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-3">
+															    <label for="probability" class="control-label col-sm-3 line34">中奖概率</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="probability" id="probability" value="$!{wxActShaketicketConfig.probability}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-3">
+															    <label for="amount" class="control-label col-sm-3 line34">总数量</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="amount" id="amount" value="$!{wxActShaketicketConfig.amount}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-3">
+															    <label for="remainNum" class="control-label col-sm-3 line34">剩余数量</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="remainNum" id="remainNum" value="$!{wxActShaketicketConfig.remainNum}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-3">
+															    <label for="jwid" class="control-label col-sm-3 line34">微信公众号</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="jwid" id="jwid" value="$!{wxActShaketicketConfig.jwid}" class="form-control">
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketConfig/toAdd.do')" >新增</button></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>所属活动</th>
+													<th></th>
+													<th>中奖概率</th>
+													<th>总数量</th>
+													<th>剩余数量</th>
+													<th>微信公众号</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>$!{info.actId}</td>
+																	<td>$!{info.awardId}</td>
+																	<td>$!{info.probability}</td>
+																	<td>$!{info.amount}</td>
+																	<td>$!{info.remainNum}</td>
+																	<td>$!{info.jwid}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketConfig/toEdit.do?id=$!{info.id}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/shaketicket/back/wxActShaketicketConfig/doDelete.do?id=$!{info.id}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketConfig/toDetail.do?id=$!{info.id}')">详情</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>  
+				</form>
+		</div>
+	</div>
+</body>
+</html>

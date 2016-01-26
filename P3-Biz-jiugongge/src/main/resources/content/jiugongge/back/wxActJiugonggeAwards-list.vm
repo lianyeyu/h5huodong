@@ -1,0 +1,63 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/jiugongge/back/wxActJiugonggeAwards/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">奖项配置列表</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-4">
+															    <label for="awardsName" class="control-label col-sm-4 line34">奖项名称</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="awardsName" id="awardsName" value="$!{wxActJiugonggeAwards.awardsName}" class="form-control">
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/jiugongge/back/wxActJiugonggeAwards/toAdd.do')" >新增</button></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>奖项名称</th>
+													<th>奖项值</th>
+													<th>微信公众号</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>$!{info.awardsName}</td>
+																	<td>$!{info.awardsValue}</td>
+																	<td>$!{info.jwidName}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/jiugongge/back/wxActJiugonggeAwards/toEdit.do?id=$!{info.id}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/jiugongge/back/wxActJiugonggeAwards/doDelete.do?id=$!{info.id}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/jiugongge/back/wxActJiugonggeAwards/toDetail.do?id=$!{info.id}')">详情</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>  
+				</form>
+		</div>
+	</div>
+</body>
+</html>

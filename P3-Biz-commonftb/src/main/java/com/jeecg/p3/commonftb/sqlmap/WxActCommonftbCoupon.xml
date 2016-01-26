@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon">
+
+	<!-- Result Map-->
+	<resultMap id="WxActCommonftbCoupon" type="com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="card_id" property="cardId" jdbcType="VARCHAR"/>
+		<result column="card_psd" property="cardPsd" jdbcType="VARCHAR"/>
+		<result column="card_type" property="cardType" jdbcType="VARCHAR"/>
+		<result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="least_cost" property="leastCost" jdbcType="DECIMAL"/>
+		<result column="reduce_cost" property="reduceCost" jdbcType="DECIMAL"/>
+		<result column="status" property="status" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* 活动id(子活动) */
+			    	AND wacc.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.cardId != null and query.cardId != ''" >
+	  		 		/* 卡券ID */
+			    	AND wacc.card_id =  #{query.cardId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.cardPsd != null and query.cardPsd != ''" >
+	  		 		/* 卡券密码 */
+			    	AND wacc.card_psd =  #{query.cardPsd,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.cardType != null and query.cardType != ''" >
+	  		 		/* 卡券类型 CASH：代金券类型 */
+			    	AND wacc.card_type =  #{query.cardType,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.brandName != null and query.brandName != ''" >
+	  		 		/* 商户名字 */
+			    	AND wacc.brand_name =  #{query.brandName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.title != null and query.title != ''" >
+	  		 		/* 卡券名 */
+			    	AND wacc.title =  #{query.title,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.leastCost != null and query.leastCost != ''" >
+	  		 		/* 代金券专用，表示起用金额（单位为元） */
+			    	AND wacc.least_cost =  #{query.leastCost,jdbcType=DECIMAL}
+				 </if>
+				 <if test="query.reduceCost != null and query.reduceCost != ''" >
+	  		 		/* 代金券专用，表示减免金额。（单位为元） */
+			    	AND wacc.reduce_cost =  #{query.reduceCost,jdbcType=DECIMAL}
+				 </if>
+				 <if test="query.status != null and query.status != ''" >
+	  		 		/* 状态（0:未领取，1:已领取） */
+			    	AND wacc.status =  #{query.status,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信原始id */
+			    	AND wacc.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_commonftb_coupon   /* 卡券配置表 */  
+					(	
+                      id                            /*  */ 
+                     ,act_id                        /* 活动id(子活动) */ 
+                     ,card_id                       /* 卡券ID */ 
+                     ,card_psd                      /* 卡券密码 */ 
+                     ,card_type                     /* 卡券类型 CASH：代金券类型 */ 
+                     ,brand_name                    /* 商户名字 */ 
+                     ,title                         /* 卡券名 */ 
+                     ,least_cost                    /* 代金券专用，表示起用金额（单位为元） */ 
+                     ,reduce_cost                   /* 代金券专用，表示减免金额。（单位为元） */ 
+                     ,status                        /* 状态（0:未领取，1:已领取） */ 
+                     ,jwid                          /* 微信原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动id(子活动) */ 
+                     ,#{cardId,jdbcType=VARCHAR}                        /* 卡券ID */ 
+                     ,#{cardPsd,jdbcType=VARCHAR}                       /* 卡券密码 */ 
+                     ,#{cardType,jdbcType=VARCHAR}                      /* 卡券类型 CASH：代金券类型 */ 
+                     ,#{brandName,jdbcType=VARCHAR}                     /* 商户名字 */ 
+                     ,#{title,jdbcType=VARCHAR}                         /* 卡券名 */ 
+                     ,#{leastCost,jdbcType=DECIMAL}                     /* 代金券专用，表示起用金额（单位为元） */ 
+                     ,#{reduceCost,jdbcType=DECIMAL}                    /* 代金券专用，表示减免金额。（单位为元） */ 
+                     ,#{status,jdbcType=VARCHAR}                        /* 状态（0:未领取，1:已领取） */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_commonftb_coupon  	/* 卡券配置表 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* 活动id(子活动) */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cardId != null">
+		    		 		/* 卡券ID */ 
+	    		 			card_id = #{cardId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cardPsd != null">
+		    		 		/* 卡券密码 */ 
+	    		 			card_psd = #{cardPsd,jdbcType=VARCHAR},
+						 </if>
+						 <if test="cardType != null">
+		    		 		/* 卡券类型 CASH：代金券类型 */ 
+	    		 			card_type = #{cardType,jdbcType=VARCHAR},
+						 </if>
+						 <if test="brandName != null">
+		    		 		/* 商户名字 */ 
+	    		 			brand_name = #{brandName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="title != null">
+		    		 		/* 卡券名 */ 
+	    		 			title = #{title,jdbcType=VARCHAR},
+						 </if>
+						 <if test="leastCost != null">
+		    		 		/* 代金券专用，表示起用金额（单位为元） */ 
+	    		 			least_cost = #{leastCost,jdbcType=DECIMAL},
+						 </if>
+						 <if test="reduceCost != null">
+		    		 		/* 代金券专用，表示减免金额。（单位为元） */ 
+	    		 			reduce_cost = #{reduceCost,jdbcType=DECIMAL},
+						 </if>
+						 <if test="status != null">
+		    		 		/* 状态（0:未领取，1:已领取） */ 
+	    		 			status = #{status,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActCommonftbCoupon">
+		   SELECT   
+                   wacc.id                            /*  */ 
+                  ,wacc.act_id                        /* 活动id(子活动) */ 
+                  ,wacc.card_id                       /* 卡券ID */ 
+                  ,wacc.card_psd                      /* 卡券密码 */ 
+                  ,wacc.card_type                     /* 卡券类型 CASH：代金券类型 */ 
+                  ,wacc.brand_name                    /* 商户名字 */ 
+                  ,wacc.title                         /* 卡券名 */ 
+                  ,wacc.least_cost                    /* 代金券专用，表示起用金额（单位为元） */ 
+                  ,wacc.reduce_cost                   /* 代金券专用，表示减免金额。（单位为元） */ 
+                  ,wacc.status                        /* 状态（0:未领取，1:已领取） */ 
+                  ,wacc.jwid                          /* 微信原始id */ 
+		   FROM   wx_act_commonftb_coupon      AS wacc      /* 卡券配置表 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_commonftb_coupon 	/* 卡券配置表 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_commonftb_coupon      AS wacc      /* 卡券配置表 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.commonftb.entity.WxActCommonftbCoupon.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActCommonftbCoupon">
+		    SELECT 
+                   wacc.id                            /*  */ 
+                  ,wacc.act_id                        /* 活动id(子活动) */ 
+                  ,wacc.card_id                       /* 卡券ID */ 
+                  ,wacc.card_psd                      /* 卡券密码 */ 
+                  ,wacc.card_type                     /* 卡券类型 CASH：代金券类型 */ 
+                  ,wacc.brand_name                    /* 商户名字 */ 
+                  ,wacc.title                         /* 卡券名 */ 
+                  ,wacc.least_cost                    /* 代金券专用，表示起用金额（单位为元） */ 
+                  ,wacc.reduce_cost                   /* 代金券专用，表示减免金额。（单位为元） */ 
+                  ,wacc.status                        /* 状态（0:未领取，1:已领取） */ 
+                  ,wacc.jwid                          /* 微信原始id */ 
+		FROM   	 wx_act_commonftb_coupon      AS wacc      /* 卡券配置表 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+		<!--
+	方法名称: queryBargainCouponListByMainActIdAndCost
+	调用路径: WxActCommonftbCoupon.queryBargainCouponListByMainActIdAndActIdAndCost
+	开发信息: 
+	处理信息: 根据活动id查询该活动管理的卡券
+	-->
+	<select id="queryBargainCouponListByActIdAndCost" parameterType="Object"  resultMap="WxActCommonftbCoupon">
+		    SELECT 
+                   wacc.id                            /*  */ 
+                  ,wacc.act_id                        /* 活动id(子活动) */ 
+                  ,wacc.card_id                       /* 卡券ID */ 
+                  ,wacc.card_psd                      /* 卡券密码 */ 
+                  ,wacc.card_type                     /* 卡券类型 CASH：代金券类型 */ 
+                  ,wacc.brand_name                    /* 商户名字 */ 
+                  ,wacc.title                         /* 卡券名 */ 
+                  ,wacc.least_cost                    /* 代金券专用，表示起用金额（单位为元） */ 
+                  ,wacc.reduce_cost                   /* 代金券专用，表示减免金额。（单位为元） */ 
+                  ,wacc.status                        /* 状态（0:未领取，1:已领取） */ 
+                  ,wacc.jwid                          /* 微信原始id */ 
+		FROM   	 wx_act_commonftb_coupon      AS wacc      /* 卡券配置表 */  
+		   WHERE
+				wacc.act_id = #{actId}				/* 子活动id */ 
+		   AND	wacc.reduce_cost = #{cost}				/* 减免金额 */ 
+		   AND  wacc.status = '0'                       /* 状态是0：未领取 */
+				order by wacc.id desc
+	</select>
+
+</mapper>

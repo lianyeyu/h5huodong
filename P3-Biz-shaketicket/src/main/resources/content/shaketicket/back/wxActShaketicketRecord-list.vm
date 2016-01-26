@@ -1,0 +1,90 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/shaketicket/back/wxActShaketicketRecord/list.do" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">抽奖记录</div>
+								  <div class="panel-body">
+								  		<div class="search">				
+															 <div class="form-group col-sm-4">
+															    <label for="openid" class="control-label col-sm-3 line34">微信openid</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="openid" id="openid" value="$!{wxActShaketicketRecord.openid}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="drawStatus" class="control-label col-sm-3 line34">抽奖状态</label>
+															     <div class="col-sm-8">
+															    <select name="drawStatus" id="drawStatus" value="$!{wxActShaketicketRecord.drawStatus}"  class="form-control" > 
+														      		  <option value="0" #if($!wxActShaketicketRecord.drawStatus=='0') selected #end>未中奖</option>
+														      		  <option value="1" #if($!wxActShaketicketRecord.drawStatus=='1') selected #end>已中奖</option>
+														      	 </select>
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="receiveStatus" class="control-label col-sm-3 line34">领取状态 </label>
+															     <div class="col-sm-8">
+															    <select name="receiveStatus" id="receiveStatus" value="$!{wxActShaketicketRecord.drawStatus}"  class="form-control" > 
+														      		  <option value="0" #if($!wxActShaketicketRecord.drawStatus=='0') selected #end>未领取</option>
+														      		  <option value="1" #if($!wxActShaketicketRecord.drawStatus=='1') selected #end>已领取</option>
+														      	 </select>
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								  		<legend  class="le"><a class="btn btn-info" href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketRecord/exportExcelWin.do?actId=$!{wxActShaketicketRecord.actId}')">中奖记录导出Excel</a>
+								  		<a class="btn btn-info" href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketRecord/exportExcel.do?actId=$!{wxActShaketicketRecord.actId}')">抽奖记录导出Excel</a>
+								  		</legend>
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													<th>微信openid</th>
+													<th>奖品名称</th>
+													<th>抽奖状态</th>
+													<th>领取状态 </th>
+													<th>抽奖时间</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	<td>$!{info.openid}</td>
+																	<td>$!{info.awardsName}</td>
+																	<td>#if($!info.drawStatus=='0') 未中奖 #else 已中奖  #end</td>
+																	<td>#if($!info.receiveStatus=='0')  未领取 #else  已领取  #end</td>
+																	<td>$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{info.drawTime})</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/shaketicket/back/wxActShaketicketRecord/toDetail.do?id=$!{info.id}&backurl=$!{backurl}')">详情</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>
+                <div class="form-group mno">
+						<div class="col-sm-offset-1 col-sm-6">
+							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/$!{backurl}')">返回</button>
+        				 </div>
+        		</div> 
+				</form>
+		</div>
+	</div>
+</body>
+</html>

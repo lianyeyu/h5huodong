@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards">
+
+	<!-- Result Map-->
+	<resultMap id="WxActJiugonggeAwards" type="com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="awards_name" property="awardsName" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="awards_value" property="awardsValue" jdbcType="INTEGER"/>
+		<result column="name" property="jwidName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.awardsName != null and query.awardsName != ''" >
+	  		 		/* 奖项名称 */
+			    	AND waja.awards_name =  #{query.awardsName,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/*  */
+			    	AND waja.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.awardsValue != null and query.awardsValue != ''" >
+	  		 		/*  */
+			    	AND waja.awards_value =  #{query.awardsValue,jdbcType=INTEGER}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_jiugongge_awards   /* 配置 */  
+					(	
+                      id                            /*  */ 
+                     ,awards_name                   /* 奖项名称 */ 
+                     ,jwid                          /*  */ 
+                     ,awards_value                  /*  */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /*  */ 
+                     ,#{awardsName,jdbcType=VARCHAR}                    /* 奖项名称 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /*  */ 
+                     ,#{awardsValue,jdbcType=INTEGER}                   /*  */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_jiugongge_awards  	/* 配置 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="awardsName != null">
+		    		 		/* 奖项名称 */ 
+	    		 			awards_name = #{awardsName,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/*  */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardsValue != null">
+		    		 		/*  */ 
+	    		 			awards_value = #{awardsValue,jdbcType=INTEGER},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActJiugonggeAwards">
+		   SELECT   
+                   waja.id                            /*  */ 
+                  ,waja.awards_name                   /* 奖项名称 */ 
+                  ,waja.jwid                          /*  */ 
+                  ,waja.awards_value                  /*  */ 
+		   FROM   wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_jiugongge_awards 	/* 配置 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.jiugongge.entity.WxActJiugonggeAwards.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActJiugonggeAwards">
+		    SELECT 
+                   waja.id                            /*  */ 
+                  ,waja.awards_name                   /* 奖项名称 */ 
+                  ,waja.jwid                          /*  */ 
+                  ,waja.awards_value                  /*  */ 
+                  ,jwj.name
+		FROM   	 wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		LEFT JOIN jw_web_jwid      AS jwj
+		ON waja.jwid=jwj.jwid
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	<select id="queryAwards" parameterType="Object"  resultMap="WxActJiugonggeAwards">
+		    SELECT 
+                   waja.id                            /*奖项id*/ 
+                  ,waja.awards_name                   /* 奖项名称 */ 
+                  ,waja.jwid                          /*  */ 
+                  ,waja.awards_value                  /*奖项值*/ 
+		FROM   	 wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		   WHERE
+		    waja.jwid = #{jwid}
+	</select>
+	<select id="validReat" parameterType="Object"  resultMap="WxActJiugonggeAwards">
+		    SELECT 
+                   waja.id                            /*奖项id*/ 
+                  ,waja.awards_name                   /* 奖项名称 */ 
+                  ,waja.jwid                          /*  */ 
+                  ,waja.awards_value                  /*奖项值*/ 
+		FROM   	 wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		   WHERE
+		     waja.awards_value = #{value}
+		    AND waja.jwid = #{jwid}
+	</select>
+	<select id="editValidReat" parameterType="Object"  resultMap="WxActJiugonggeAwards">
+		    SELECT 
+                   waja.id                            /*奖项id*/ 
+                  ,waja.awards_name                   /* 奖项名称 */ 
+                  ,waja.jwid                          /*  */ 
+                  ,waja.awards_value                  /*奖项值*/ 
+		FROM   	 wx_act_jiugongge_awards      AS waja      /* 配置 */ 
+		   WHERE
+		     waja.awards_value = #{value}
+		    AND waja.jwid = #{jwid}
+		    AND waja.id != #{id}
+	</select>
+</mapper>

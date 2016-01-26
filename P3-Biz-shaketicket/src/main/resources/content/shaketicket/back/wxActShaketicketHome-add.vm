@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">新增</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/shaketicket/back/wxActShaketicketHome/doAdd.do" method="POST">
+					  		<input type="hidden" id="btn_sub" class="btn_sub" />
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">活动名称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.actName}" name="actName" id="actName" class="form-control" datatype="*"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">启用状态</label>
+													    <div class="col-sm-8">
+													      <select name="activeFlag" id="activeFlag" value="$!{wxActShaketicketHome.activeFlag}"  class="form-control" > 
+														      	<option value="0" >停用</option>
+														      	<option value="1" >激活</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人抽奖总次数</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.count}" name="count" id="count" class="form-control" datatype="n" errorMsg="只能输入整数值"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">个人每日抽奖次数</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.numPerDay}" name="numPerDay" id="numPerDay" class="form-control" datatype="n" errorMsg="只能输入整数值"/>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否关注可参加</label>
+													    <div class="col-sm-8">
+													      <select name="foucsUserCanJoin" id="foucsUserCanJoin" value="$!{wxActShaketicketHome.foucsUserCanJoin}"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否绑定手机可参加</label>
+													    <div class="col-sm-8">
+													      <select name="bindingMobileCanJoin" id="bindingMobileCanJoin" value="$!{wxActShaketicketHome.bindingMobileCanJoin}"  class="form-control" > 
+														      	<option value="0" >否</option>
+														      	<option value="1" >是</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">是否中奖可参与</label>
+													    <div class="col-sm-8">
+													      <select name="winCanJoin" id="winCanJoin" value="$!{wxActShaketicketHome.winCanJoin}"  class="form-control" > 
+														      	<option value="0" >中奖可继续参与 </option>
+														      	<option value="1" >中奖不可参与</option>
+														  </select>
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">模版简称</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActShaketicketHome.template}" name="template" id="template" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <div class="col-sm-8">
+													      <a href="javascript:addAwards();" style="font-size:18px;">添加活动奖项</a>
+													    </div>
+													</div>
+													<button type="button"  id="addBtn" style="display:none;color:rgb(72, 167, 231);padding: 3px 15px;font-size: 10px;">添加行</button>
+													 <table class="table table-striped" id="table_awards" style="display:none;">
+												        <thead>
+																<th width=20px>奖品</th>
+																<th width=5px>数量</th>
+																<th width=20px>中奖概率&nbsp<span style="font-size:3px;color:rgb(72, 167, 231);">(概率按权重进行分配,概率总和不大于1)</span></th>
+									                			<th width=5px>操作</th>
+												        </thead>
+												        <tbody id="tbody_awards">
+												            	
+												         </tbody>
+												    </table>													
+													
+										<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketHome/list.do')">返回</button>
+	        									<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+        									 </div>
+        								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<table style="display: none">
+	<tbody id="table_awards_template">
+		<tr>
+    	    <td>
+    	    	<select name="awarsList[#index#].awardId"  class="form-control" > 
+			    	#foreach($award in $awards)
+		      			<option value="$!award.id" >$!award.awardsName</option>
+		      		#end
+	      	     </select>
+			</td>														
+			<td>
+			<input type="text" name="awarsList[#index#].amount" class="form-control" ignore="ignore" datatype="n" errorMsg="只能输入整数值"/>
+			<span class="Validform_checktip" name="awarsList[#index#].amount"></span>
+			</td>
+			<td>
+				<input type="text"  name="awarsList[#index#].probability" class="form-control" ignore="ignore" datatype="/^(0|0\.\d*|1(\.0{1,2})?)$/" errorMsg="只能输入大于等于0到小于等于1之间的数"/>
+            <span class="Validform_checktip" name="awarsList[#index#].probability"></span>
+            </td>
+            <td class="last">
+			<a  href="javascript:;" onclick="del(this)">删除</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script> 
+<script>
+function addAwards(){
+	$('#table_awards').toggle();
+	$('#addBtn').toggle();
+}
+$(function(){
+  var i=0;//根据索引设置select选中第几项
+	$('#addBtn').bind('click', function(){ 
+	         var list = $('#tbody_awards').find("tr"); 
+	 		 var tr =  $("#table_awards_template tr").clone();
+		    var awardsSelect=tr.find("td:first-child").find("select");		     
+		     awardsSelect.get(0).selectedIndex=i;
+		     i++;			
+		 	 $("#table_awards").append(tr);
+		 	 resetIndex('tbody_awards');	
+
+	 }); 
+	 	 
+});
+			
+function del(obj){
+	 	var $this = $(obj);
+        $this.parent().parent().remove(); 
+	 	resetIndex('tbody_awards');
+}
+
+</script>
+<script src="$!{basePath}/content/shaketicket/default/js/common.js" type="text/javascript"></script>

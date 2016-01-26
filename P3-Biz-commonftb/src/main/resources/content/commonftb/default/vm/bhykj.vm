@@ -1,0 +1,240 @@
+#set($version='?v=0.0.0')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!{dictTool.getSysText('bhykj.title',$!{commonftbMain.id})}</title>
+<meta charset="UTF-8">
+<meta content="yes" name="apple-mobile-web-app-capable"></meta>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"></meta>
+<meta name="format-detection" content="telephone=no"></meta>
+<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"></meta>
+<meta content="yes" name="full-screen"></meta>
+<meta content="true" name="x5-fullscreen"></meta>
+<meta content="application" name="browsermode"></meta>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link href="$!{basePath}/content/commonftb/default/css/index.css$!{version}" type="text/css" rel="stylesheet" />
+<script src="$!{basePath}/content/commonftb/default/js/jquery-1.8.0.min.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/jquery.form.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/common.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/static-page.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/wxcheck.js$!{version}" type="text/javascript"></script>
+</head>
+<body>
+	 	<input type="hidden" name="jwid" id="jwid" value="$!{bargainDto.jwid}"/>
+		<input type="hidden" name="openid" id="openid" value="$!{bargainDto.openid}"/>
+		<input type="hidden" name="appid" id="appid" value="$!{bargainDto.appid}"/>
+		<input type="hidden" name="nickname" id="nickname" value="$!{bargainDto.nickname}"/>
+	    <input type="hidden" name="subscribe" id="subscribe" value="$!{bargainDto.subscribe}"/>
+	 	<input type="hidden" name="mainactId" id="mainActId" value="$!{bargainDto.mainActId}"/>
+	    <input type="hidden" name="actId" id="barginActId" value="$!{bargainDto.actId}"/>
+	    <input type="hidden" id="registrationId" name="registrationId" value="$!{bargainRegistration.id}"/>
+
+<!--好友帮砍价页面 -->
+<div class="main">
+  <div class="banner"><img src="$!{basePath}/content/commonftb/default/img/banner_img.jpg" /></div>
+  <div class="conter_form">
+    <div class="module">
+       <div class="module_cot">
+       <!--内容-->
+       <!--好友帮砍价信息-->
+        <div class="information_nr_cont">
+          <div class="infomation_ggxx ">
+             <dl>
+               <dd class="bd_border"> 
+                   <div class="bd_xx_nr">
+                       <span >$!{bargainRegistration.nickname}人品暴涨</span><br />已有<span class="hongse">$!{recordListCount}</span>位好友帮忙砍价
+                   </div>
+               </dd>
+               <dd class="cp_nr_img2"><img src="#if($commonftb.productImg!='')$!{basePath}/content/commonftb/default/img/$!{commonftb.productImg}#else#end" /></dd>
+               <dd class="bd_cp_js">
+                 <p>$!{bargainRegistration.productName}</p>
+                 <p>当前价格：<span class="hongse hongs_size">$!{bargainRegistration.productNewPrice}</span>元</p>
+                 <p>原价：$!{bargainRegistration.productPrice}元</p>
+               </dd>
+             </dl>
+          </div>
+          </div>
+          <!--好友帮砍价信息 end-->
+
+           <!--按钮-->
+          <div class="infomation_btn_index_block ">
+            <div class="infomation_btn_button">
+                <button class="infomation_btn1 " onclick="bargain();">来一斧</button>
+            </div>
+            <div class="infomation_btn_button">
+               <button class="infomation_btn1 infomation_btn_left " onclick="join()">我要参加</button>
+            </div>
+           </div>
+          <!--按钮-->
+          <!--亲友团-->
+          <div class="information_nr_cont" id="recordtableheader">
+              <div class="infomation_tou infomation_tou_top">
+                <ul>
+                  <li class="tou"><span><img src="$!{basePath}/content/commonftb/default/img/grkj_nr_list_title1.png" /></span><span><img src="$!{basePath}/content/commonftb/default/img/grkj_nr_list_title2.png" /></span><span><img src="$!{basePath}/content/commonftb/default/img/grkj_nr_list_title3.png" /></span></li>
+                </ul>                      
+              </div>
+              <div class="infomation_tou">
+                <ul id="recordtable">
+                  #foreach($item in $recordList)
+                  <li class="wei "><span>$!{item.nickname}</span> <span >$!item.cutPrice元</span> <span>$!item.currPrice元</span></li>
+                  #end
+                </ul>
+              </div>
+              <div class="infomation_tou">
+                <ul >
+                  <li class="wei2">
+                      <a id="prev" href="#recordtableheader" class="qyt_fy_bg">上一页</a>
+                      <a id="current_page"  class="qyt_fy_bg2">2/5</a>
+                      <a id="next" href="#recordtableheader"  class="qyt_fy_bg3">下一页</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+          <!--亲友团 -->
+        <!--内容 end-->
+        <!--底部按钮-->
+        <div class="btn_nr_detail ">
+             <div class="infomation_btn_button2">
+                <button class="btn2 " onclick="location.href='$!{basePath}/commonftb/detail.do?mainActId=$!{bargainDto.mainActId}&appid=$!{bargainDto.appid}&jwid=$!{bargainDto.jwid}'">活动说明</button> 
+             </div>
+             <div class="infomation_btn_button2">
+                <button class="btn3 "   onclick="location.href='$!{dictTool.getSysText('index.link.1212',$!{commonftbMain.id})}'">$!{dictTool.getSysText('bhykj.linkBtnName',$!{commonftbMain.id})}</button>
+             </div>
+        </div>
+        <!--底部按钮 end-->
+       </div>
+    </div>
+  </div>
+</div>
+<!--好友帮砍价页面 end -->
+<!--遮罩层-->
+   <div style="opacity: 1;display:none;  " class="bombScreen"></div>
+<!--遮罩层 end-->
+<!-- 未关注 -->
+<div style="opacity: 1; display:none; " class="bombScreen" id="act_focus" onclick="popuphide('act_focus');">
+   <div class="bombs7  fail1">
+      <div class="inputcontent7">
+	      <div class="tstk_conter">
+	      <p class="lq_50m_zh">您尚未关注我们~<br />呜呜~</p>
+	      <div class="lq_erm_from">
+	          <p class="lq_erm">
+	             <a href="javascript:void(0);" class="erwm_img"><img src="$!{basePath}/content/commonftb/default/img/$!{dictTool.getSysText('index.img.erweima',$!{commonftbMain.id})}" /></a>
+	             <a href="javascript:void(0);" class="dmzyz_img"><img src="$!{basePath}/content/commonftb/default/img/dmzyz_img.jpg" /></a>
+	          </p>
+	      </div>
+	      <p class="lq_gz">$!{dictTool.getSysText('index.tip.erweima',$!{commonftbMain.id})}<br />长按上方二维码关注！</p>
+	    </div>
+	  </div>
+	</div>
+</div>
+<!-- 未关注  end-->
+
+<!--12、来一斧（未砍至底价）-->
+<div style="opacity: 1; display:none; " class="bombScreen" id="fistDiv" >
+   <div class="bombs7  fail1" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_img"><span><img src="$!{basePath}/content/commonftb/default/img/ykw_one_img.jpg" /></span></div>
+             <div class="infomation_wkjdj_word">
+              大侠这一斧果然给力<br />您帮$!{bargainRegistration.nickname}砍掉了<span id="act_cut_price">0</span>元！
+             </div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('fistDiv');window.location.reload();">确定</button></div>
+    </div>
+  </div>
+</div>
+<!--12、来一斧（未砍至底价） end-->
+
+<!--13、来一斧（N次砍价）-->
+<div style="opacity: 1; display:none; " class="bombScreen" id="nextDiv">
+   <div class="bombs7  fail1" style=">
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_img"><span><img src="$!{basePath}/content/commonftb/default/img/ykw_Nc_img.jpg" /></span></div>
+             <div class="infomation_wkjdj_word">
+             $!{dictTool.getSysText('bhykj.tip.nextbargain',$!{commonftbMain.id})} 
+             </div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('nextDiv');">确定</button></div>
+    </div>
+  </div>
+</div>
+<!--13、来一斧（N次砍价） end-->
+
+
+<!--14、来一斧（已砍至底价-->
+<div style="opacity: 1;display:none;  " class="bombScreen" id="lastDiv">
+   <div class="bombs7  fail1" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_img"><span><img src="$!{basePath}/content/commonftb/default/img/ykw_img.jpg" /></span></div>
+             <div class="infomation_wkjdj_word">
+             $!{dictTool.getSysText('bhykj.tip.lastbargain',$!{commonftbMain.id})} 
+             </div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('lastDiv');window.location.reload();">确定</button></div>
+    </div>
+  </div>
+ </div>
+<!--14、来一斧（已砍至底价 end-->
+
+</body>
+<!-- 微信分享功能 -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '$!{appId}', // 必填，公众号的唯一标识
+        timestamp: $!{timestamp}, // 必填，生成签名的时间戳
+        nonceStr: '$!{nonceStr}', // 必填，生成签名的随机串
+        signature: '$!{signature}',// 必填，签名，见附录1【必填：通过提供接口获取】
+        jsApiList: [
+    	        'checkJsApi',
+    	        'onMenuShareTimeline',
+    	        'onMenuShareAppMessage'
+    	        ]
+         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+		var newHdUrl = '$!{hdUrl}';
+		var friendCircleTitle = '$!{dictTool.getSysText('index.tip.shareFriendCircle',$!{commonftbMain.id})}';
+		var friendTitle = '$!{dictTool.getSysText('index.tip.shareFriendTile',$!{commonftbMain.id})}';
+		var friendDesc = '$!{dictTool.getSysText('index.tip.shareFriendDesc',$!{commonftbMain.id})}';
+ 	    wx.onMenuShareTimeline({
+            title: friendCircleTitle, // 分享标题【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: '$!{dictTool.getSysText('index.img.share',$!{commonftbMain.id})}', // 分享图标【必填】
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        
+	  
+        wx.onMenuShareAppMessage({
+            title: friendTitle, // 分享标题【必填】
+            desc: friendDesc, // 分享描述【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: '$!{dictTool.getSysText('index.img.share',$!{commonftbMain.id})}', // 分享图标【必填】
+            type: 'link', // 分享类型,music、video或link，不填默认为link【必填】
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+				alert('已分享');
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+				 alert('已取消');
+            }
+        });
+
+  	});
+</script>
+<script>
+$!{dictTool.getSysText('statistics',$!{commonftbMain.id})}
+</script>
+
+</html>

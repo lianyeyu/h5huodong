@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">新增</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" id="dailogForm" action="$!{basePath}/commonftb/back/wxActCommonftbCoupon/doAdd.do?actId=$!{actId}" method="POST">
+					  		<input type="hidden" id="btn_sub" class="btn_sub" />
+													      <input type="hidden" value="$!{actId}" name="actId" id="actId"  />
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券ID</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardId}" name="cardId" id="cardId" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券密码</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardPsd}" name="cardPsd" id="cardPsd" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券类型 CASH：代金券类型</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.cardType}" name="cardType" id="cardType" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">商户名字</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.brandName}" name="brandName" id="brandName" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">卡券名</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.title}" name="title" id="title" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">代金券专用，表示起用金额（单位为元）</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.leastCost}" name="leastCost" id="leastCost" class="form-control" />
+													    </div>
+													</div>
+													<div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">代金券专用，表示减免金额。（单位为元）</label>
+													    <div class="col-sm-8">
+													      <input type="text" value="$!{wxActCommonftbCoupon.reduceCost}" name="reduceCost" id="reduceCost" class="form-control" />
+													    </div>
+													</div>
+										<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/list.do?backurl=$!{backurl}')">返回</button>
+	        									<button type="button" class="btn btn-primary" id="formSubmit">提交</button>
+        									 </div>
+        								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="$!{basePath}/plug-in/js/Validform_v5.3.2.js"></script> 
+<script type="text/javascript" src="$!{basePath}/plug-in/js/forminit.p3.js"></script> 

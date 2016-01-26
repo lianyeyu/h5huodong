@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">详情</div>
+				  	<div class="panel-body">
+				   		<form class="form-horizontal" role="form">
+							  <fieldset disabled>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">奖品名称</label>
+													    <div class="col-sm-2">
+													      <input type="text" value="$!{wxActShaketicketRecord.awardsName}" name="awardsName" id="awardsName" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">微信openid</label>
+													    <div class="col-sm-2">
+													      <input type="text" value="$!{wxActShaketicketRecord.openid}" name="openid" id="openid" class="form-control" />
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">抽奖状态 </label>
+													    <div class="col-sm-2">
+													      <select name="drawStatus" id="drawStatus" value="$!{wxActShaketicketRecord.drawStatus}"  class="form-control" > 
+														      		  <option value="0" #if($!wxActShaketicketRecord.drawStatus=='0') selected #end>未中奖</option>
+														      		  <option value="1" #if($!wxActShaketicketRecord.drawStatus=='1') selected #end>已中奖</option>
+														   </select>
+													    </div>
+													  </div>
+													 <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">领取状态</label>
+													    <div class="col-sm-2">
+													      <select name="receiveStatus" id="receiveStatus" value="$!{wxActShaketicketRecord.drawStatus}"  class="form-control" > 
+														      		  <option value="0" #if($!wxActShaketicketRecord.drawStatus=='0') selected #end>未领取</option>
+														      		  <option value="1" #if($!wxActShaketicketRecord.drawStatus=='1') selected #end>已领取</option>
+														  </select>
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">抽奖时间</label>
+													    <div class="col-sm-2">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActShaketicketRecord.drawTime})" name="drawTime" id="drawTime" class="form-control" />
+													    </div>
+													  </div>
+													  <div class="form-group mno">
+													    <label for="inputEmail3" class="col-sm-1 control-label" style="text-align:left;">领奖时间</label>
+													    <div class="col-sm-2">
+													      <input type="text" value="$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{wxActShaketicketRecord.receiveTime})" name="receiveTime" id="receiveTime" class="form-control" />
+													    </div>
+													  </div>
+							  </fieldset>
+							  			<div class="form-group mno">
+											<div class="col-sm-offset-1 col-sm-6">
+												<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/shaketicket/back/wxActShaketicketRecord/list.do?backurl=$!{backurl}')">返回</button>
+        									 </div>
+        							    </div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

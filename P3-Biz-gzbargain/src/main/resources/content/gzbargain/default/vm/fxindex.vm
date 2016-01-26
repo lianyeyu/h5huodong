@@ -1,0 +1,285 @@
+#set($version='?v=1.0.0')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>浓情七夕 为爱发声</title>
+<link href="css/index.css" type="text/css" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta content="yes" name="apple-mobile-web-app-capable"></meta>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"></meta>
+<meta name="format-detection" content="telephone=no"></meta>
+<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"></meta>
+<meta content="yes" name="full-screen"></meta>
+<meta content="true" name="x5-fullscreen"></meta>
+<meta content="application" name="browsermode"></meta>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link href="$!{basePath}/content/gzbargain/default/css/index.css$!{version}" type="text/css" rel="stylesheet" />
+<script src="$!{basePath}/content/gzbargain/default/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="$!{basePath}/content/gzbargain/default/js/jquery.form.js" type="text/javascript"></script>
+<script src="$!{basePath}/content/gzbargain/default/js/static-page.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/gzbargain/default/js/common.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/gzbargain/default/js/wxcheck.js$!{version}" type="text/javascript"></script>
+</head>
+<body>
+<div class="Nqqx_wrapper">
+  <!--banner-->
+    <div class="Nqqx_banner">
+  	#if($bargain.productRemainNum>0)
+        <div class="Nqqx_banner_center">
+        	<div class="Nqqx_banner_center_zi">$!{dictTool.getProductRateNum($!{bargain.productRemainNum},$!{bargain.showRate})}个</div>
+        	<div style="float: left;">千元蓝牙音箱</div>
+        </div>
+        <div class="Nqqx_banner_center_white">等您领取</div>
+    #else
+    	<div class="Nqqx_banner_center" style="color:red">
+    		蓝牙音箱已抢光
+        </div>
+    	<div class="Nqqx_banner_center_white" style="color:red">请继续关注下次活动</div>
+    #end
+    </div>
+  <!--banner end-->
+  <!--ceonter-->
+  <div class="Nqqx_conter_form">
+    <div class="Nqqx_conter">
+      <div class="Nqqx_conter_jj">
+        <div class="Nqqx_conter_jj_nr">
+          <ul>
+          #if($bargainRegistration.awardsStatus=='1')
+          <li>$!{dictTool.subText($!{bargainRegistration.nickname},6,'...')}成功获得千元蓝牙音箱一部，心动不如行动，点击“我要参加”，浓情七夕，让爱发声~</li>
+          #else
+            <li> 已有$!{recordListCount}位好友帮助$!{dictTool.subText($!{bargainRegistration.nickname},6,'...')}砍价</li>
+            <li> 当前价：$!{bargainRegistration.productNewPrice}元</li>
+            <li> 原价：$!{bargainRegistration.productPrice}元</li>
+          #end
+          </ul>
+        </div>
+      </div>
+      <!--按钮 帮我看砍一刀  我要参加-->      
+      <div class="btn_index_block btn_goods">
+      #if($!actStatus=='0')
+      		<div class="btn_button1">
+	            <a href="javascript:void(0)"><img src="$!{basePath}/content/gzbargain/default/img/btn_hdjs.png"></a>
+	        </div>
+      #else
+	      #if($bargain.productRemainNum<=0)
+	        <div class="btn_button">
+	            <a disabled="true" ><img src="$!{basePath}/content/gzbargain/default/img/btn_bwkyd.png" /></a>
+	        </div>
+	        <div class="btn_button">
+	           <a disabled="true" > <img src="$!{basePath}/content/gzbargain/default/img/btn_wycj.png" ></a>
+	        </div>
+	      #else
+	      	<div class="btn_button">
+	            <a href="javascript:goBargain();"><img src="$!{basePath}/content/gzbargain/default/img/btn_bwkyd.png" /></a>
+	        </div>
+	        <div class="btn_button">
+	           <a href="javascript:join();"> <img src="$!{basePath}/content/gzbargain/default/img/btn_wycj.png" ></a>
+	        </div>
+	      #end
+	  #end
+      </div>
+      <!--按钮 end-->
+      <!--亲友团-->
+      <div class="qyt_tou">
+        <ul>
+          <li class="tou"><span>亲友团</span><span>砍掉价格</span><span>砍后价格</span></li>
+        </ul>
+      </div>
+      <div class="qyt_tou">
+        <ul id="recordtable">
+          #foreach($item in $recordList)
+          <li class="wei">
+          <span>$!{dictTool.subText($!{item.nickname},5,'...')}&nbsp;</span> 
+          <span class="shanchu">¥$!item.cutPrice</span> 
+          <span>¥$!item.currPrice</span>
+          </li>
+		  #end
+        </ul>
+      </div>
+      <div class="qyt_tou">
+        <ul>
+          <li class="wei"><span><a id="prev" href="#recordtableheader">上一页</a></span> <span id="current_page">1/110</span> <span><a id="next" href="#recordtableheader">下一页</a></span></li>
+        </ul>
+      </div>
+      <!--亲友团 -->
+      <!--活动详情-->
+      <div class="hdxq_conter_nr_form">
+        <dl class="hdxq_conter_nr">
+          <dt class="hdxq_img1_title"><img src="$!{basePath}/content/gzbargain/default/img/hdxq_title_img.png" /></dt>
+          <dd class="hdxq_wz"> 
+              <span><b>如此高端的活动只给铁杆粉</b>：参与本活动前需关注“JEECG”服务号。</span> 
+              <span><b>我们拼的是手快和人气</b>：最先砍价至0元的两位用户可以各获得千元的电蟒CrazyBoa 2 Face便携式蓝牙音箱一个。</span> 
+              <span>来，po几张我们大奖电蟒CrazyBoa 2 Face便携式蓝牙音箱的美照</span>
+            <div class="cp_img1_form"><img src="$!{basePath}/content/gzbargain/default/img/cp_img1.jpg" /></div>
+            <div class="cp_img1_form"><img src="$!{basePath}/content/gzbargain/default/img/cp_img2.jpg" /></div>
+          </dd>
+          <dt class="hdxq_img1_title"><img src="$!{basePath}/content/gzbargain/default/img/hdjs_title_img.png" /></dt>
+        </dl>
+      </div>
+      <!--活动详情 end-->
+      <!--活动介绍-->
+      <div class="hdjs_conter_nr_form">
+        <dl class="hdjs_conter_nr">
+          <dt class="hdjs_conter_nr_title"><span><img src="$!{basePath}/content/gzbargain/default/img/hdjs_title_bg.png" /></span>
+            <p>活动时间</p>
+          </dt>
+          <dd class="hdjs_conter_nr_wz_list"> <span> 2015年8月20日 00:00 — 8月 31日 00:00</span> </dd>
+          <dt class="hdjs_conter_nr_title"><span><img src="$!{basePath}/content/gzbargain/default/img/hdjs_title_bg.png" /></span>
+            <p>活动玩法</p>
+          </dt>
+          <dd class="hdjs_conter_nr_wz_list"> <span> 商品的初始价格为$!{dictTool.priceNoZero($!{bargainRegistration.productPrice})}元。每个用户可随机帮别人砍掉$!{actRuleMin}-$!{actRuleMax}元的价格。</span> </dd>
+          <dt class="hdjs_conter_nr_title"><span><img src="$!{basePath}/content/gzbargain/default/img/hdjs_title_bg.png" /></span>
+            <p>奖励</p>
+          </dt>
+          <dl class="hdjs_conter_nr_wz_list">
+            <span> 活动期间最先砍价至0元以下的两位用户即可赢取电蟒CrazyBoa 2 Face 便携式蓝牙音箱一个；</span>
+          </dl>
+          <dt class="hdjs_conter_nr_title"><span><img src="$!{basePath}/content/gzbargain/default/img/hdjs_title_bg.png" /></span>
+            <p>特别提醒</p>
+          </dt>
+          <dd class="hdjs_conter_nr_wz_list"> 
+          <span>1. 必须通过关注JEECG才能参加该活动；</span> 
+          <span>2. 活动期间每个微信ID仅能为另一个微信ID砍价一次；</span> 
+          <span>3. 作弊刷票者将被取消活动资格。</span>
+          <span>4. 音箱奖品颜色随机，以实际收到为准。</span>
+          </dd>
+        </dl>
+      </div>
+      <!--活动介绍 end-->
+    </div>
+  </div>
+  <!--ceonter end-->
+  <!--遮罩层-->
+  <div id="act_bargain" style="opacity: 1; display:none;" class="bombScreen">
+    <!--遮罩层 end-->
+    <!--砍价-->
+    <div class="bombs fail1" style=" display:block;" >
+	    <form id="actBargainForm" name="actBargainForm" action="../gzbargain/bargain.do" method="post">
+	    <input type="hidden" id="act_bargain_registrationId" name="registrationId" value="$!{bargainRegistration.id}"/>
+	    <input type="hidden" id="act_bargain_openid" name="openid" value="$!{weixinDto.openid}"/>
+	    <input type="hidden" id="act_bargain_subscribe" name="subscribe" value="$!{weixinDto.subscribe}"/>
+	      <div class="inputcontent">
+	        <p class="input_zdsbm_p">
+	          <input id="act_bargain_nickname" name="nickname" value="$!{weixinDto.nickname}" placeholder="自动识别名字" type="text" class="zdsbmz_input">
+	        </p>
+	        <div class="">
+	          <p class="input_yzm_p">
+	            <input id="act_bargain_randCode" name="randCode" placeholder="填写验证码"  type="text" class="yzm_input">
+	          </p>
+	          <i class="yzm_img"><img id="randCodeImage" src="randCodeImage" /></i> </div>
+	        <div class="zdsbmz_btn_from_nr"> <a href="javascript:bargain();" id="bargainSubmit" class="btn_bwkyd"><img src="$!{basePath}/content/gzbargain/default/img/btn_bkj.png" /></a> <a class="btn_wycj" href="javascript:popuphide('act_bargain')"><img src="$!{basePath}/content/gzbargain/default/img/btn_qx.png" /></a> </div>
+	      </div>
+      </form>
+    </div>
+  </div>
+  <!--砍价 end-->
+  
+  <!--二维码-->
+   <div id="act_focus" style="opacity: 1; display:none;" class="bombScreen">
+	  <div class="bombs2 fail1" >
+	    <div class="inputcontent2">
+	    	<div class="erwm_form">
+	    		<input type="hidden" name="act_focus_subscribe" id="act_focus_subscribe" value="$!{weixinDto.subscribe}"/>
+				<input type="hidden" name="act_focus_actId" id="act_focus_actId" value="$!{weixinDto.actId}"/>
+				<input type="hidden" name="act_focus_openid"  id="act_focus_openid" value="$!{weixinDto.openid}"/>
+				<input type="hidden" name="act_focus_nickname"  id="act_focus_nickname" value="$!{weixinDto.nickname}"/>
+				<input type="hidden" name="act_focus_jwid"  id="act_focus_jwid" value="$!{weixinDto.jwid}"/>
+        		<div class="erwm_img"><img src="$!{basePath}/content/gzbargain/default/img/tcc_erwmimg1.png" /> <a href="javascript:void(0);"><img src="$!{basePath}/content/gzbargain/default/img/tcc_erwmimg2.png" /></a></div>
+        		<i class="erwm_btn_qd"><a href="javascript:popuphide('act_focus');"><img src="$!{basePath}/content/gzbargain/default/img/btn_qd.png" /></a></i> 
+           </div>
+	    </div>
+	  </div>
+   </div>
+  <!--二维码  end-->
+
+  
+    <!--砍价成功 start-->
+    <div id="act_bargain_success" style="opacity: 1; display:none;" class="bombScreen">
+	    <!--提示-->
+	    <div class="bombs7  fail1"   style=" display:">
+		      <div class="inputcontent7">
+		         <div class="tstk_conter">
+		             <span class="kstk_ts">恭喜您！</span>
+		             <div class="tstk_conter_word">已成功帮好友砍掉<span id="act_cut_price">0</span>元</div>
+		              <i class="tstk_conter_btn"><a href="javascript:popuphide('act_bargain_success');window.location.reload();"><img src="$!{basePath}/content/gzbargain/default/img/btn_qd.png" /></a></i> 
+		         </div>
+		    </div>
+		  </div>
+    </div>
+    <!--砍价成功 end-->
+  
+    <!--提示框 start-->
+    <div id="tip_msg" style="opacity: 1; display:none;" class="bombScreen">
+	    <!--提示-->
+	      <div class="bombs7  fail1"   style=" display:">
+		      <div class="inputcontent7">
+		         <div class="tstk_conter">
+		             <span class="kstk_ts">提示：</span>
+		             <div class="tstk_conter_word" id="tip_msg_content"></div>
+		              <i class="tstk_conter_btn"><a href="javascript:popuphide('tip_msg')"><img src="$!{basePath}/content/gzbargain/default/img/btn_qd.png" /></a></i> 
+		         </div>
+		    </div>
+		  </div>
+    </div>
+    <!--提示框 end-->
+    
+</div>
+</body>
+<!-- 微信分享功能 -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '$!{appId}', // 必填，公众号的唯一标识
+        timestamp: $!{timestamp}, // 必填，生成签名的时间戳
+        nonceStr: '$!{nonceStr}', // 必填，生成签名的随机串
+        signature: '$!{signature}',// 必填，签名，见附录1【必填：通过提供接口获取】
+        jsApiList: [
+    	        'checkJsApi',
+    	        'onMenuShareTimeline',
+    	        'onMenuShareAppMessage'
+    	        ]
+         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.error(function(res){
+    	// config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    	
+    	//签名失败跳转到错误页面
+    });
+    wx.ready(function () {
+		var newHdUrl = '$!{hdUrl}'+ '&fxOpenid=$!{weixinDto.fxOpenid}';
+ 	    wx.onMenuShareTimeline({
+            title: '浓情七夕，用真金换真心。JEECG壕送千元蓝牙音箱，让爱发声~', // 分享标题【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: 'http://www.jeewx.com/P3-Web/content/gzbargain/img/Wafs_banner1.jpg', // 分享图标【必填】
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        
+	  
+        wx.onMenuShareAppMessage({
+            title: '$!{bargain.actName}', // 分享标题【必填】
+            desc: '浓情七夕，用真金换真心。JEECG壕送千元蓝牙音箱，让爱发声~', // 分享描述【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: 'http://www.jeewx.com/P3-Web/content/gzbargain/img/Wafs_banner1.jpg', // 分享图标【必填】
+            type: 'link', // 分享类型,music、video或link，不填默认为link【必填】
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+				alert('已分享');
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+				 alert('已取消');
+            }
+        });
+
+  	});
+	
+</script>
+</html>

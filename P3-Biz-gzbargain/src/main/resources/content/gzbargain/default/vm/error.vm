@@ -1,0 +1,46 @@
+#set($version='?v=1.0.0')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+<meta name="msapplication-tap-highlight" content="no">
+<title>$!{bargain.actName}</title>
+<link href="../content/gzbargain/default/css/index.css$!{version}" type="text/css" rel="stylesheet" />
+<script src="../content/gzbargain/default/js/wxcheck.js$!{version}" type="text/javascript"></script>
+</head>
+
+<body style="width:100%; margin:0 auto;">
+
+#if($errCode=='02005')
+<div class="bombs2 fail1" >
+    <div class="inputcontent2">
+    	<div class="erwm_form">
+    		<input type="hidden" name="act_focus_subscribe" id="act_focus_subscribe" value="$!{weixinDto.subscribe}"/>
+			<input type="hidden" name="act_focus_actId" id="act_focus_actId" value="$!{weixinDto.actId}"/>
+			<input type="hidden" name="act_focus_openid"  id="act_focus_openid" value="$!{weixinDto.openid}"/>
+			<input type="hidden" name="act_focus_nickname"  id="act_focus_nickname" value="$!{weixinDto.nickname}"/>
+    		<div class="erwm_img"><img src="../content/gzbargain/default/img/tcc_erwmimg1.png" /> <a href="javascript:void(0);"><img src="../content/gzbargain/default/img/tcc_erwmimg2.png" /></a></div>
+       </div>
+    </div>
+  </div>
+#else
+  <div class="bombs7  fail1">
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <span class="kstk_ts">提示：</span>
+             <div class="tstk_conter_word" id="tip_msg_content">${errMsg}</div>
+              <i class="tstk_conter_btn"></i> 
+         </div>
+    </div>
+  </div>
+#end
+</body>
+</html>
+
+
+

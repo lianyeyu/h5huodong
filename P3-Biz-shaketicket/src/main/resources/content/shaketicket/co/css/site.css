@@ -1,0 +1,277 @@
+/* $Id: site.css 1626 2014-08-16 11:25:26Z zhaoff@qidapp.com $ */
+/******************* 基本  *******************/
+html, body {
+	min-height: 100%;
+}
+body {
+	padding: 0;
+	margin: 0;
+	padding-top: 0px;
+	margin: 0 auto;
+	max-width: 480px;
+}
+body.home {
+}
+a, a:hover, a:active {
+	text-decoration: none;
+	color: #08c;
+}
+.container {
+	margin: 0 10px;
+	margin-bottom: 12px;
+	padding: 0;
+	width: auto;
+	position: relative;
+}
+/******************* 布局  *******************/
+#main-wrapper {
+	min-width: 320px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+#navbar-wrapper {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	top: -50px;
+	z-index: 100;
+	margin: 0;
+	background-color: rgba(0,0,0,0.3);
+	background-color: #738c5b;
+}
+#navbar-wrapper > div {
+	height: 42px;
+	padding: 0 10px;
+	padding-top: 5px;
+}
+#navbar-wrapper .nav-btn {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 50%;
+	background-color: rgba(0,0,0,0.3);
+	text-align: center;
+	font-size: 18px;
+	color: #fff;
+}
+#navbar-wrapper > div h3 {
+	margin: 0;
+	padding: 0;
+	line-height: 32px;
+	color: #fff;
+	font-size: 17px;
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+#navbar-wrapper i.fa-home {
+	margin-top: 5px;
+	font-size: 21px;
+}
+#navbar-wrapper i.fa-bars {
+	margin-top: 5px;
+}
+#navbar-wrapper i.fa-reply {
+	margin-top: 8px;
+}
+#footer-wrapper {
+	text-align: center;
+	color: #666;
+	padding: 0px;
+	padding-bottom: 4px;
+}
+#footer-wrapper.fixed {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+/******************* 组件  *******************/
+/* 幻灯 */
+.swipe {
+	overflow: hidden;
+	visibility: hidden;
+	position: relative;
+	background-color: rgba(0,0,0,.2);
+}
+.swipe-wrap {
+	overflow: hidden;
+	position: relative;
+}
+.swipe-wrap > div {
+	float: left;
+	width: 100%;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+}
+.swipe-wrap > div a {
+	cursor: crosshair;
+}
+.swipe-wrap > div img {
+	height: 200px;
+	width: 100%;
+}
+.swipe-dot {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	font-size: 0;
+}
+.swipe-dot span {
+	display: inline-block;
+	font-size: 0;
+	width: 18px;
+	height: 3px;
+	margin: 0 1px;
+	background-color: rgba(255,255,255,0.4);
+}
+.swipe-dot span.active {
+	background-color: rgba(255,255,255,0.8);
+}
+#no-slideshow {
+	margin: 60px 20px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+#no-slideshow h1 {
+	color: #fff;
+	font-size: 42px;
+	text-shadow: 1px 1px 1px #000;
+	line-height: 1.2;
+}
+/* 导航 */
+#column-wrapper {
+}
+.column {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	margin-top: 28px;
+}
+.column ul, .column li {
+	font-size: 0;
+	padding: 0;
+	margin: 0;
+}
+.column li {
+	width: 32.6%;
+	text-align: center;
+}
+.column li a {
+	width: 98px;
+	height: 98px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: inline-block;
+	text-align: center;
+	background-color: rgba(255,255,255,0.2);
+	border: 1px solid rgba(255,255,255,0.3);
+	margin-bottom: 9px;
+}
+.column a i, .column a span {
+	color: #fff;
+	font-size: 14px;
+}
+.column a i {
+	font-size: 46px;
+	display: block;
+	height: 54px;
+	line-height: 54px;
+	margin-top: 12px;
+}
+.sub-column {
+}
+.sub-column li {
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	margin-top: 10px;
+}
+.sub-column li a {
+	display: block;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 7px 11px;
+	padding-bottom: 5px;
+}
+.sub-column li a i.icon {
+	font-size: 34px;
+	float: left;
+	position: absolute;
+	left: 11px;
+	top: 8px;
+	text-align: center;
+	width: 40px;
+}
+.sub-column li a i.enter {
+	position: absolute;
+	right: 14px;
+	top: 16px;
+	font-size: 17px;
+	opacity: 0.5;
+}
+.sub-column li a span {
+	font-size: 18px;
+	height: 36px;
+	line-height: 36px;
+	padding-left: 48px;
+}
+/* 文章列表 */
+.art-list {
+	list-style: disc;
+	padding-left: 19px;
+	color: #ccc;
+	font-size: 16px;
+}
+.art-list li {
+	line-height: 1.6;
+}
+.art-list li a {
+	display: block;
+	font-size: 16px;
+	line-height: 1.1;
+}
+/* 内容页面 */
+#content-wrapper {
+	border: 1px solid #ddd;
+	background-color: #fff;
+	min-height: 100px;
+	margin-top: 11px;
+	margin-bottom: 11px;
+	padding: 17px 9px;
+}
+#content-wrapper > h3 {
+	margin: 0;
+	font-size: 23px;
+	border-bottom: 1px dotted #ccc;
+	margin-bottom: 9px;
+	padding-bottom: 9px;
+	line-height: 1.2;
+}
+#content-wrapper .pic-box {
+	background-color: #f4f4f4;
+	border: 1px solid #ececec;
+	padding: 3px;
+	border-radius: 4px;
+	margin: 10px 0;
+	min-height: 100px;
+}
+#content-wrapper .pic-box img {
+	border-radius: 3px;
+}
+#content-wrapper .content, #content-wrapper .content p {
+	line-height: 1.5;
+	font-size: 15px;
+}
+#content-wrapper .content p:last-child {
+	margin-bottom: 0;
+}

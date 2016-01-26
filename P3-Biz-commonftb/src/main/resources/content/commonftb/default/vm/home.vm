@@ -1,0 +1,224 @@
+#set($version='?v=6.3.9')
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!{dictTool.getSysText('home.title',$!{commonftbMain.id})}</title>
+<meta charset="UTF-8">
+<meta content="yes" name="apple-mobile-web-app-capable"></meta>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"></meta>
+<meta name="format-detection" content="telephone=no"></meta>
+<meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"></meta>
+<meta content="yes" name="full-screen"></meta>
+<meta content="true" name="x5-fullscreen"></meta>
+<meta content="application" name="browsermode"></meta>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link href="$!{basePath}/content/commonftb/default/css/index.css$!{version}" type="text/css" rel="stylesheet" />
+<script src="$!{basePath}/content/commonftb/default/js/jquery-1.8.0.min.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/jquery.form.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/common.js$!{version}" type="text/javascript"></script>
+<script src="$!{basePath}/content/commonftb/default/js/wxcheck.js$!{version}" type="text/javascript"></script>
+</head>
+<body>
+	 	<input type="hidden" name="jwid" id="jwid" value="$!{bargainDto.jwid}"/>
+	 	<input type="hidden" name="mainactId" id="mainActId" value="$!{bargainDto.mainActId}"/>
+		<input type="hidden" name="openid" id="openid" value="$!{bargainDto.openid}"/>
+	    <input type="hidden" name="subscribe" id="subscribe" value="$!{bargainDto.subscribe}"/>
+	    <input type="hidden" name="appid" id="appid" value="$!{bargainDto.appid}"/>
+	    <input type="hidden" name="actId" id="barginActId" />
+<!--杀到底首页微信活动 -->
+<div class="main">
+  <div class="banner"><img src="$!{basePath}/content/commonftb/default/img/banner_img.jpg" /></div>
+  <div class="conter_form">
+    <div class="module">
+       <div class="module_cot">
+       <!--内容-->
+       #foreach($item in $commonftbsList)
+        <div class="list top_20">
+           <div class="list_nr"><img src="$!{basePath}/content/commonftb/default/img/cp_bg.png" /></div>
+           <div class="list_nr_cp_title"><img src="#if($item.binner!='')$!{basePath}/content/commonftb/default/img/$!item.binner#else#end" /></div>
+           <a href="#" class="list_nr_cp_a">
+              <img src="#if($item.productImg!='')$!{basePath}/content/commonftb/default/img/$!item.productImg#else#end" class="load-img load">
+              <ul>
+                 <li class="list_nr_cp_tel_title">$!item.productName</li>
+                 <li class="ftb_cp_yj">原价:$!{dictTool.priceNoZero($!item.productPrice)}元</li>
+                 <li class="ftb_cp_zxjg">$!item.appellation专享价：</li>
+                 <li class="b_400"><span>$!item.cutMinPrice元</span></li>
+                 <li class="b_span_text">剩下<span>$!item.productRemainNum</span>$!item.productUnit</li>
+                 <li><button class="btn1 ysw_btn_color" onclick="wantBargain('$!{item.id}')">我要砍价</button></li>
+              </ul>
+          </a>
+        </div>
+        #end
+        <!--内容 end-->
+        <!--按钮-->
+         <div class="bottom_hdt_form">
+            <a href="$!{dictTool.getSysText('index.buylink',$!{commonftbMain.id})}" target="_blank"><button class="btn2 ysw_btn_color"  >$!{dictTool.getSysText('home.linkBtnName',$!{commonftbMain.id})}</button></a>     
+            <button class="btn3 ysw_btn_color" onclick="location.href='$!{basePath}/commonftb/detail.do?mainActId=$!{bargainDto.mainActId}&appid=$!{bargainDto.appid}&jwid=$!{bargainDto.jwid}'">活动说明</button>        
+          </div>
+        <!--按钮 end-->
+       </div>
+    </div>
+  </div>
+</div>
+<!--杀到底首页微信活动 end -->
+<!--遮罩层-->
+   <div style="opacity: 1; display:none; " class="bombScreen" ></div>
+<!--遮罩层 end-->
+
+
+<!--分享到朋友圈-->
+    <div class="bombs7" style=" display:none;" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="index_fxpyq"><img src="$!{basePath}/content/commonftb/default/img/$!{dictTool.getSysText('index.img.shareFriendCircle',$!{commonftbMain.id})}" /></div>
+         </div>
+    </div>
+  </div>
+<!--分享到朋友圈 end-->
+
+<!--分享小图片-->
+    <div class="bombs7" style=" display:none;" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="index_fxxtp"><a href="#"><img src="$!{basePath}/content/commonftb/default/img/fxxtp_img.jpg" /></a></div>
+         </div>
+    </div>
+  </div>
+<!--分享小图片 end-->
+
+<!-- 未关注 -->
+<div style="opacity: 1; display:none; " class="bombScreen" id="act_focus" onclick="popuphide('act_focus');">
+   <div class="bombs7  fail1">
+      <div class="inputcontent7">
+	      <div class="tstk_conter">
+	      <p class="lq_50m_zh">您尚未关注我们~<br />呜呜~</p>
+	      <div class="lq_erm_from">
+	          <p class="lq_erm">
+	             <a href="javascript:void(0);" class="erwm_img"><img src="$!{basePath}/content/commonftb/default/img/$!{dictTool.getSysText('index.img.erweima',$!{commonftbMain.id})}" /></a>
+	             <a href="javascript:void(0);" class="dmzyz_img"><img src="$!{basePath}/content/commonftb/default/img/dmzyz_img.jpg" /></a>
+	          </p>
+	      </div>
+	      <p class="lq_gz">$!{dictTool.getSysText('index.tip.noFocus',$!{commonftbMain.id})}<br />长按上方二维码关注！</p>
+	    </div>
+	  </div>
+	</div>
+</div>
+<!-- 未关注  end-->
+<!--未绑手机-->
+<div style="opacity: 1; display:none; " class="bombScreen" id="isNotBind">
+   <div class="bombs7  fail1">
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_word2">
+            $!{dictTool.getSysText('information.tip.noBindPhone',$!{commonftbMain.id})}   
+             </div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('isNotBind');">确定</button></div>
+    </div>
+  </div>
+</div>
+<!--未绑手机 end-->
+
+<!--子活动选择确认-->
+<div style="opacity: 1; display:none; " class="bombScreen" id="chooseConfirm">
+    <div class="bombs7  fail1" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="tcxzzq_nr_cont">
+                <p class="tcxzzq_nr_cont_img"><img src="$!{basePath}/content/commonftb/default/img/index_title_img1.jpg"/><span><span id="actName">子活动名称</span></span></p>
+                <p class="index_tcc_tc_bottom_wz" id="confirm">子活动确认选择提示语</p>
+             </div> 
+         </div>
+         <div class="index_tcc_tc_bottom_btn"><button class="btn2 ysw_btn_color" onclick="popuphide('chooseConfirm');">我再想想</button> <button class="btn3 ysw_btn_color" onclick="beginBargain();">开始砍价</button></div>
+    </div>
+  </div>
+</div>
+<!--子活动选择确认 end-->
+<!--数量为0时提示-->
+ <div style="opacity: 1; display:none; " class="bombScreen" id="noProduct">
+   <div class="bombs7  fail1" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_img"><span><img src="$!{basePath}/content/default/commonftb/img/ykw_img.jpg" /></span></div>
+             <div class="infomation_wkjdj_word">
+             $!{dictTool.getSysText('index.tip.noProduct',$!{commonftbMain.id})}
+             </div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('noProduct');">确定</button></div>
+    </div>
+  </div>
+ </div>
+<!--数量为0时提示 end-->
+<!--提示-->
+<div style="opacity:1; display:none; " class="bombScreen" id="tip_msg">
+	 <div class="bombs7  fail1" >
+      <div class="inputcontent7">
+         <div class="tstk_conter">
+             <div class="infomation_wkjdj_word2" id="tip_msg_content"></div>
+         </div>
+         <div class="infomation_btn_dg"> <button class="btn3 ysw_btn_color" onclick="popuphide('tip_msg');">确定</button></div>
+     </div>
+    </div>
+</div>
+<!--提示end-->
+</body>
+<!-- 微信分享功能 -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '$!{appId}', // 必填，公众号的唯一标识
+        timestamp: $!{timestamp}, // 必填，生成签名的时间戳
+        nonceStr: '$!{nonceStr}', // 必填，生成签名的随机串
+        signature: '$!{signature}',// 必填，签名，见附录1【必填：通过提供接口获取】
+        jsApiList: [
+    	        'checkJsApi',
+    	        'onMenuShareTimeline',
+    	        'onMenuShareAppMessage'
+    	        ]
+         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+		var newHdUrl = '$!{hdUrl}';
+		var friendCircleTitle = '$!{dictTool.getSysText('index.tip.shareFriendCircle',$!{commonftbMain.id})}';
+		var friendTitle = '$!{dictTool.getSysText('index.tip.shareFriendTile',$!{commonftbMain.id})}';
+		var friendDesc = '$!{dictTool.getSysText('index.tip.shareFriendDesc',$!{commonftbMain.id})}';
+		var imgUrl = '$!{dictTool.getSysText('index.img.share',$!{commonftbMain.id})}';
+ 	    wx.onMenuShareTimeline({
+            title: friendCircleTitle, // 分享标题【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: imgUrl, // 分享图标【必填】
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        
+	  
+        wx.onMenuShareAppMessage({
+            title: friendTitle, // 分享标题【必填】
+            desc: friendDesc, // 分享描述【必填】
+            link: newHdUrl, // 分享链接【必填】
+            imgUrl: imgUrl, // 分享图标【必填】
+            type: 'link', // 分享类型,music、video或link，不填默认为link【必填】
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+				alert('已分享');
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+				 alert('已取消');
+            }
+        });
+
+  	});
+</script>
+<script>
+$!{dictTool.getSysText('statistics',$!{commonftbMain.id})}
+</script>
+
+</html>

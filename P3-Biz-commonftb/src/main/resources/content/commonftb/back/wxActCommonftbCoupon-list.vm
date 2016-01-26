@@ -1,0 +1,162 @@
+#parse("content/base/back/common/macro.vm")
+<!DOCTYPE html>
+<html lang="en">
+#parse("content/base/back/common/head.vm")
+<body style='overflow:scroll;overflow-x:hidden'>
+	<div class="container bs-docs-container" style="width:100%;">
+		<div class="row">
+			<form role="form" class="form-inline" action="$!{basePath}/commonftb/back/wxActCommonftbCoupon/list.do?backurl=$!{backurl}" method="post"  id="formSubmit">
+				<div  class="col-md-10" style="width:100%">
+								<div class="panel panel-default">
+								  <div class="panel-heading">$!{actName}&nbsp卡券列表</div>
+								  <div class="panel-body">
+								  		<div class="search">
+															 <div class="form-group col-sm-4">
+															    <label for="cardId" class="control-label col-sm-3 line34">卡券ID</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="cardId" id="cardId" value="$!{wxActCommonftbCoupon.cardId}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="cardPsd" class="control-label col-sm-3 line34">卡券密码</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="cardPsd" id="cardPsd" value="$!{wxActCommonftbCoupon.cardPsd}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="brandName" class="control-label col-sm-3 line34">商户名字</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="brandName" id="brandName" value="$!{wxActCommonftbCoupon.brandName}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="title" class="control-label col-sm-3 line34">卡券名</label>
+															     <div class="col-sm-8">
+															    <input type="text" name="title" id="title" value="$!{wxActCommonftbCoupon.title}" class="form-control">
+															  	</div>
+															 </div>
+															 <div class="form-group col-sm-4">
+															    <label for="status" class="control-label col-sm-3 line34">状态</label>
+															     <div class="col-sm-8">
+															    <select name="status" id="status" value="$!{wxActCommonftbCoupon.status}"  class="form-control" > 
+															      	<option value="" >请选择...</option>
+															      	<option value="0" >未领取</option>
+															      	<option value="1" >已领取</option>
+														        </select>
+															  	</div>
+															 </div>
+											  <button type="submit" class="btn btn-primary">搜  索</button>
+											  <div class="clearfix"></div>
+								  		</div>
+								  		<div id="legend">
+								          <legend  class="le"><button type="button" class="btn btn-primary" onclick="doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/toAdd.do?actId=$!{wxActCommonftbCoupon.actId}')" >新增</button>
+								          &nbsp<a class="btn btn-info" href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/downloadTemplate.do')">模版下载</a>
+								          &nbsp<a class="btn btn-info" href="javascript:dialogDiv('myModal','导入Excel')">导入Excel</a></legend> 
+								        </div>
+								        <table class="table table-striped">
+									        <thead>
+													##<th>活动id(子活动)</th>
+													<th>卡券ID</th>
+													<th>卡券密码</th>
+													<th>卡券类型</th>
+													<th>商户名字</th>
+													<th>卡券名</th>
+													<th>代金券专用，表示起用金额（元）</th>
+													<th>代金券专用，表示减免金额（元）</th>
+													<th>状态</th>
+													##<th>微信原始id</th>
+						                			<th>操作</th>
+									        </thead>
+									        <tobody>
+									    	  #if($!{pageInfos})
+								                #foreach($!{info} in $!{pageInfos})
+									            	<tr>			
+																	##<td>$!{info.actId}</td>
+																	<td>$!{info.cardId}</td>
+																	<td>$!{info.cardPsd}</td>
+																	<td>$!{info.cardType}</td>
+																	<td>$!{info.brandName}</td>
+																	<td>$!{info.title}</td>
+																	<td>$!{info.leastCost}</td>
+																	<td>$!{info.reduceCost}</td>
+																	<td>#if($!info.status=='0') 未领取 #else 已领取  #end</td>
+																	##<td>$!{info.jwid}</td>
+										                <td class="last">
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/toEdit.do?id=$!{info.id}&backurl=$!{backurl}')" >编辑</a>
+							                			<a href="javascript:delData('$!{basePath}/commonftb/back/wxActCommonftbCoupon/doDelete.do?id=$!{info.id}&backurl=$!{backurl}')">删除</a>
+							                			<a href="javascript:doUrl('$!{basePath}/commonftb/back/wxActCommonftbCoupon/toDetail.do?id=$!{info.id}&backurl=$!{backurl}')">详情</a>
+						                				</td>
+									           		</tr>
+									             #end
+									    	 #end
+									         </tobody>
+									    </table>
+										<div class="text-right">
+											<!--公用翻页代码-->
+							                #set($attr='formSubmit')
+							            	#showPageList($pageInfos $attr)
+							                <!--END公用翻页代码-->
+										</div>
+								  </div>	
+								</div>
+				</div>
+				<div class="form-group mno">
+						<div class="col-sm-offset-1 col-sm-6">
+							<button type="button" class="btn btn-default" id="formReturn" data-dismiss="modal" onclick="doUrl('$!{basePath}/$!{backurl}')">返回</button>
+        				 </div>
+        		</div>  
+				</form>
+		</div>
+	</div>
+   <!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" 
+	               aria-hidden="true">×
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	               模态框（Modal）标题
+	            </h4>
+	         </div>
+	         <form id="excelForm" method="post" role="form" enctype="multipart/form-data" action="$!{basePath}/commonftb/back/wxActCommonftbCoupon/doImportExcel.do" class="form-horizontal"> 
+		         <div class="modal-body" id="myModalContent"  style="word-break:break-all">
+		            <div class="form-group col-sm-12">
+					    <label for="title" class="control-label col-sm-3 line34">文件路径</label>
+					     <div class="col-sm-8">
+					     <input type="hidden" name="actId" id="actId" value="$!{wxActCommonftbCoupon.actId}" >
+					    <input type="file" name="filedata"  required="true" class="form-control" missingMessage="请选择上传文件">
+					  	</div>
+					 </div>
+		         </div>
+	         </form>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            <button type="button" class="btn btn-primary" id="importSubmit">导入</button>
+	         </div>
+	      </div><!-- /.modal-content -->
+	   </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</body>
+<script>
+$(function (){ 
+        	$("#importSubmit").bind("click",function(){
+        			if(confirm("确认导入吗？")){
+						ajaxdoFormSubmit('excelForm');
+            		}
+        	});
+});
+function dialogDiv(modalId,title){ 
+ 	$('#'+modalId+'Label').html(title);
+	$('#'+modalId).modal({show:true,backdrop:false}); 
+}
+function importExcel(){  
+            $('#excelForm').form({
+              success : function(result) {  
+                }   
+            });   
+}
+</script>
+</html>
